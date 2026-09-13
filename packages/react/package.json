@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "React bindings for @kg3d/core — a declarative 3D knowledge graph component with hooks for selection, insights and live data.",
   "license": "MIT",
-  "author": "Pavan",
+  "author": "Pavan Kumar Medheramitla",
   "homepage": "https://github.com/kg3d/kg3d/tree/main/packages/react#readme",
   "repository": {
     "type": "git",
