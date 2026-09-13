@@ -24,7 +24,7 @@ const threePkg = JSON.parse(
   await readFile(resolve(root, '../../node_modules/three/package.json'), 'utf8'),
 );
 
-const banner = `/*! kg3d v${pkg.version} | MIT | https://github.com/kg3d/kg3d
+const banner = `/*! kg3d v${pkg.version} | MIT | https://github.com/pavan1586/kg3d
  * Bundles three.js v${threePkg.version} (MIT, © 2010-2024 three.js authors).
  * Full notices: kg3d.global.js.LICENSE.txt */`;
 

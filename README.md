@@ -4,12 +4,14 @@
 
 **A 3D interactive knowledge graph library — WebGL engine, React bindings, and an optional graph service.**
 
-[![CI](https://github.com/kg3d/kg3d/actions/workflows/ci.yml/badge.svg)](https://github.com/kg3d/kg3d/actions/workflows/ci.yml)
+[![CI](https://github.com/pavan1586/kg3d/actions/workflows/ci.yml/badge.svg)](https://github.com/pavan1586/kg3d/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@kg3d/core?color=%23a35c00&label=%40kg3d%2Fcore)](https://www.npmjs.com/package/@kg3d/core)
 [![licence](https://img.shields.io/badge/licence-MIT-blue)](LICENSE)
 [![runtime deps](https://img.shields.io/badge/runtime%20deps-three.js%20only-brightgreen)](THIRD-PARTY-NOTICES.md)
 
-[**Live demo**](https://kg3d.github.io/kg3d/) · [Documentation](docs/) · [API reference](docs/api.md)
+[**Live demo**](https://pavan1586.github.io/kg3d/) · [Documentation](docs/) · [API reference](docs/api.md)
+
+<img src="docs/assets/hero.png" alt="kg3d rendering a 620-node infrastructure graph: seven colour-coded communities in 3D, with panels ranking the most influential nodes and the critical connectors between clusters" width="900">
 
 </div>
 
@@ -204,3 +206,5 @@ Issues, reproductions and pull requests are welcome — see
 
 MIT — see [LICENSE](LICENSE). Third-party notices are in
 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+
+Copyright © 2026 Pavan Kumar Medheramitla.

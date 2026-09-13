@@ -70,5 +70,5 @@ First public release.
 - Bloom post-processing is imported lazily, so `@kg3d/core`'s static import
   graph contains exactly one module: `three`.
 
-[Unreleased]: https://github.com/kg3d/kg3d/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/kg3d/kg3d/releases/tag/v0.2.0
+[Unreleased]: https://github.com/pavan1586/kg3d/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/pavan1586/kg3d/releases/tag/v0.2.0

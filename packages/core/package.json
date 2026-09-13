@@ -4,14 +4,14 @@
   "description": "Framework-agnostic 3D interactive knowledge graph engine. GPU-instanced rendering, Barnes-Hut force layout, insight analytics and cinematic camera work for graphs up to ~50k nodes.",
   "license": "MIT",
   "author": "Pavan Kumar Medheramitla",
-  "homepage": "https://github.com/kg3d/kg3d#readme",
+  "homepage": "https://github.com/pavan1586/kg3d#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kg3d/kg3d.git",
+    "url": "git+https://github.com/pavan1586/kg3d.git",
     "directory": "packages/core"
   },
   "bugs": {
-    "url": "https://github.com/kg3d/kg3d/issues"
+    "url": "https://github.com/pavan1586/kg3d/issues"
   },
   "type": "module",
   "main": "./dist/index.js",
