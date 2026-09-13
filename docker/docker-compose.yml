@@ -1,0 +1,47 @@
+name: kg3d
+
+services:
+  api:
+    build:
+      context: ../services/api
+      dockerfile: Dockerfile
+    image: kg3d/api:0.2.0
+    ports:
+      - '8000:8000'
+    environment:
+      KG3D_DEBUG: 'false'
+      KG3D_CORS_ORIGINS: 'http://localhost:5173,http://localhost:4173'
+      KG3D_CACHE_TTL_SECONDS: '900'
+      # Register your own graphs here. `sample` needs nothing; `json` reads a
+      # file from the mounted volume; `sql` and `neo4j` take a DSN/URI.
+      KG3D_SOURCES: >-
+        [
+          {"id":"demo","name":"Sample enterprise graph","kind":"sample",
+           "options":{"size":2500,"domains":7,"seed":20260908}}
+        ]
+    volumes:
+      - ../examples:/srv/data:ro
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'python',
+          '-c',
+          "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health',timeout=3)",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  web:
+    build:
+      context: ..
+      dockerfile: docker/web.Dockerfile
+    image: kg3d/web:0.2.0
+    ports:
+      - '8080:80'
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped

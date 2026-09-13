@@ -1,0 +1,69 @@
+name: Bug report
+description: Something renders wrong, computes wrong, or crashes
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Rendering bugs are hardware-specific, so the environment fields below
+        genuinely save a round trip. Thanks for filling them in.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part?
+      options:
+        - '@kg3d/core (the engine)'
+        - '@kg3d/react (the bindings)'
+        - 'The browser bundle (kg3d.global.js)'
+        - 'The graph service (services/api)'
+        - 'Docs or examples'
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect instead?
+      placeholder: A screenshot or short screen recording is worth a lot here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Smallest reproduction you can manage
+      description: A code snippet, a link to a StackBlitz, or the options you passed.
+      render: ts
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: '@kg3d/core 0.2.0'
+    validations:
+      required: true
+
+  - type: input
+    id: env
+    attributes:
+      label: Browser, OS and GPU
+      description: 'GPU: open chrome://gpu and copy the "GL Renderer" line.'
+      placeholder: 'Chrome 131 / Windows 11 / ANGLE (NVIDIA RTX 3060)'
+    validations:
+      required: true
+
+  - type: input
+    id: size
+    attributes:
+      label: Graph size
+      placeholder: '~4,000 nodes / ~9,000 edges'
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Console output
+      render: shell

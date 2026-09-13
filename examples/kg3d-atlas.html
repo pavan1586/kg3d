@@ -1,0 +1,2682 @@
+<title>kg3d Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;450;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ─────────────────────────────────────────────────────────────────────────
+     kg3d Atlas — an instrument, not a document.
+
+     Two rules run through the whole palette:
+       warm (sodium amber) is the interface — anything you can touch;
+       cool is the data — every hue the graph itself uses.
+     Nothing borrows from the other side, so "this is a control" and "this is a
+     measurement" are readable before you read a word.
+     ───────────────────────────────────────────────────────────────────────── */
+
+  :root {
+    /* Light theme is the base declaration; dark overrides only the tokens. */
+    --ground:        #eceff4;
+    --ground-deep:   #dfe4ec;
+    --panel:         rgba(255, 255, 255, 0.88);
+    --panel-solid:   #ffffff;
+    --hairline:      rgba(17, 26, 44, 0.13);
+    --hairline-soft: rgba(17, 26, 44, 0.07);
+    --text:          #101a2c;
+    --text-dim:      #46536b;
+    --text-faint:    #6d7a91;
+    --accent:        #a35c00;
+    --accent-soft:   rgba(163, 92, 0, 0.12);
+    --accent-line:   rgba(163, 92, 0, 0.4);
+    --shadow:        0 16px 40px rgba(16, 26, 44, 0.14);
+    --ring:          rgba(163, 92, 0, 0.55);
+
+    --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-cond: 'IBM Plex Sans Condensed', 'IBM Plex Sans', 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:        #070b12;
+      --ground-deep:   #04070c;
+      --panel:         rgba(12, 18, 28, 0.74);
+      --panel-solid:   #0c121c;
+      --hairline:      rgba(190, 214, 255, 0.11);
+      --hairline-soft: rgba(190, 214, 255, 0.06);
+      --text:          #e3e9f4;
+      --text-dim:      #9aa8bf;
+      --text-faint:    #6e7c93;
+      --accent:        #f0a83a;
+      --accent-soft:   rgba(240, 168, 58, 0.14);
+      --accent-line:   rgba(240, 168, 58, 0.45);
+      --shadow:        0 18px 44px rgba(0, 0, 0, 0.5);
+      --ring:          rgba(240, 168, 58, 0.6);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:        #070b12;
+    --ground-deep:   #04070c;
+    --panel:         rgba(12, 18, 28, 0.74);
+    --panel-solid:   #0c121c;
+    --hairline:      rgba(190, 214, 255, 0.11);
+    --hairline-soft: rgba(190, 214, 255, 0.06);
+    --text:          #e3e9f4;
+    --text-dim:      #9aa8bf;
+    --text-faint:    #6e7c93;
+    --accent:        #f0a83a;
+    --accent-soft:   rgba(240, 168, 58, 0.14);
+    --accent-line:   rgba(240, 168, 58, 0.45);
+    --shadow:        0 18px 44px rgba(0, 0, 0, 0.5);
+    --ring:          rgba(240, 168, 58, 0.6);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  .atlas {
+    position: relative;
+    height: 100dvh;
+    min-height: 560px;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    background: var(--ground);
+  }
+
+  /* ── top rail ───────────────────────────────────────────────────────────── */
+
+  .rail {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 9px 16px;
+    border-bottom: 1px solid var(--hairline);
+    background: var(--panel-solid);
+    z-index: 20;
+    flex-wrap: wrap;
+  }
+
+  .mark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-right: 16px;
+    border-right: 1px solid var(--hairline-soft);
+  }
+
+  .mark__glyph {
+    width: 26px; height: 26px;
+    flex: none;
+    border-radius: 6px;
+    background:
+      radial-gradient(circle at 30% 28%, var(--accent) 0 2.4px, transparent 2.6px),
+      radial-gradient(circle at 71% 40%, #5a9bff 0 2px, transparent 2.2px),
+      radial-gradient(circle at 46% 74%, #2ec9ac 0 1.8px, transparent 2px),
+      linear-gradient(150deg, var(--ground-deep), var(--panel-solid));
+    border: 1px solid var(--hairline);
+    position: relative;
+  }
+  .mark__glyph::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to bottom right, transparent 46%, var(--hairline) 46.5%, transparent 47%),
+      linear-gradient(to bottom left, transparent 58%, var(--hairline) 58.5%, transparent 59%);
+  }
+
+  .mark__name {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+  }
+  .mark__sub {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.02em;
+  }
+
+  .controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+
+  .field { display: flex; align-items: center; gap: 7px; }
+  .field > label {
+    font-family: var(--font-cond);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  select, .btn {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--text);
+    background: var(--ground-deep);
+    border: 1px solid var(--hairline);
+    border-radius: 7px;
+    padding: 5px 9px;
+    cursor: pointer;
+    transition: border-color 130ms ease, background 130ms ease, color 130ms ease;
+  }
+  select { padding-right: 22px; }
+  select:hover, .btn:hover { border-color: var(--accent-line); }
+  select:focus-visible, .btn:focus-visible, input:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 1px;
+  }
+  .btn--ghost { background: transparent; }
+  .btn--primary {
+    background: var(--accent-soft);
+    border-color: var(--accent-line);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .rail__spacer { flex: 1 1 auto; }
+
+  /* ── stage ──────────────────────────────────────────────────────────────── */
+
+  .stage { position: relative; min-height: 0; background: var(--ground); }
+  #scene, #labels { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  #labels { pointer-events: none; z-index: 2; }
+
+  .vignette {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(ellipse at 50% 46%, transparent 44%, var(--ground-deep) 128%);
+    opacity: 0.75;
+  }
+
+  .hud {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: minmax(0, 268px) 1fr minmax(0, 284px);
+    grid-template-rows: auto 1fr auto;
+    gap: 12px;
+    padding: 14px;
+    align-items: start;
+  }
+
+  .hud__col { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+  .hud__col--left  { grid-column: 1; grid-row: 1 / span 2; }
+  .hud__col--right { grid-column: 3; grid-row: 1 / span 2; align-items: stretch; }
+  .hud__foot-left  { grid-column: 1; grid-row: 3; }
+  .hud__foot-mid   { grid-column: 2; grid-row: 3; justify-self: center; align-self: end; }
+  .hud__foot-right { grid-column: 3; grid-row: 3; justify-self: end; align-self: end; }
+
+  .panel {
+    pointer-events: auto;
+    background: var(--panel);
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 11px 12px;
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-height: 0;
+  }
+  .panel--scroll { overflow: auto; max-height: 47vh; scrollbar-width: thin; }
+  .panel--flush { padding: 7px 8px; gap: 5px; }
+
+  /* Only the panel that answers "what is this graph" gets the amber rule —
+     spending the accent everywhere would flatten the hierarchy. */
+  .panel--structure { border-top: 1px solid var(--accent-line); }
+
+  .panel__title {
+    font-family: var(--font-cond);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .panel__title em {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0;
+    color: var(--text-faint);
+    text-transform: none;
+  }
+
+  /* ── search ─────────────────────────────────────────────────────────────── */
+
+  .search { display: flex; align-items: center; gap: 8px; padding: 3px 4px; }
+  .search svg { flex: none; color: var(--text-faint); }
+  .search input {
+    flex: 1; min-width: 0;
+    background: none; border: none; outline: none;
+    font: inherit; font-size: 13px; color: var(--text);
+  }
+  .search input::placeholder { color: var(--text-faint); }
+
+  .results { display: none; flex-direction: column; gap: 1px; }
+  .results.is-open { display: flex; }
+
+  .row {
+    display: flex; align-items: center; gap: 8px;
+    width: 100%;
+    padding: 5px 7px;
+    background: none; border: none; border-radius: 6px;
+    font: inherit; color: inherit; text-align: left;
+    cursor: pointer;
+  }
+  .row:hover { background: var(--accent-soft); }
+  .row__name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .row__meta {
+    font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .swatch { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+
+  /* ── structure ──────────────────────────────────────────────────────────── */
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+  .stat { display: flex; flex-direction: column; gap: 0; }
+  .stat b {
+    font-family: var(--font-mono);
+    font-size: 15px; font-weight: 600; letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat span {
+    font-family: var(--font-cond);
+    font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .subhead {
+    display: flex; align-items: center; gap: 6px;
+    font-family: var(--font-cond);
+    font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-dim);
+    margin-top: 2px;
+  }
+  .subhead i {
+    font-style: normal;
+    width: 13px; height: 13px; border-radius: 50%;
+    border: 1px solid var(--hairline);
+    display: grid; place-items: center;
+    font-size: 9px; color: var(--text-faint);
+    cursor: help;
+    font-family: var(--font-mono);
+  }
+
+  .ranks { display: flex; flex-direction: column; gap: 2px; }
+  .rank {
+    display: grid; grid-template-columns: 1fr 58px;
+    align-items: center; gap: 9px;
+    background: none; border: none; padding: 2px 0;
+    font: inherit; color: inherit; text-align: left; cursor: pointer;
+  }
+  .rank span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+  .rank:hover span { color: var(--accent); }
+  .rank__bar { height: 3px; border-radius: 2px; background: var(--hairline); overflow: hidden; }
+  .rank__bar i { display: block; height: 100%; border-radius: 2px; }
+
+  .note {
+    font-family: var(--font-mono);
+    font-size: 10px; line-height: 1.6; color: var(--text-faint);
+    border-top: 1px solid var(--hairline-soft);
+    padding-top: 7px;
+  }
+
+  /* ── inspector ──────────────────────────────────────────────────────────── */
+
+  .inspector { position: relative; }
+  .inspector__stripe {
+    position: absolute; left: 0; top: 10px; bottom: 10px;
+    width: 2px; border-radius: 2px; background: var(--hairline);
+  }
+  .inspector__body { display: flex; flex-direction: column; gap: 8px; padding-left: 9px; }
+
+  .empty { color: var(--text-faint); font-size: 12px; padding: 3px 0 5px 9px; }
+
+  .ident { display: flex; align-items: flex-start; gap: 9px; }
+  .ident h2 {
+    margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
+    line-height: 1.25; text-wrap: balance;
+  }
+  .ident p {
+    margin: 1px 0 0;
+    font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint);
+  }
+
+  .kv { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; }
+  .kv dt {
+    font-family: var(--font-cond); font-size: 11px; color: var(--text-faint);
+    letter-spacing: 0.03em;
+  }
+  .kv dd {
+    margin: 0;
+    font-family: var(--font-mono); font-size: 11.5px; font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .chip {
+    font-family: var(--font-sans); font-size: 11px;
+    padding: 2.5px 8px; border-radius: 20px;
+    background: var(--ground-deep);
+    border: 1px solid var(--hairline);
+    color: var(--text-dim);
+    cursor: pointer; max-width: 100%;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    transition: border-color 120ms ease, color 120ms ease;
+  }
+  .chip:hover { border-color: var(--accent-line); color: var(--text); }
+
+  .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  /* ── trace ──────────────────────────────────────────────────────────────── */
+
+  .slots { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .slot {
+    border: 1px dashed var(--hairline);
+    border-radius: 7px; padding: 6px 8px;
+    display: flex; flex-direction: column; gap: 1px;
+    min-width: 0;
+  }
+  .slot.is-set { border-style: solid; border-color: var(--accent-line); }
+  .slot label {
+    font-family: var(--font-cond); font-size: 9.5px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-faint);
+  }
+  .slot b {
+    font-size: 12px; font-weight: 500;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .slot b.is-empty { color: var(--text-faint); font-weight: 400; }
+
+  .trace-out {
+    font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .hops { display: flex; flex-wrap: wrap; gap: 3px; align-items: center; }
+  .hop {
+    font-family: var(--font-sans); font-size: 11px;
+    padding: 2px 7px; border-radius: 5px;
+    background: var(--accent-soft); color: var(--accent);
+    border: 1px solid var(--accent-line);
+    cursor: pointer;
+  }
+  .hop-arrow { color: var(--text-faint); font-family: var(--font-mono); }
+
+  /* ── legend ─────────────────────────────────────────────────────────────── */
+
+  .legend { display: flex; flex-direction: column; gap: 0; min-width: 194px; max-height: 33vh; overflow: auto; scrollbar-width: thin; }
+  .legend .row.is-active { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent-line); }
+  .ramp { display: flex; flex-direction: column; gap: 4px; min-width: 176px; }
+  .ramp__bar { height: 7px; border-radius: 4px; }
+  .ramp__ends {
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 10px; color: var(--text-faint);
+  }
+
+  /* ── readout + hint ─────────────────────────────────────────────────────── */
+
+  .readout {
+    pointer-events: none;
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--text-faint);
+    background: var(--panel);
+    border: 1px solid var(--hairline);
+    border-radius: 7px;
+    padding: 5px 9px;
+    backdrop-filter: blur(12px);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .readout b { color: var(--text-dim); font-weight: 500; }
+
+  .hint {
+    pointer-events: none;
+    font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
+    background: var(--panel);
+    border: 1px solid var(--hairline);
+    border-radius: 20px;
+    padding: 5px 14px;
+    backdrop-filter: blur(12px);
+    transition: opacity 500ms ease;
+    text-align: center;
+  }
+  .hint.is-gone { opacity: 0; }
+
+  .tooltip {
+    position: absolute; top: 0; left: 0;
+    pointer-events: none; z-index: 5;
+    background: var(--panel-solid);
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    padding: 6px 10px;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    transition: opacity 110ms ease;
+    max-width: 250px;
+  }
+  .tooltip b { display: block; font-size: 12.5px; font-weight: 600; }
+  .tooltip span {
+    display: block;
+    font-family: var(--font-mono); font-size: 10px; color: var(--text-faint);
+  }
+
+  .fallback {
+    position: absolute; inset: 0;
+    display: none; place-items: center;
+    padding: 40px; text-align: center; color: var(--text-dim);
+  }
+  .fallback p { max-width: 44ch; line-height: 1.6; }
+
+  @media (max-width: 1080px) {
+    .hud { grid-template-columns: minmax(0, 240px) 1fr minmax(0, 240px); }
+  }
+  @media (max-width: 860px) {
+    .hud {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto 1fr auto;
+      overflow: auto;
+    }
+    .hud__col--left  { grid-column: 1; grid-row: 1; }
+    .hud__col--right { grid-column: 1; grid-row: 2; }
+    .hud__foot-left  { display: none; }
+    .hud__foot-mid   { grid-row: 4; }
+    .hud__foot-right { grid-column: 1; grid-row: 4; justify-self: end; }
+    .panel--scroll { max-height: 26vh; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition-duration: 1ms !important; }
+  }
+</style>
+
+<div class="atlas">
+  <header class="rail">
+    <div class="mark">
+      <div class="mark__glyph" aria-hidden="true"></div>
+      <div>
+        <div class="mark__name">kg3d Atlas</div>
+        <div class="mark__sub">3D knowledge graph explorer</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="field">
+        <label for="sel-layout">Layout</label>
+        <select id="sel-layout">
+          <option value="force" selected>Force</option>
+          <option value="cluster">Cluster</option>
+          <option value="sphere">Sphere</option>
+          <option value="radial">Radial</option>
+          <option value="hierarchy">Hierarchy</option>
+          <option value="grid">Grid</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="sel-color">Colour</label>
+        <select id="sel-color">
+          <option value="community" selected>Community</option>
+          <option value="type">Entity type</option>
+          <option value="pagerank">Influence</option>
+          <option value="betweenness">Bridging</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="sel-size">Size</label>
+        <select id="sel-size">
+          <option value="pagerank" selected>Influence</option>
+          <option value="degree">Connections</option>
+          <option value="betweenness">Bridging</option>
+          <option value="uniform">Uniform</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="rail__spacer"></div>
+
+    <div class="controls">
+      <button class="btn btn--ghost" id="btn-fit" type="button">Fit view</button>
+      <button class="btn btn--ghost" id="btn-reset" type="button">Reset</button>
+      <button class="btn btn--ghost" id="btn-theme" type="button">Light</button>
+    </div>
+  </header>
+
+  <div class="stage" id="stage">
+    <canvas id="scene"></canvas>
+    <canvas id="labels"></canvas>
+    <div class="vignette"></div>
+
+    <div class="fallback" id="fallback">
+      <p><strong>This browser can't run the atlas.</strong><br>
+      kg3d renders through WebGL2, which isn't available here. It usually means
+      hardware acceleration is switched off in the browser's settings.</p>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <div class="hud">
+      <div class="hud__col hud__col--left">
+        <div class="panel panel--flush">
+          <div class="search">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <circle cx="8.5" cy="8.5" r="5.2"></circle><path d="M12.6 12.6 17 17"></path>
+            </svg>
+            <input id="search" type="search" placeholder="Search 700 entities…" autocomplete="off" spellcheck="false" aria-label="Search entities">
+          </div>
+          <div class="results" id="results"></div>
+        </div>
+
+        <div class="panel panel--structure panel--scroll">
+          <div class="panel__title">Structure <em id="struct-mode">Louvain</em></div>
+          <div class="stats" id="stats"></div>
+
+          <div class="subhead">Most influential <i title="PageRank — importance weighted by the importance of what points at it">?</i></div>
+          <div class="ranks" id="hubs"></div>
+
+          <div class="subhead">Critical connectors <i title="Betweenness — the share of shortest paths that run through this node. Remove one and the graph starts to fall apart.">?</i></div>
+          <div class="ranks" id="bridges"></div>
+
+          <div class="note" id="footnote"></div>
+        </div>
+      </div>
+
+      <div class="hud__col hud__col--right">
+        <div class="panel inspector">
+          <div class="panel__title">Inspector</div>
+          <div class="inspector__stripe" id="stripe"></div>
+          <div class="inspector__body" id="inspector">
+            <div class="empty">Click any node. Double-click to focus it and dim everything outside its neighbourhood.</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__title">Trace path</div>
+          <div class="slots">
+            <div class="slot" id="slot-from">
+              <label>Origin</label><b class="is-empty" id="from-name">not set</b>
+            </div>
+            <div class="slot" id="slot-to">
+              <label>Destination</label><b class="is-empty" id="to-name">not set</b>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn" id="btn-from" type="button">Set origin</button>
+            <button class="btn" id="btn-to" type="button">Set destination</button>
+            <button class="btn btn--primary" id="btn-trace" type="button">Trace</button>
+            <button class="btn btn--ghost" id="btn-clear" type="button">Clear</button>
+          </div>
+          <div class="trace-out" id="trace-out">Select a node, set it as origin, then pick a destination.</div>
+        </div>
+      </div>
+
+      <div class="hud__foot-left">
+        <div class="panel panel--flush">
+          <div class="legend" id="legend"></div>
+        </div>
+      </div>
+
+      <div class="hud__foot-mid">
+        <div class="hint" id="hint">Drag to orbit · scroll to zoom · right-drag to pan · double-click a node to focus</div>
+      </div>
+
+      <div class="hud__foot-right">
+        <div class="readout" id="readout"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     kg3d Atlas
+     A self-contained build of the kg3d engine: WebGL2 renderer written
+     directly against the API (no library), Barnes-Hut-free O(n²) force
+     layout sized to this graph, graph analytics, and the HUD.
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── palettes ──────────────────────────────────────────────────────────
+     Cool hues only: warmth is reserved for the interface, so a warm pixel
+     always means "you can touch this" and never "this is a measurement".  */
+
+  var THEMES = {
+    dark: {
+      bg: [0.027, 0.043, 0.071],
+      fog: [0.016, 0.027, 0.047],
+      palette: ['#5a9bff','#2ec9ac','#9d78f0','#57cf86','#4fbfe8','#c377e0','#7d8ff0','#3fae8f','#e08494','#8b9bb4'],
+      edge: [0.16, 0.24, 0.38],
+      edgeHot: [0.94, 0.66, 0.23],
+      star: [0.62, 0.72, 0.9],
+      grid: [0.10, 0.16, 0.26],
+      label: '#dbe3f2',
+      labelHalo: 'rgba(5,9,16,0.88)',
+      labelHot: '#ffffff',
+      ramp: ['#1d3a63','#2f6fb5','#3fb0c8','#7fe0a8','#e8d878','#f0a83a'],
+      edgeAdditive: true,
+      glow: 0.34,
+      ambient: 0.5
+    },
+    light: {
+      bg: [0.925, 0.937, 0.957],
+      fog: [0.874, 0.894, 0.925],
+      palette: ['#2f6ad0','#0f8f7c','#6f45c8','#2f8a4e','#1f7fae','#9440b8','#4a5fc0','#237a68','#c04a63','#5c6a80'],
+      edge: [0.60, 0.65, 0.74],
+      edgeHot: [0.64, 0.36, 0.0],
+      star: [0.6, 0.65, 0.72],
+      grid: [0.84, 0.87, 0.91],
+      label: '#111a2c',
+      labelHalo: 'rgba(255,255,255,0.92)',
+      labelHot: '#000000',
+      ramp: ['#dbe6f5','#a9c4e6','#6f9ed2','#4478b4','#2b5289','#16325c'],
+      edgeAdditive: false,
+      glow: 0.1,
+      ambient: 0.72
+    }
+  };
+
+  var theme = THEMES.dark;
+
+  function activeThemeName() {
+    var stamped = document.documentElement.getAttribute('data-theme');
+    if (stamped === 'light' || stamped === 'dark') return stamped;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  /* ── small helpers ─────────────────────────────────────────────────────── */
+
+  var $ = function (id) { return document.getElementById(id); };
+  var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
+  var easeInOut = function (t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2; };
+
+  function mulberry32(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a = (a + 0x6d2b79f5) >>> 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function hexToRgb(hex) {
+    var v = hex.replace('#', '');
+    if (v.length === 3) v = v[0]+v[0]+v[1]+v[1]+v[2]+v[2];
+    return [parseInt(v.slice(0,2),16)/255, parseInt(v.slice(2,4),16)/255, parseInt(v.slice(4,6),16)/255];
+  }
+
+  function sampleRamp(ramp, t) {
+    var x = clamp(t, 0, 1) * (ramp.length - 1);
+    var i = Math.min(ramp.length - 2, Math.floor(x));
+    var f = x - i, a = hexToRgb(ramp[i]), b = hexToRgb(ramp[i+1]);
+    return [a[0]+(b[0]-a[0])*f, a[1]+(b[1]-a[1])*f, a[2]+(b[2]-a[2])*f];
+  }
+
+  function rgbToCss(c) {
+    return 'rgb(' + Math.round(c[0]*255) + ',' + Math.round(c[1]*255) + ',' + Math.round(c[2]*255) + ')';
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '"' ? '&quot;' : '&#39;';
+    });
+  }
+
+  /* ═══════════════════════════════════ data ═══════════════════════════════
+     A synthetic but structurally honest enterprise knowledge graph.
+     Random graphs make useless demos: every node looks like every other one
+     and the analytics have nothing to find. Preferential attachment inside
+     each domain gives the heavy-tailed degree distribution real infrastructure
+     has; sparse hub-to-hub links between domains create the genuine bridges
+     that betweenness is supposed to surface.                                */
+
+  var DOMAINS = ['Platform','Data','Security','Product','Research','Operations','Finance'];
+  var TYPES   = ['Service','Dataset','Team','Person','Policy','Concept','Document'];
+  var RELATIONS = ['depends on','owns','produces','governs','references','member of','derived from'];
+  var NOUNS = ['Ledger','Gateway','Index','Registry','Pipeline','Vault','Catalog','Router','Scheduler',
+               'Broker','Warehouse','Sentinel','Atlas','Beacon','Compass','Forge','Harbor','Lattice',
+               'Meridian','Nexus','Orbit','Prism','Quarry','Relay','Signal','Summit','Tidal','Vector',
+               'Willow','Zenith','Anchor','Cascade','Kiln','Foundry','Quill','Marlin'];
+  var QUALIFIERS = ['Core','Edge','Realtime','Batch','Regional','Global','Internal','Partner',
+                    'Legacy','Unified','Shared','Primary'];
+  var INITIALS = ['A.','B.','C.','D.','E.','J.','K.','M.','N.','R.','S.','T.'];
+  var CRITICALITY = ['low','medium','high'];
+
+  function generateGraph(size, domainCount, seed) {
+    var rand = mulberry32(seed);
+    var pick = function (list) { return list[Math.floor(rand() * list.length)]; };
+
+    var nodes = [], members = [], i, d;
+    for (d = 0; d < domainCount; d++) members.push([]);
+
+    for (i = 0; i < size; i++) {
+      d = Math.floor(rand() * domainCount);
+      var type = TYPES[Math.min(TYPES.length - 1, Math.floor(Math.pow(rand(), 1.6) * TYPES.length))];
+      var label = type === 'Person'
+        ? pick(INITIALS) + ' ' + pick(NOUNS)
+        : pick(QUALIFIERS) + ' ' + pick(NOUNS) + (type === 'Dataset' ? ' Set' : '');
+      nodes.push({
+        id: 'n' + i, label: label, type: type, domain: DOMAINS[d],
+        owner: DOMAINS[d] + (type === 'Person' ? ' Guild' : ' Team'),
+        criticality: CRITICALITY[Math.floor(rand() * 3)],
+        degree: 0
+      });
+      members[d].push(i);
+    }
+
+    var edges = [], seen = Object.create(null), degree = new Int32Array(size);
+    function add(a, b, rel) {
+      if (a === b) return;
+      var key = a < b ? a + ':' + b : b + ':' + a;
+      if (seen[key]) return;
+      seen[key] = 1;
+      edges.push({ s: a, t: b, type: rel || pick(RELATIONS) });
+      degree[a]++; degree[b]++;
+    }
+
+    for (d = 0; d < domainCount; d++) {
+      var m = members[d];
+      if (m.length < 2) continue;
+      add(m[0], m[1], 'depends on');
+      for (i = 2; i < m.length; i++) {
+        var links = 1 + (rand() < 0.3 ? 1 : 0) + (rand() < 0.09 ? 1 : 0);
+        for (var a = 0; a < links; a++) {
+          var total = 0, k;
+          for (k = 0; k < i; k++) total += degree[m[k]] + 1;
+          var target = rand() * total, chosen = m[0];
+          for (k = 0; k < i; k++) {
+            target -= degree[m[k]] + 1;
+            if (target <= 0) { chosen = m[k]; break; }
+          }
+          add(m[i], chosen);
+        }
+      }
+      // Triangle closure, so the clustering coefficient isn't artificially zero.
+      for (var t = 0; t < m.length * 0.2; t++) add(pick(m), pick(m), 'references');
+    }
+
+    // Cross-domain links, biased to each domain's hubs — this is what turns
+    // those hubs into high-betweenness bridges rather than just big nodes.
+    var hubs = members.map(function (m) {
+      return m.slice().sort(function (x, y) { return degree[y] - degree[x]; }).slice(0, 6);
+    });
+    var crossings = Math.floor(edges.length * 0.07);
+    for (i = 0; i < crossings; i++) {
+      var d1 = Math.floor(rand() * domainCount);
+      var d2 = (d1 + 1 + Math.floor(rand() * (domainCount - 1))) % domainCount;
+      var x = rand() < 0.75 ? pick(hubs[d1]) : pick(members[d1]);
+      var y = rand() < 0.75 ? pick(hubs[d2]) : pick(members[d2]);
+      add(x, y, 'references');
+    }
+
+    for (i = 0; i < size; i++) nodes[i].degree = degree[i];
+    return { nodes: nodes, edges: edges };
+  }
+
+  var graph = generateGraph(700, 7, 20260908);
+  var N = graph.nodes.length;
+  var E = graph.edges.length;
+
+  /* ── adjacency (CSR) ───────────────────────────────────────────────────── */
+
+  var offsets = new Int32Array(N + 1);
+  var neighbors, incident;
+  (function buildAdjacency() {
+    var deg = new Int32Array(N), i;
+    for (i = 0; i < E; i++) { deg[graph.edges[i].s]++; deg[graph.edges[i].t]++; }
+    for (i = 0; i < N; i++) offsets[i+1] = offsets[i] + deg[i];
+    neighbors = new Int32Array(offsets[N]);
+    incident = new Int32Array(offsets[N]);
+    var cursor = Int32Array.from(offsets.subarray(0, N));
+    for (i = 0; i < E; i++) {
+      var e = graph.edges[i];
+      neighbors[cursor[e.s]] = e.t; incident[cursor[e.s]++] = i;
+      neighbors[cursor[e.t]] = e.s; incident[cursor[e.t]++] = i;
+    }
+  })();
+
+  function degreeOf(i) { return offsets[i+1] - offsets[i]; }
+
+  function neighborhood(seed, depth) {
+    var seen = {}, frontier = [seed], out = [seed], d, k, j;
+    seen[seed] = 1;
+    for (d = 0; d < depth; d++) {
+      var next = [];
+      for (k = 0; k < frontier.length; k++) {
+        for (j = offsets[frontier[k]]; j < offsets[frontier[k]+1]; j++) {
+          var nb = neighbors[j];
+          if (!seen[nb]) { seen[nb] = 1; out.push(nb); next.push(nb); }
+        }
+      }
+      frontier = next;
+      if (!frontier.length) break;
+    }
+    return { set: seen, list: out };
+  }
+
+  function shortestPath(from, to) {
+    if (from === to) return [from];
+    var prev = new Int32Array(N).fill(-1), seen = new Uint8Array(N);
+    var queue = [from], head = 0;
+    seen[from] = 1;
+    while (head < queue.length) {
+      var cur = queue[head++];
+      for (var j = offsets[cur]; j < offsets[cur+1]; j++) {
+        var nb = neighbors[j];
+        if (seen[nb]) continue;
+        seen[nb] = 1; prev[nb] = cur;
+        if (nb === to) {
+          var path = [to], step = cur;
+          while (step !== -1 && step !== from) { path.push(step); step = prev[step]; }
+          path.push(from);
+          return path.reverse();
+        }
+        queue.push(nb);
+      }
+    }
+    return null;
+  }
+
+  /* ═══════════════════════════════ analytics ═══════════════════════════════ */
+
+  /**
+   * Louvain community detection on a weighted undirected graph given as three
+   * parallel arrays. Returns one community id per original node.
+   *
+   * Level 1 moves individual nodes; every level after that moves whole
+   * communities, which is the part that turns fragments into the handful of
+   * regions a reader can actually hold in their head.
+   */
+  function louvain(nodeCount, srcIn, dstIn, weightIn) {
+    var mapping = new Int32Array(nodeCount), i;
+    for (i = 0; i < nodeCount; i++) mapping[i] = i;
+
+    var n = nodeCount, src = srcIn, dst = dstIn, w = weightIn;
+    var rnd = mulberry32(0xc0ffee);
+
+    for (var level = 0; level < 10; level++) {
+      var result = localMoving(n, src, dst, w, rnd);
+      for (i = 0; i < nodeCount; i++) mapping[i] = result.labels[mapping[i]];
+      if (!result.moved || result.count === n) break;
+
+      // Aggregate: one node per community, internal edges become self-loops.
+      var bucket = Object.create(null);
+      for (var e = 0; e < src.length; e++) {
+        var a = result.labels[src[e]], b = result.labels[dst[e]];
+        var key = a <= b ? a + ',' + b : b + ',' + a;
+        bucket[key] = (bucket[key] || 0) + w[e];
+      }
+      var ns = [], nd = [], nw = [];
+      for (var key2 in bucket) {
+        var parts = key2.split(',');
+        ns.push(+parts[0]); nd.push(+parts[1]); nw.push(bucket[key2]);
+      }
+      n = result.count; src = ns; dst = nd; w = nw;
+    }
+    return mapping;
+  }
+
+  function localMoving(n, src, dst, w, rnd) {
+    var i, e;
+    var k = new Float64Array(n);        // weighted degree, self-loops count twice
+    var selfLoop = new Float64Array(n);
+    var deg = new Int32Array(n);
+
+    for (e = 0; e < src.length; e++) {
+      if (src[e] === dst[e]) { selfLoop[src[e]] += w[e]; k[src[e]] += 2 * w[e]; continue; }
+      k[src[e]] += w[e]; k[dst[e]] += w[e];
+      deg[src[e]]++; deg[dst[e]]++;
+    }
+
+    var off = new Int32Array(n + 1);
+    for (i = 0; i < n; i++) off[i+1] = off[i] + deg[i];
+    var nbr = new Int32Array(off[n]), nbw = new Float64Array(off[n]);
+    var cursor = Int32Array.from(off.subarray(0, n));
+    for (e = 0; e < src.length; e++) {
+      if (src[e] === dst[e]) continue;
+      nbr[cursor[src[e]]] = dst[e]; nbw[cursor[src[e]]++] = w[e];
+      nbr[cursor[dst[e]]] = src[e]; nbw[cursor[dst[e]]++] = w[e];
+    }
+
+    var m2 = 0;
+    for (i = 0; i < n; i++) m2 += k[i];
+    if (m2 === 0) {
+      var trivial = new Int32Array(n);
+      for (i = 0; i < n; i++) trivial[i] = i;
+      return { labels: trivial, count: n, moved: false };
+    }
+
+    var comm = new Int32Array(n), total = new Float64Array(n);
+    for (i = 0; i < n; i++) { comm[i] = i; total[i] = k[i]; }
+
+    var order = new Int32Array(n);
+    for (i = 0; i < n; i++) order[i] = i;
+
+    var movedAny = false;
+    for (var round = 0; round < 30; round++) {
+      // Shuffle each round: a fixed traversal order biases the partition.
+      for (i = n - 1; i > 0; i--) {
+        var r = Math.floor(rnd() * (i + 1)), tmp = order[i];
+        order[i] = order[r]; order[r] = tmp;
+      }
+      var changed = 0;
+      for (var oi = 0; oi < n; oi++) {
+        var v = order[oi];
+        if (off[v] === off[v+1]) continue;
+        var own = comm[v], kv = k[v];
+        total[own] -= kv;
+
+        var links = Object.create(null);
+        links[own] = 0;
+        for (var j = off[v]; j < off[v+1]; j++) {
+          var c = comm[nbr[j]];
+          links[c] = (links[c] || 0) + nbw[j];
+        }
+        // ΔQ·m for moving v into c, dropping the terms constant across c.
+        var best = own, bestGain = links[own] - (kv * total[own]) / m2;
+        for (var key in links) {
+          var cand = +key;
+          var gain = links[key] - (kv * total[cand]) / m2;
+          if (gain > bestGain + 1e-12) { bestGain = gain; best = cand; }
+        }
+        total[best] += kv;
+        if (best !== own) { comm[v] = best; changed++; movedAny = true; }
+      }
+      if (!changed) break;
+    }
+
+    // Compact ids to 0..count-1.
+    var remap = Object.create(null), count = 0, labels = new Int32Array(n);
+    for (i = 0; i < n; i++) {
+      if (remap[comm[i]] === undefined) remap[comm[i]] = count++;
+      labels[i] = remap[comm[i]];
+    }
+    return { labels: labels, count: count, moved: movedAny };
+  }
+
+  var metrics = (function computeMetrics() {
+    var i, j, k;
+
+    var degree = new Float64Array(N);
+    for (i = 0; i < N; i++) degree[i] = degreeOf(i);
+
+    // PageRank by power iteration.
+    var rank = new Float64Array(N).fill(1 / N), next = new Float64Array(N);
+    for (var it = 0; it < 46; it++) {
+      next.fill(0.15 / N);
+      for (i = 0; i < E; i++) {
+        var e = graph.edges[i];
+        if (degree[e.s] > 0) next[e.t] += 0.85 * rank[e.s] / degree[e.s];
+        if (degree[e.t] > 0) next[e.s] += 0.85 * rank[e.t] / degree[e.t];
+      }
+      var delta = 0;
+      for (i = 0; i < N; i++) { delta += Math.abs(next[i] - rank[i]); rank[i] = next[i]; }
+      if (delta < 1e-9) break;
+    }
+
+    // Brandes betweenness over every source — at this size it is exact and
+    // still runs in well under a frame budget's worth of tens of ms.
+    var betweenness = new Float64Array(N);
+    var sigma = new Float64Array(N), dist = new Int32Array(N), delta2 = new Float64Array(N);
+    var preds = [];
+    for (i = 0; i < N; i++) preds.push([]);
+    for (var s = 0; s < N; s++) {
+      sigma.fill(0); dist.fill(-1); delta2.fill(0);
+      for (i = 0; i < N; i++) preds[i].length = 0;
+      sigma[s] = 1; dist[s] = 0;
+      var q = [s], order = [], h = 0;
+      while (h < q.length) {
+        var v = q[h++]; order.push(v);
+        for (j = offsets[v]; j < offsets[v+1]; j++) {
+          var w = neighbors[j];
+          if (dist[w] === -1) { dist[w] = dist[v] + 1; q.push(w); }
+          if (dist[w] === dist[v] + 1) { sigma[w] += sigma[v]; preds[w].push(v); }
+        }
+      }
+      for (i = order.length - 1; i > 0; i--) {
+        var wi = order[i], pl = preds[wi];
+        for (k = 0; k < pl.length; k++) delta2[pl[k]] += (sigma[pl[k]] / sigma[wi]) * (1 + delta2[wi]);
+        betweenness[wi] += delta2[wi];
+      }
+    }
+    var maxB = 0;
+    for (i = 0; i < N; i++) if (betweenness[i] > maxB) maxB = betweenness[i];
+    if (maxB > 0) for (i = 0; i < N; i++) betweenness[i] /= maxB;
+
+    // Communities: full Louvain — local moving, then aggregate the graph and
+    // move again, until nothing improves. Two shortcuts were tried here first
+    // and both produce a picture that misleads: label propagation collapses
+    // half a sparse graph into one giant blob, and local moving alone stops at
+    // dozens of fragments because it never gets to merge whole communities.
+    var labels = louvain(
+      N,
+      graph.edges.map(function (e) { return e.s; }),
+      graph.edges.map(function (e) { return e.t; }),
+      graph.edges.map(function () { return 1; })
+    );
+
+    var minSize = Math.max(3, Math.round(Math.sqrt(N) / 5));
+    for (var pass = 0; pass < 6; pass++) {
+      var sizes = Object.create(null);
+      for (i = 0; i < N; i++) sizes[labels[i]] = (sizes[labels[i]] || 0) + 1;
+      var small = Object.create(null), any = false;
+      for (var lab2 in sizes) if (sizes[lab2] < minSize) { small[lab2] = 1; any = true; }
+      if (!any) break;
+
+      var affinity = Object.create(null);
+      for (i = 0; i < E; i++) {
+        var ed = graph.edges[i], cs = labels[ed.s], ct = labels[ed.t];
+        if (cs === ct) continue;
+        if (small[cs]) { (affinity[cs] = affinity[cs] || Object.create(null))[ct] = (affinity[cs][ct] || 0) + 1; }
+        if (small[ct]) { (affinity[ct] = affinity[ct] || Object.create(null))[cs] = (affinity[ct][cs] || 0) + 1; }
+      }
+      var remap = Object.create(null), remapped = false;
+      for (var sl in small) {
+        var row = affinity[sl];
+        if (!row) continue;
+        var target = null, score = -1;
+        for (var other in row) {
+          if (row[other] > score || (row[other] === score && (sizes[other]||0) > (sizes[target]||0))) {
+            target = +other; score = row[other];
+          }
+        }
+        if (target !== null && target !== +sl) { remap[sl] = target; remapped = true; }
+      }
+      if (!remapped) break;
+      for (i = 0; i < N; i++) {
+        var lb = labels[i];
+        for (var hop = 0; hop < 4 && remap[lb] !== undefined; hop++) lb = remap[lb];
+        labels[i] = lb;
+      }
+    }
+
+    // Renumber largest-first so the biggest community always gets the first,
+    // clearest hue and the legend order is stable.
+    var sizeMap = Object.create(null);
+    for (i = 0; i < N; i++) sizeMap[labels[i]] = (sizeMap[labels[i]] || 0) + 1;
+    var ranked = Object.keys(sizeMap).sort(function (a, b) { return sizeMap[b] - sizeMap[a] || a - b; });
+    var remapFinal = Object.create(null);
+    ranked.forEach(function (lab, idx) { remapFinal[lab] = idx; });
+    var community = new Int32Array(N);
+    for (i = 0; i < N; i++) community[i] = remapFinal[labels[i]];
+    var communityCount = ranked.length;
+
+    var internal = Object.create(null), totalEnds = Object.create(null);
+    for (i = 0; i < E; i++) {
+      var eg = graph.edges[i], a = community[eg.s], b = community[eg.t];
+      if (a === b) internal[a] = (internal[a] || 0) + 1;
+      totalEnds[a] = (totalEnds[a] || 0) + 1;
+      totalEnds[b] = (totalEnds[b] || 0) + 1;
+    }
+    var modularity = 0;
+    for (var c in totalEnds) {
+      modularity += (internal[c] || 0) / E - Math.pow(totalEnds[c] / (2 * E), 2);
+    }
+
+    return {
+      degree: degree, pagerank: rank, betweenness: betweenness,
+      community: community, communityCount: communityCount, modularity: modularity
+    };
+  })();
+
+  var insights = (function summarize() {
+    function top(values, count) {
+      var idx = [];
+      for (var i = 0; i < N; i++) idx.push(i);
+      idx.sort(function (a, b) { return values[b] - values[a]; });
+      return idx.slice(0, count).filter(function (i) { return values[i] > 0; });
+    }
+    // Double-sweep BFS gives a tight lower bound on the diameter in O(V+E).
+    function sweep(start) {
+      var d = new Int32Array(N).fill(-1), q = [start], h = 0, far = start;
+      d[start] = 0;
+      while (h < q.length) {
+        var v = q[h++];
+        if (d[v] > d[far]) far = v;
+        for (var j = offsets[v]; j < offsets[v+1]; j++) {
+          if (d[neighbors[j]] === -1) { d[neighbors[j]] = d[v] + 1; q.push(neighbors[j]); }
+        }
+      }
+      return { far: far, dist: d[far] };
+    }
+    var comp = new Int32Array(N).fill(-1), components = 0;
+    for (var i = 0; i < N; i++) {
+      if (comp[i] !== -1) continue;
+      var stack = [i]; comp[i] = components;
+      while (stack.length) {
+        var v = stack.pop();
+        for (var j = offsets[v]; j < offsets[v+1]; j++) {
+          if (comp[neighbors[j]] === -1) { comp[neighbors[j]] = components; stack.push(neighbors[j]); }
+        }
+      }
+      components++;
+    }
+    return {
+      hubs: top(metrics.pagerank, 4),
+      bridges: top(metrics.betweenness, 4),
+      components: components,
+      diameter: sweep(sweep(0).far).dist,
+      density: (2 * E) / (N * (N - 1)),
+      avgDegree: (2 * E) / N
+    };
+  })();
+
+  /* ═══════════════════════════════ layout ═══════════════════════════════ */
+
+  var positions = new Float32Array(N * 3);
+  var velocities = new Float32Array(N * 3);
+  var pinned = new Uint8Array(N);
+  var alpha = 1, layoutRunning = false, layoutName = 'force', iteration = 0;
+
+  var FORCE = { charge: -240, linkDistance: 44, linkStrength: 0.5, gravity: 0.05, damping: 0.85, cluster: 0.16 };
+  var WORLD = Math.max(150, Math.cbrt(N) * 46);
+
+  function fibonacciSphere(count, radius, out, offset) {
+    var golden = Math.PI * (3 - Math.sqrt(5));
+    for (var i = 0; i < count; i++) {
+      var y = count === 1 ? 0 : 1 - (i / (count - 1)) * 2;
+      var r = Math.sqrt(Math.max(0, 1 - y * y));
+      var th = golden * i;
+      out[offset + i*3]     = Math.cos(th) * r * radius;
+      out[offset + i*3 + 1] = y * radius;
+      out[offset + i*3 + 2] = Math.sin(th) * r * radius;
+    }
+  }
+
+  function applyPreset(name) {
+    var i, groups, keys, rnd = mulberry32(7);
+    if (name === 'sphere') {
+      fibonacciSphere(N, WORLD, positions, 0);
+    } else if (name === 'grid') {
+      var side = Math.ceil(Math.cbrt(N)), spacing = (WORLD * 2) / Math.max(1, side - 1), off = ((side-1)*spacing)/2;
+      for (i = 0; i < N; i++) {
+        positions[i*3]     = (i % side) * spacing - off;
+        positions[i*3 + 1] = (Math.floor(i / side) % side) * spacing - off;
+        positions[i*3 + 2] = Math.floor(i / (side*side)) * spacing - off;
+      }
+    } else if (name === 'cluster') {
+      groups = {};
+      for (i = 0; i < N; i++) (groups[metrics.community[i]] = groups[metrics.community[i]] || []).push(i);
+      keys = Object.keys(groups).sort(function (a,b) { return groups[b].length - groups[a].length; });
+      var centres = new Float32Array(keys.length * 3);
+      fibonacciSphere(keys.length, WORLD * 1.05, centres, 0);
+      keys.forEach(function (key, gi) {
+        var list = groups[key];
+        var local = new Float32Array(list.length * 3);
+        fibonacciSphere(list.length, Math.max(26, Math.cbrt(list.length) * 30), local, 0);
+        list.forEach(function (node, k) {
+          var jitter = 0.75 + rnd() * 0.35;
+          positions[node*3]     = centres[gi*3]     + local[k*3]     * jitter;
+          positions[node*3 + 1] = centres[gi*3 + 1] + local[k*3 + 1] * jitter;
+          positions[node*3 + 2] = centres[gi*3 + 2] + local[k*3 + 2] * jitter;
+        });
+      });
+    } else if (name === 'radial' || name === 'hierarchy') {
+      var root = 0, bestDeg = -1;
+      for (i = 0; i < N; i++) if (degreeOf(i) > bestDeg) { bestDeg = degreeOf(i); root = i; }
+      if (selection.length) root = selection[0];
+      var dist = new Int32Array(N).fill(-1), q = [root], h = 0, maxD = 0;
+      dist[root] = 0;
+      while (h < q.length) {
+        var v = q[h++];
+        for (var j = offsets[v]; j < offsets[v+1]; j++) {
+          if (dist[neighbors[j]] === -1) { dist[neighbors[j]] = dist[v] + 1; maxD = Math.max(maxD, dist[v]+1); q.push(neighbors[j]); }
+        }
+      }
+      var shells = {};
+      for (i = 0; i < N; i++) {
+        var d = dist[i] === -1 ? maxD + 1 : dist[i];
+        (shells[d] = shells[d] || []).push(i);
+      }
+      var depths = Object.keys(shells).map(Number).sort(function (a,b) { return a - b; });
+      if (name === 'radial') {
+        depths.forEach(function (d) {
+          var list = shells[d], radius = (d / Math.max(1, maxD)) * WORLD * 1.15;
+          var pts = new Float32Array(list.length * 3);
+          fibonacciSphere(list.length, radius || 1, pts, 0);
+          list.forEach(function (node, k) {
+            positions[node*3] = pts[k*3]; positions[node*3+1] = pts[k*3+1]; positions[node*3+2] = pts[k*3+2];
+          });
+        });
+      } else {
+        var gap = (WORLD * 2.1) / Math.max(1, depths.length - 1), topY = ((depths.length - 1) * gap) / 2;
+        depths.forEach(function (d, li) {
+          var list = shells[d], ring = Math.max(40, Math.sqrt(list.length) * 30);
+          list.forEach(function (node, k) {
+            var ang = k * 2.399963, rr = ring * Math.sqrt((k + 0.5) / list.length);
+            positions[node*3]     = Math.cos(ang) * rr;
+            positions[node*3 + 1] = topY - li * gap;
+            positions[node*3 + 2] = Math.sin(ang) * rr;
+          });
+        });
+      }
+    }
+    velocities.fill(0);
+  }
+
+  function seedPositions() {
+    // Seed from the cluster preset rather than from noise, so the very first
+    // frame already shows structure instead of a random cloud.
+    applyPreset('cluster');
+  }
+
+  function forceTick() {
+    var i, j, forces = forceScratch;
+    forces.fill(0);
+
+    // O(n²) repulsion: at 700 nodes that is 490k inner steps per tick, well
+    // inside a frame. A Barnes-Hut tree only starts paying off in the
+    // thousands, and it costs correctness bugs this build doesn't need.
+    for (i = 0; i < N; i++) {
+      var xi = positions[i*3], yi = positions[i*3+1], zi = positions[i*3+2];
+      var fx = 0, fy = 0, fz = 0;
+      for (j = 0; j < N; j++) {
+        if (j === i) continue;
+        var dx = xi - positions[j*3], dy = yi - positions[j*3+1], dz = zi - positions[j*3+2];
+        var d2 = dx*dx + dy*dy + dz*dz + 0.4;
+        var f = -FORCE.charge / (d2 * Math.sqrt(d2));
+        fx += dx * f; fy += dy * f; fz += dz * f;
+      }
+      forces[i*3] += fx; forces[i*3+1] += fy; forces[i*3+2] += fz;
+    }
+
+    for (i = 0; i < E; i++) {
+      var e = graph.edges[i], s = e.s, t = e.t;
+      var ex = positions[t*3] - positions[s*3];
+      var ey = positions[t*3+1] - positions[s*3+1];
+      var ez = positions[t*3+2] - positions[s*3+2];
+      var dist = Math.sqrt(ex*ex + ey*ey + ez*ez) || 1e-4;
+      var k = FORCE.linkStrength * ((dist - FORCE.linkDistance) / dist) * 0.5;
+      forces[s*3] += ex*k; forces[s*3+1] += ey*k; forces[s*3+2] += ez*k;
+      forces[t*3] -= ex*k; forces[t*3+1] -= ey*k; forces[t*3+2] -= ez*k;
+    }
+
+    // Community cohesion — what makes clusters read as distinct volumes
+    // rather than one continuous mush.
+    var sums = clusterSums, counts = clusterCounts;
+    sums.fill(0); counts.fill(0);
+    for (i = 0; i < N; i++) {
+      var c = metrics.community[i];
+      sums[c*3] += positions[i*3]; sums[c*3+1] += positions[i*3+1]; sums[c*3+2] += positions[i*3+2];
+      counts[c]++;
+    }
+    for (i = 0; i < N; i++) {
+      var cc = metrics.community[i], n = counts[cc] || 1;
+      forces[i*3]   += (sums[cc*3]/n   - positions[i*3])   * FORCE.cluster;
+      forces[i*3+1] += (sums[cc*3+1]/n - positions[i*3+1]) * FORCE.cluster;
+      forces[i*3+2] += (sums[cc*3+2]/n - positions[i*3+2]) * FORCE.cluster;
+    }
+
+    var step = Math.min(1, alpha * 2.2), limit = FORCE.linkDistance * 1.5, energy = 0;
+    for (i = 0; i < N; i++) {
+      if (pinned[i]) { velocities[i*3] = velocities[i*3+1] = velocities[i*3+2] = 0; continue; }
+      for (var axis = 0; axis < 3; axis++) {
+        var idx = i*3 + axis;
+        forces[idx] -= positions[idx] * FORCE.gravity;
+        var v = (velocities[idx] + forces[idx] * step) * FORCE.damping;
+        if (v > limit) v = limit; else if (v < -limit) v = -limit;
+        velocities[idx] = v;
+        positions[idx] += v;
+        energy += v * v;
+      }
+    }
+    alpha *= 0.986;
+    iteration++;
+    return energy / N;
+  }
+
+  var forceScratch = new Float32Array(N * 3);
+  var clusterSums = new Float32Array(metrics.communityCount * 3);
+  var clusterCounts = new Int32Array(metrics.communityCount);
+
+  function startLayout(name) {
+    layoutName = name;
+    iteration = 0;
+    if (name === 'force') {
+      seedPositions();
+      alpha = 1;
+      layoutRunning = true;
+      cameraFollows = !userTookCamera;
+    } else {
+      applyPreset(name);
+      layoutRunning = false;
+      alpha = 0;
+      frameAll(reduceMotion ? 0 : 900);
+    }
+    dirty = true;
+  }
+
+  /* ═══════════════════════════════ encodings ═══════════════════════════════ */
+
+  var colorMode = 'community', sizeMode = 'pagerank';
+  var nodeColor = new Float32Array(N * 3);
+  var nodeRadius = new Float32Array(N);
+
+  function normalized(values) {
+    var sorted = Array.prototype.slice.call(values).sort(function (a,b) { return a - b; });
+    var lo = sorted[0], hi = sorted[Math.floor(sorted.length * 0.985)] || sorted[sorted.length-1];
+    var span = (hi - lo) || 1;
+    var out = new Float64Array(values.length);
+    for (var i = 0; i < values.length; i++) out[i] = clamp((values[i] - lo) / span, 0, 1);
+    return out;
+  }
+
+  function metricValues(name) {
+    if (name === 'degree') return metrics.degree;
+    if (name === 'betweenness') return metrics.betweenness;
+    return metrics.pagerank;
+  }
+
+  function typeIndex(type) { return TYPES.indexOf(type); }
+
+  function refreshColors() {
+    var i, c;
+    if (colorMode === 'community') {
+      for (i = 0; i < N; i++) {
+        c = hexToRgb(theme.palette[metrics.community[i] % theme.palette.length]);
+        nodeColor[i*3] = c[0]; nodeColor[i*3+1] = c[1]; nodeColor[i*3+2] = c[2];
+      }
+    } else if (colorMode === 'type') {
+      for (i = 0; i < N; i++) {
+        c = hexToRgb(theme.palette[typeIndex(graph.nodes[i].type) % theme.palette.length]);
+        nodeColor[i*3] = c[0]; nodeColor[i*3+1] = c[1]; nodeColor[i*3+2] = c[2];
+      }
+    } else {
+      var norm = normalized(metricValues(colorMode));
+      for (i = 0; i < N; i++) {
+        c = sampleRamp(theme.ramp, norm[i]);
+        nodeColor[i*3] = c[0]; nodeColor[i*3+1] = c[1]; nodeColor[i*3+2] = c[2];
+      }
+    }
+    uploadNodeColors();
+    renderLegend();
+  }
+
+  function refreshRadii() {
+    var i;
+    if (sizeMode === 'uniform') {
+      for (i = 0; i < N; i++) nodeRadius[i] = 4.4;
+    } else {
+      // Square-root-ish scaling: 100× the score is 10× the radius, not 100×.
+      // Anything steeper turns three hubs into three planets and everything
+      // else into dust.
+      var norm = normalized(metricValues(sizeMode));
+      for (i = 0; i < N; i++) nodeRadius[i] = 2.3 + Math.sqrt(norm[i]) * 11.5;
+    }
+    uploadNodeRadii();
+  }
+
+  /* ═══════════════════════════════ WebGL ═══════════════════════════════ */
+
+  var canvas = $('scene');
+  var gl = canvas.getContext('webgl2', { antialias: true, alpha: false, powerPreference: 'high-performance' });
+
+  if (!gl) {
+    $('fallback').style.display = 'grid';
+    canvas.style.display = 'none';
+    return;
+  }
+
+  function compile(type, src) {
+    var sh = gl.createShader(type);
+    gl.shaderSource(sh, src);
+    gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
+      console.error(gl.getShaderInfoLog(sh), src);
+    }
+    return sh;
+  }
+
+  function program(vs, fs) {
+    var p = gl.createProgram();
+    gl.attachShader(p, compile(gl.VERTEX_SHADER, vs));
+    gl.attachShader(p, compile(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) console.error(gl.getProgramInfoLog(p));
+    return p;
+  }
+
+  var HEAD = '#version 300 es\n';
+
+  /* Nodes are impostor spheres: one instanced quad each, with the sphere
+     solved analytically in the fragment shader and gl_FragDepth written so
+     they intersect correctly. Cheaper than real geometry and perfectly round
+     at any zoom. */
+  var nodeProg = program(
+    HEAD +
+    'layout(location=0) in vec2 aCorner;\n' +
+    'layout(location=1) in vec3 iPos;\n' +
+    'layout(location=2) in vec3 iColor;\n' +
+    'layout(location=3) in float iRadius;\n' +
+    'layout(location=4) in vec2 iState;\n' +
+    'uniform mat4 uView, uProj;\n' +
+    'uniform float uScale;\n' +
+    'out vec2 vLocal; out vec3 vColor; out vec2 vState; out vec3 vCentre; out float vRadius;\n' +
+    'void main() {\n' +
+    '  vec3 centre = (uView * vec4(iPos, 1.0)).xyz;\n' +
+    '  float r = iRadius * uScale;\n' +
+    '  vCentre = centre; vRadius = r; vLocal = aCorner; vColor = iColor; vState = iState;\n' +
+    '  gl_Position = uProj * vec4(centre + vec3(aCorner * r, 0.0), 1.0);\n' +
+    '}',
+    HEAD +
+    'precision highp float;\n' +
+    'in vec2 vLocal; in vec3 vColor; in vec2 vState; in vec3 vCentre; in float vRadius;\n' +
+    'uniform mat4 uProj;\n' +
+    'uniform vec3 uFog, uHot;\n' +
+    'uniform float uFogNear, uFogFar, uTime, uAmbient;\n' +
+    'out vec4 outColor;\n' +
+    'void main() {\n' +
+    '  float r2 = dot(vLocal, vLocal);\n' +
+    '  if (r2 > 1.0) discard;\n' +
+    '  float nz = sqrt(1.0 - r2);\n' +
+    '  vec3 normal = vec3(vLocal, nz);\n' +
+    '  vec3 view = vCentre + vec3(vLocal * vRadius, nz * vRadius);\n' +
+    '  vec4 clip = uProj * vec4(view, 1.0);\n' +
+    '  gl_FragDepth = (clip.z / clip.w) * 0.5 + 0.5;\n' +
+    '  float lambert = clamp(dot(normal, normalize(vec3(0.42, 0.7, 0.58))), 0.0, 1.0);\n' +
+    '  float fres = pow(1.0 - nz, 2.6);\n' +
+    // Rim brightens toward a *tinted* white: pure white washes every node in a
+    // dense cluster into the same pale blob.
+    '  vec3 base = vColor * (uAmbient * 0.75 + 0.55 * lambert);\n' +
+    '  vec3 rim = mix(vColor, vec3(1.0), 0.2) * fres * 0.45;\n' +
+    '  vec3 col = base + rim;\n' +
+    '  float pulse = 0.5 + 0.5 * sin(uTime * 2.6);\n' +
+    '  col = mix(col, uHot, vState.x * (0.4 + 0.22 * pulse));\n' +
+    '  float depth = -view.z;\n' +
+    '  float fog = smoothstep(uFogNear, uFogFar, depth);\n' +
+    '  col = mix(col, uFog, fog * 0.85);\n' +
+    '  col = mix(col, uFog, vState.y * 0.82);\n' +
+    '  float a = mix(1.0, 0.4, vState.y) * (1.0 - fog * 0.5);\n' +
+    '  outColor = vec4(col, a);\n' +
+    '}'
+  );
+
+  var haloProg = program(
+    HEAD +
+    'layout(location=0) in vec2 aCorner;\n' +
+    'layout(location=1) in vec3 iPos;\n' +
+    'layout(location=2) in vec3 iColor;\n' +
+    'layout(location=3) in float iRadius;\n' +
+    'layout(location=4) in vec2 iState;\n' +
+    'uniform mat4 uView, uProj;\n' +
+    'uniform float uScale;\n' +
+    'out vec2 vLocal; out vec3 vColor; out vec2 vState;\n' +
+    'void main() {\n' +
+    '  vec3 centre = (uView * vec4(iPos, 1.0)).xyz;\n' +
+    '  vLocal = aCorner; vColor = iColor; vState = iState;\n' +
+    '  gl_Position = uProj * vec4(centre + vec3(aCorner * iRadius * uScale * 2.7, 0.0), 1.0);\n' +
+    '}',
+    HEAD +
+    'precision highp float;\n' +
+    'in vec2 vLocal; in vec3 vColor; in vec2 vState;\n' +
+    'uniform float uOpacity;\n' +
+    'out vec4 outColor;\n' +
+    'void main() {\n' +
+    '  float d = length(vLocal);\n' +
+    '  if (d > 1.0) discard;\n' +
+    '  float falloff = pow(1.0 - d, 3.0);\n' +
+    '  float s = falloff * uOpacity * (1.0 + vState.x * 2.0) * (1.0 - vState.y * 0.9);\n' +
+    '  outColor = vec4(vColor * s, s);\n' +
+    '}'
+  );
+
+  var edgeProg = program(
+    HEAD +
+    'layout(location=0) in vec3 aPos;\n' +
+    'layout(location=1) in vec3 aColor;\n' +
+    'layout(location=2) in float aT;\n' +
+    'layout(location=3) in vec2 aFlags;\n' +
+    'uniform mat4 uView, uProj;\n' +
+    'out vec3 vColor; out float vT; out vec2 vFlags; out float vDepth;\n' +
+    'void main() {\n' +
+    '  vec4 view = uView * vec4(aPos, 1.0);\n' +
+    '  vColor = aColor; vT = aT; vFlags = aFlags; vDepth = -view.z;\n' +
+    '  gl_Position = uProj * view;\n' +
+    '}',
+    HEAD +
+    'precision highp float;\n' +
+    'in vec3 vColor; in float vT; in vec2 vFlags; in float vDepth;\n' +
+    'uniform vec3 uFog, uHot;\n' +
+    'uniform float uFogNear, uFogFar, uOpacity, uTime, uFlow;\n' +
+    'out vec4 outColor;\n' +
+    'void main() {\n' +
+    '  vec3 col = mix(vColor, uHot, vFlags.x * 0.75);\n' +
+    '  float a = uOpacity * (1.0 + vFlags.x * 2.6);\n' +
+    // The travelling pulse is reserved for traced paths. A graph where every
+    // edge pulses tells you nothing; one where a single path does tells you
+    // exactly where to look.
+    '  if (uFlow > 0.5 && vFlags.x > 0.5) {\n' +
+    '    float head = fract(uTime * 0.55);\n' +
+    '    float d = abs(fract(vT - head + 0.5) - 0.5);\n' +
+    '    float pulse = smoothstep(0.13, 0.0, d);\n' +
+    '    col += uHot * pulse * 1.4; a += pulse * 0.55;\n' +
+    '  }\n' +
+    '  a *= 1.0 - vFlags.y * 0.9;\n' +
+    '  float fog = smoothstep(uFogNear, uFogFar, vDepth);\n' +
+    '  col = mix(col, uFog, fog);\n' +
+    '  a *= 1.0 - fog * 0.75;\n' +
+    '  if (a <= 0.004) discard;\n' +
+    '  outColor = vec4(col, a);\n' +
+    '}'
+  );
+
+  var simpleProg = program(
+    HEAD +
+    'layout(location=0) in vec3 aPos;\n' +
+    'layout(location=1) in float aAlpha;\n' +
+    'uniform mat4 uView, uProj;\n' +
+    'uniform float uSize;\n' +
+    'out float vAlpha; out float vDepth;\n' +
+    'void main() {\n' +
+    '  vec4 view = uView * vec4(aPos, 1.0);\n' +
+    '  vAlpha = aAlpha; vDepth = -view.z;\n' +
+    '  gl_PointSize = uSize;\n' +
+    '  gl_Position = uProj * view;\n' +
+    '}',
+    HEAD +
+    'precision highp float;\n' +
+    'in float vAlpha; in float vDepth;\n' +
+    'uniform vec3 uColor;\n' +
+    'uniform float uOpacity, uPoint, uFogFar;\n' +
+    'out vec4 outColor;\n' +
+    'void main() {\n' +
+    '  float a = vAlpha * uOpacity;\n' +
+    '  if (uPoint > 0.5) {\n' +
+    '    float d = length(gl_PointCoord - 0.5) * 2.0;\n' +
+    '    if (d > 1.0) discard;\n' +
+    '    a *= pow(1.0 - d, 1.6);\n' +
+    '  }\n' +
+    '  a *= 1.0 - smoothstep(uFogFar * 0.4, uFogFar * 1.6, vDepth);\n' +
+    '  if (a <= 0.003) discard;\n' +
+    '  outColor = vec4(uColor, a);\n' +
+    '}'
+  );
+
+  /* ── buffers ───────────────────────────────────────────────────────────── */
+
+  var quad = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+
+  var posBuf = gl.createBuffer(), colBuf = gl.createBuffer(), radBuf = gl.createBuffer(), stateBuf = gl.createBuffer();
+  var nodeState = new Float32Array(N * 2);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);   gl.bufferData(gl.ARRAY_BUFFER, positions, gl.DYNAMIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, colBuf);   gl.bufferData(gl.ARRAY_BUFFER, nodeColor, gl.DYNAMIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, radBuf);   gl.bufferData(gl.ARRAY_BUFFER, nodeRadius, gl.DYNAMIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, stateBuf); gl.bufferData(gl.ARRAY_BUFFER, nodeState, gl.DYNAMIC_DRAW);
+
+  function makeNodeVao() {
+    var vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+    gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+    gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+    var defs = [[1, posBuf, 3], [2, colBuf, 3], [3, radBuf, 1], [4, stateBuf, 2]];
+    defs.forEach(function (d) {
+      gl.bindBuffer(gl.ARRAY_BUFFER, d[1]);
+      gl.enableVertexAttribArray(d[0]);
+      gl.vertexAttribPointer(d[0], d[2], gl.FLOAT, false, 0, 0);
+      gl.vertexAttribDivisor(d[0], 1);
+    });
+    gl.bindVertexArray(null);
+    return vao;
+  }
+  var nodeVao = makeNodeVao();
+
+  function uploadNodePositions() {
+    gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+    gl.bufferSubData(gl.ARRAY_BUFFER, 0, positions);
+  }
+  function uploadNodeColors() {
+    gl.bindBuffer(gl.ARRAY_BUFFER, colBuf);
+    gl.bufferSubData(gl.ARRAY_BUFFER, 0, nodeColor);
+  }
+  function uploadNodeRadii() {
+    gl.bindBuffer(gl.ARRAY_BUFFER, radBuf);
+    gl.bufferSubData(gl.ARRAY_BUFFER, 0, nodeRadius);
+  }
+  function uploadNodeStates() {
+    gl.bindBuffer(gl.ARRAY_BUFFER, stateBuf);
+    gl.bufferSubData(gl.ARRAY_BUFFER, 0, nodeState);
+  }
+
+  // Edges: 8 segments each, so the light pulse has something to travel along
+  // and long links bow gently instead of cutting through unrelated clusters.
+  var SEG = 8, VPE = SEG * 2;
+  var edgePos = new Float32Array(E * VPE * 3);
+  var edgeCol = new Float32Array(E * VPE * 3);
+  var edgeT = new Float32Array(E * VPE);
+  var edgeFlags = new Float32Array(E * VPE * 2);
+
+  (function initEdgeAttributes() {
+    for (var e = 0; e < E; e++) {
+      for (var s = 0; s < SEG; s++) {
+        edgeT[e*VPE + s*2]     = s / SEG;
+        edgeT[e*VPE + s*2 + 1] = (s + 1) / SEG;
+      }
+    }
+  })();
+
+  var edgePosBuf = gl.createBuffer(), edgeColBuf = gl.createBuffer(),
+      edgeTBuf = gl.createBuffer(), edgeFlagBuf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, edgePosBuf);  gl.bufferData(gl.ARRAY_BUFFER, edgePos, gl.DYNAMIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, edgeColBuf);  gl.bufferData(gl.ARRAY_BUFFER, edgeCol, gl.DYNAMIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, edgeTBuf);    gl.bufferData(gl.ARRAY_BUFFER, edgeT, gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, edgeFlagBuf); gl.bufferData(gl.ARRAY_BUFFER, edgeFlags, gl.DYNAMIC_DRAW);
+
+  var edgeVao = gl.createVertexArray();
+  gl.bindVertexArray(edgeVao);
+  [[0, edgePosBuf, 3], [1, edgeColBuf, 3], [2, edgeTBuf, 1], [3, edgeFlagBuf, 2]].forEach(function (d) {
+    gl.bindBuffer(gl.ARRAY_BUFFER, d[1]);
+    gl.enableVertexAttribArray(d[0]);
+    gl.vertexAttribPointer(d[0], d[2], gl.FLOAT, false, 0, 0);
+  });
+  gl.bindVertexArray(null);
+
+  function refreshEdgeColors() {
+    var c = theme.edge;
+    for (var i = 0; i < E * VPE; i++) {
+      edgeCol[i*3] = c[0]; edgeCol[i*3+1] = c[1]; edgeCol[i*3+2] = c[2];
+    }
+    gl.bindBuffer(gl.ARRAY_BUFFER, edgeColBuf);
+    gl.bufferSubData(gl.ARRAY_BUFFER, 0, edgeCol);
+  }
+
+  function updateEdgeGeometry() {
+    for (var e = 0; e < E; e++) {
+      var ed = graph.edges[e], si = ed.s * 3, ti = ed.t * 3;
+      var sx = positions[si], sy = positions[si+1], sz = positions[si+2];
+      var tx = positions[ti], ty = positions[ti+1], tz = positions[ti+2];
+      var dx = tx - sx, dy = ty - sy, dz = tz - sz;
+      var len = Math.sqrt(dx*dx + dy*dy + dz*dz) || 1;
+      // Control point offset perpendicular to the link, so reciprocal pairs
+      // separate and long edges bow around what sits between them.
+      var px = -dz, py = 0, pz = dx;
+      var pl = Math.sqrt(px*px + pz*pz);
+      if (pl < 1e-5) { px = 1; pz = 0; pl = 1; }
+      var lift = len * 0.09;
+      var cx = (sx+tx)/2 + (px/pl)*lift, cy = (sy+ty)/2 + lift*0.35, cz = (sz+tz)/2 + (pz/pl)*lift;
+      var base = e * VPE * 3;
+      for (var s = 0; s < SEG; s++) {
+        writeQuadratic(edgePos, base + s*6,     sx,sy,sz, cx,cy,cz, tx,ty,tz, s / SEG);
+        writeQuadratic(edgePos, base + s*6 + 3, sx,sy,sz, cx,cy,cz, tx,ty,tz, (s+1) / SEG);
+      }
+    }
+    gl.bindBuffer(gl.ARRAY_BUFFER, edgePosBuf);
+    gl.bufferSubData(gl.ARRAY_BUFFER, 0, edgePos);
+  }
+
+  function writeQuadratic(out, o, x0,y0,z0, cx,cy,cz, x1,y1,z1, t) {
+    var it = 1 - t, a = it*it, b = 2*it*t, c = t*t;
+    out[o]   = a*x0 + b*cx + c*x1;
+    out[o+1] = a*y0 + b*cy + c*y1;
+    out[o+2] = a*z0 + b*cz + c*z1;
+  }
+
+  function setEdgeFlags(e, hot, dim) {
+    var base = e * VPE * 2;
+    for (var v = 0; v < VPE; v++) { edgeFlags[base + v*2] = hot; edgeFlags[base + v*2 + 1] = dim; }
+  }
+  function uploadEdgeFlags() {
+    gl.bindBuffer(gl.ARRAY_BUFFER, edgeFlagBuf);
+    gl.bufferSubData(gl.ARRAY_BUFFER, 0, edgeFlags);
+  }
+
+  /* Ambient dust: parallax when the camera orbits, which is most of what
+     makes the scene read as a volume rather than a flat scatter. */
+  var STARS = 1500;
+  var starPos = new Float32Array(STARS * 3), starAlpha = new Float32Array(STARS);
+  (function seedStars() {
+    var rnd = mulberry32(1337);
+    for (var i = 0; i < STARS; i++) {
+      var r = WORLD * (1.5 + rnd() * 2.6), u = rnd() * 2 - 1, th = rnd() * Math.PI * 2;
+      var s = Math.sqrt(1 - u*u);
+      starPos[i*3] = r * s * Math.cos(th);
+      starPos[i*3+1] = r * u * 0.6;
+      starPos[i*3+2] = r * s * Math.sin(th);
+      starAlpha[i] = 0.25 + rnd() * 0.75;
+    }
+  })();
+
+  var gridVerts = [], gridAlpha = [];
+  (function buildGrid() {
+    var extent = WORLD * 2.4, divisions = 24, step = (extent * 2) / divisions, y = -WORLD * 1.25;
+    for (var i = 0; i <= divisions; i++) {
+      var p = -extent + i * step;
+      var fade = 1 - Math.abs(i / divisions - 0.5) * 2;
+      gridVerts.push(-extent, y, p, extent, y, p, p, y, -extent, p, y, extent);
+      gridAlpha.push(fade, fade, fade, fade);
+    }
+  })();
+
+  function makeSimpleVao(posArray, alphaArray) {
+    var vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+    var pb = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, pb);
+    gl.bufferData(gl.ARRAY_BUFFER, posArray, gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
+    var ab = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, ab);
+    gl.bufferData(gl.ARRAY_BUFFER, alphaArray, gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(1); gl.vertexAttribPointer(1, 1, gl.FLOAT, false, 0, 0);
+    gl.bindVertexArray(null);
+    return vao;
+  }
+  var starVao = makeSimpleVao(starPos, starAlpha);
+  var gridVao = makeSimpleVao(new Float32Array(gridVerts), new Float32Array(gridAlpha));
+  var gridCount = gridVerts.length / 3;
+
+  /* ── matrices ──────────────────────────────────────────────────────────── */
+
+  var view = new Float32Array(16), proj = new Float32Array(16);
+
+  function perspective(out, fovy, aspect, near, far) {
+    var f = 1 / Math.tan(fovy / 2), nf = 1 / (near - far);
+    out.fill(0);
+    out[0] = f / aspect; out[5] = f; out[11] = -1;
+    out[10] = (far + near) * nf; out[14] = 2 * far * near * nf;
+    return out;
+  }
+
+  function lookAt(out, eye, centre, up) {
+    var zx = eye[0]-centre[0], zy = eye[1]-centre[1], zz = eye[2]-centre[2];
+    var zl = Math.hypot(zx, zy, zz) || 1; zx/=zl; zy/=zl; zz/=zl;
+    var xx = up[1]*zz - up[2]*zy, xy = up[2]*zx - up[0]*zz, xz = up[0]*zy - up[1]*zx;
+    var xl = Math.hypot(xx, xy, xz) || 1; xx/=xl; xy/=xl; xz/=xl;
+    var yx = zy*xz - zz*xy, yy = zz*xx - zx*xz, yz = zx*xy - zy*xx;
+    out[0]=xx; out[1]=yx; out[2]=zx; out[3]=0;
+    out[4]=xy; out[5]=yy; out[6]=zy; out[7]=0;
+    out[8]=xz; out[9]=yz; out[10]=zz; out[11]=0;
+    out[12]=-(xx*eye[0]+xy*eye[1]+xz*eye[2]);
+    out[13]=-(yx*eye[0]+yy*eye[1]+yz*eye[2]);
+    out[14]=-(zx*eye[0]+zy*eye[1]+zz*eye[2]);
+    out[15]=1;
+    return out;
+  }
+
+  /* ── camera ────────────────────────────────────────────────────────────── */
+
+  var FOV = 50 * Math.PI / 180;
+  var cam = { theta: 0.9, phi: 1.15, radius: WORLD * 3.1, target: [0,0,0] };
+  var camVel = { theta: 0, phi: 0, radius: 0 };
+  var panVel = [0,0,0];
+  var flight = null, userTookCamera = false, cameraFollows = true;
+  var eye = [0,0,0];
+
+  function cameraPosition() {
+    var sp = Math.sin(cam.phi);
+    eye[0] = cam.target[0] + cam.radius * sp * Math.sin(cam.theta);
+    eye[1] = cam.target[1] + cam.radius * Math.cos(cam.phi);
+    eye[2] = cam.target[2] + cam.radius * sp * Math.cos(cam.theta);
+    return eye;
+  }
+
+  function flyTo(target, radius, duration) {
+    if (reduceMotion || duration === 0) {
+      cam.target[0] = target[0]; cam.target[1] = target[1]; cam.target[2] = target[2];
+      cam.radius = radius;
+      flight = null;
+      dirty = true;
+      return;
+    }
+    flight = {
+      from: cam.target.slice(), to: target.slice(),
+      fromR: cam.radius, toR: radius,
+      start: performance.now(), duration: duration || 850
+    };
+  }
+
+  function boundsOf(indices) {
+    var minX=Infinity,minY=Infinity,minZ=Infinity,maxX=-Infinity,maxY=-Infinity,maxZ=-Infinity;
+    for (var k = 0; k < indices.length; k++) {
+      var i = indices[k];
+      minX = Math.min(minX, positions[i*3]); maxX = Math.max(maxX, positions[i*3]);
+      minY = Math.min(minY, positions[i*3+1]); maxY = Math.max(maxY, positions[i*3+1]);
+      minZ = Math.min(minZ, positions[i*3+2]); maxZ = Math.max(maxZ, positions[i*3+2]);
+    }
+    var centre = [(minX+maxX)/2, (minY+maxY)/2, (minZ+maxZ)/2];
+    var radius = 0;
+    for (k = 0; k < indices.length; k++) {
+      var j = indices[k];
+      radius = Math.max(radius, Math.hypot(
+        positions[j*3]-centre[0], positions[j*3+1]-centre[1], positions[j*3+2]-centre[2]
+      ) + nodeRadius[j]);
+    }
+    return { centre: centre, radius: Math.max(radius, 30) };
+  }
+
+  var allIndices = (function () { var a = []; for (var i = 0; i < N; i++) a.push(i); return a; })();
+
+  function frameAll(duration) {
+    var b = boundsOf(allIndices);
+    // A true bounding sphere, not half the box diagonal: for the elongated
+    // shapes force layouts make, the diagonal strands the graph in an empty
+    // frame.
+    flyTo(b.centre, clamp(b.radius * 1.35 / Math.tan(FOV/2), 40, WORLD * 9), duration);
+  }
+
+  /* ── render loop ───────────────────────────────────────────────────────── */
+
+  var labelCanvas = $('labels'), lx = labelCanvas.getContext('2d');
+  var stage = $('stage');
+  var width = 1, height = 1, dpr = 1, dirty = true;
+  var lastFrame = performance.now(), fps = 60, fpsAcc = 0, fpsCount = 0;
+  var lastInteraction = performance.now();
+
+  function resize() {
+    var rect = stage.getBoundingClientRect();
+    width = Math.max(1, Math.round(rect.width));
+    height = Math.max(1, Math.round(rect.height));
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
+    labelCanvas.width = canvas.width; labelCanvas.height = canvas.height;
+    lx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    dirty = true;
+  }
+  window.addEventListener('resize', resize);
+
+  function setUniforms(prog) {
+    gl.uniformMatrix4fv(gl.getUniformLocation(prog, 'uView'), false, view);
+    gl.uniformMatrix4fv(gl.getUniformLocation(prog, 'uProj'), false, proj);
+  }
+
+  function draw(time) {
+    var fogNear = cam.radius * 0.55, fogFar = cam.radius * 2.9;
+
+    gl.clearColor(theme.bg[0], theme.bg[1], theme.bg[2], 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.enable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+
+    // grid + dust
+    gl.depthMask(false);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.useProgram(simpleProg);
+    setUniforms(simpleProg);
+    gl.uniform1f(gl.getUniformLocation(simpleProg, 'uFogFar'), fogFar);
+    gl.uniform3fv(gl.getUniformLocation(simpleProg, 'uColor'), theme.grid);
+    gl.uniform1f(gl.getUniformLocation(simpleProg, 'uOpacity'), 0.55);
+    gl.uniform1f(gl.getUniformLocation(simpleProg, 'uPoint'), 0);
+    gl.uniform1f(gl.getUniformLocation(simpleProg, 'uSize'), 1);
+    gl.bindVertexArray(gridVao);
+    gl.drawArrays(gl.LINES, 0, gridCount);
+
+    gl.uniform3fv(gl.getUniformLocation(simpleProg, 'uColor'), theme.star);
+    gl.uniform1f(gl.getUniformLocation(simpleProg, 'uOpacity'), theme.edgeAdditive ? 0.5 : 0.28);
+    gl.uniform1f(gl.getUniformLocation(simpleProg, 'uPoint'), 1);
+    gl.uniform1f(gl.getUniformLocation(simpleProg, 'uSize'), 2.2 * dpr);
+    if (theme.edgeAdditive) gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+    gl.bindVertexArray(starVao);
+    gl.drawArrays(gl.POINTS, 0, STARS);
+
+    // edges
+    gl.blendFunc(gl.SRC_ALPHA, theme.edgeAdditive ? gl.ONE : gl.ONE_MINUS_SRC_ALPHA);
+    gl.useProgram(edgeProg);
+    setUniforms(edgeProg);
+    gl.uniform3fv(gl.getUniformLocation(edgeProg, 'uFog'), theme.fog);
+    gl.uniform3fv(gl.getUniformLocation(edgeProg, 'uHot'), theme.edgeHot);
+    gl.uniform1f(gl.getUniformLocation(edgeProg, 'uFogNear'), fogNear);
+    gl.uniform1f(gl.getUniformLocation(edgeProg, 'uFogFar'), fogFar);
+    gl.uniform1f(gl.getUniformLocation(edgeProg, 'uOpacity'), theme.edgeAdditive ? 0.36 : 0.62);
+    gl.uniform1f(gl.getUniformLocation(edgeProg, 'uTime'), time);
+    gl.uniform1f(gl.getUniformLocation(edgeProg, 'uFlow'), reduceMotion ? 0 : 1);
+    gl.bindVertexArray(edgeVao);
+    gl.drawArrays(gl.LINES, 0, E * VPE);
+
+    // halos
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+    gl.useProgram(haloProg);
+    setUniforms(haloProg);
+    gl.uniform1f(gl.getUniformLocation(haloProg, 'uScale'), 1);
+    gl.uniform1f(gl.getUniformLocation(haloProg, 'uOpacity'), theme.glow);
+    gl.bindVertexArray(nodeVao);
+    gl.drawArraysInstanced(gl.TRIANGLES, 0, 6, N);
+
+    // nodes
+    gl.depthMask(true);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.useProgram(nodeProg);
+    setUniforms(nodeProg);
+    gl.uniform1f(gl.getUniformLocation(nodeProg, 'uScale'), 1);
+    gl.uniform3fv(gl.getUniformLocation(nodeProg, 'uFog'), theme.fog);
+    gl.uniform3fv(gl.getUniformLocation(nodeProg, 'uHot'), theme.edgeHot);
+    gl.uniform1f(gl.getUniformLocation(nodeProg, 'uFogNear'), fogNear);
+    gl.uniform1f(gl.getUniformLocation(nodeProg, 'uFogFar'), fogFar);
+    gl.uniform1f(gl.getUniformLocation(nodeProg, 'uTime'), time);
+    gl.uniform1f(gl.getUniformLocation(nodeProg, 'uAmbient'), theme.ambient);
+    gl.bindVertexArray(nodeVao);
+    gl.drawArraysInstanced(gl.TRIANGLES, 0, 6, N);
+
+    gl.bindVertexArray(null);
+  }
+
+  /* ── projection helpers (labels + picking) ─────────────────────────────── */
+
+  var screenX = new Float32Array(N), screenY = new Float32Array(N),
+      screenR = new Float32Array(N), viewZ = new Float32Array(N);
+
+  function projectAll() {
+    var halfH = height / 2, tanHalf = Math.tan(FOV / 2);
+    for (var i = 0; i < N; i++) {
+      var x = positions[i*3], y = positions[i*3+1], z = positions[i*3+2];
+      var vx = view[0]*x + view[4]*y + view[8]*z + view[12];
+      var vy = view[1]*x + view[5]*y + view[9]*z + view[13];
+      var vz = view[2]*x + view[6]*y + view[10]*z + view[14];
+      viewZ[i] = vz;
+      if (vz > -0.1) { screenR[i] = -1; continue; }
+      var invW = 1 / -vz;
+      var ndcX = (proj[0] * vx) * invW, ndcY = (proj[5] * vy) * invW;
+      screenX[i] = (ndcX * 0.5 + 0.5) * width;
+      screenY[i] = (0.5 - ndcY * 0.5) * height;
+      screenR[i] = (nodeRadius[i] * halfH) / (tanHalf * -vz);
+    }
+  }
+
+  function pick(px, py) {
+    var best = -1, bestZ = -Infinity;
+    for (var i = 0; i < N; i++) {
+      if (screenR[i] < 0) continue;
+      var r = Math.max(screenR[i], 4);
+      var dx = px - screenX[i], dy = py - screenY[i];
+      if (dx*dx + dy*dy <= r*r && viewZ[i] > bestZ) { bestZ = viewZ[i]; best = i; }
+    }
+    return best;
+  }
+
+  /* ── labels ────────────────────────────────────────────────────────────── */
+
+  var placed = [];
+
+  function drawLabels() {
+    lx.clearRect(0, 0, width, height);
+    placed.length = 0;
+
+    var focusedSet = {};
+    if (hovered >= 0) focusedSet[hovered] = 1;
+    selection.forEach(function (i) { focusedSet[i] = 1; });
+    tracePath.forEach(function (i) { focusedSet[i] = 1; });
+
+    var candidates = [];
+    for (var i = 0; i < N; i++) {
+      if (screenR[i] < 0) continue;
+      if (screenX[i] < -60 || screenX[i] > width + 60 || screenY[i] < -20 || screenY[i] > height + 20) continue;
+      var focused = focusedSet[i] === 1;
+      if (!focused) {
+        if (screenR[i] < 6) continue;
+        if (dimSet && !dimSet[i]) continue;
+      }
+      candidates.push({ i: i, priority: focused ? 1e9 : screenR[i] });
+    }
+    candidates.sort(function (a, b) { return b.priority - a.priority; });
+
+    lx.textBaseline = 'middle';
+    lx.textAlign = 'left';
+    var drawn = 0, limit = 34 + Object.keys(focusedSet).length;
+
+    for (var c = 0; c < candidates.length && drawn < limit; c++) {
+      var idx = candidates[c].i, node = graph.nodes[idx];
+      var isFocused = focusedSet[idx] === 1;
+      var size = isFocused ? 13 : 12;
+      lx.font = (isFocused ? '600 ' : '450 ') + size + 'px "IBM Plex Sans", system-ui, sans-serif';
+      var text = node.label;
+      var w = lx.measureText(text).width;
+      var bx = screenX[idx] + Math.min(24, Math.max(9, screenR[idx] + 7));
+      var by = screenY[idx] - (size + 8) / 2;
+      var box = { x: bx - 3, y: by, w: w + 8, h: size + 8 };
+
+      if (!isFocused && collides(box)) continue;
+      placed.push(box);
+
+      if (isFocused) {
+        lx.fillStyle = theme.labelHalo;
+        roundRect(lx, box.x, box.y, box.w, box.h, 5);
+        lx.fill();
+      }
+      lx.lineWidth = 3;
+      lx.strokeStyle = theme.labelHalo;
+      lx.strokeText(text, bx, screenY[idx]);
+      lx.fillStyle = isFocused ? theme.labelHot : theme.label;
+      lx.globalAlpha = isFocused ? 1 : 0.88;
+      lx.fillText(text, bx, screenY[idx]);
+      lx.globalAlpha = 1;
+      drawn++;
+    }
+  }
+
+  function collides(box) {
+    for (var i = 0; i < placed.length; i++) {
+      var p = placed[i];
+      if (box.x < p.x + p.w && box.x + box.w > p.x && box.y < p.y + p.h && box.y + box.h > p.y) return true;
+    }
+    return false;
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  /* ═══════════════════════════════ state ═══════════════════════════════ */
+
+  var hovered = -1, selection = [], dimSet = null, tracePath = [], traceEdges = {};
+  var traceFrom = -1, traceTo = -1, isolatedKey = null;
+
+  function refreshStates() {
+    var i;
+    for (i = 0; i < N; i++) {
+      var emphasis = 0, dim = 0;
+      if (i === hovered || selection.indexOf(i) !== -1 || tracePath.indexOf(i) !== -1) emphasis = 1;
+      if (dimSet && !dimSet[i] && !emphasis) dim = 0.86;
+      nodeState[i*2] = emphasis;
+      nodeState[i*2+1] = dim;
+    }
+    uploadNodeStates();
+
+    for (var e = 0; e < E; e++) {
+      var ed = graph.edges[e];
+      var hot = traceEdges[e] ? 1 : 0;
+      if (!hot && hovered >= 0 && (ed.s === hovered || ed.t === hovered)) hot = 1;
+      if (!hot && selection.length && (selection.indexOf(ed.s) !== -1 || selection.indexOf(ed.t) !== -1)) hot = 1;
+      var dim = 0;
+      if (dimSet && !(dimSet[ed.s] && dimSet[ed.t])) dim = 0.9;
+      if (tracePath.length && !traceEdges[e]) dim = 0.9;
+      setEdgeFlags(e, hot, dim);
+    }
+    uploadEdgeFlags();
+    dirty = true;
+  }
+
+  function select(i, additive) {
+    if (i < 0) { selection = []; }
+    else if (additive) {
+      var at = selection.indexOf(i);
+      if (at === -1) selection.push(i); else selection.splice(at, 1);
+    } else selection = [i];
+    refreshStates();
+    renderInspector();
+  }
+
+  function focusNode(i) {
+    select(i, false);
+    var hood = neighborhood(i, 1);
+    dimSet = hood.set;
+    tracePath = []; traceEdges = {};
+    refreshStates();
+    var b = boundsOf(hood.list);
+    cameraFollows = false;
+    flyTo(b.centre, clamp(b.radius * 1.7 / Math.tan(FOV/2), 60, WORLD * 6), 900);
+    renderInspector();
+  }
+
+  function clearFocus() {
+    dimSet = null; tracePath = []; traceEdges = {};
+    isolatedKey = null;
+    refreshStates();
+    renderLegend();
+  }
+
+  /* ═══════════════════════════════ interaction ═══════════════════════════ */
+
+  var pointers = {}, pointerCount = 0, mode = 'none';
+  var lastPointer = { x: 0, y: 0 }, downAt = { x: 0, y: 0, time: 0 };
+  var lastClick = 0, pinchDist = 0, dragIndex = -1, dragDepth = 0;
+
+  function localPoint(e) {
+    var rect = canvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  canvas.addEventListener('pointerdown', function (e) {
+    canvas.setPointerCapture(e.pointerId);
+    pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+    pointerCount++;
+    var p = localPoint(e);
+    downAt = { x: p.x, y: p.y, time: performance.now() };
+    lastPointer = { x: e.clientX, y: e.clientY };
+    lastInteraction = performance.now();
+    userTookCamera = true; cameraFollows = false;
+    flight = null;
+    dismissHint();
+
+    if (pointerCount === 2) { mode = 'pan'; pinchDist = currentPinch(); return; }
+
+    var hit = pick(p.x, p.y);
+    if (hit >= 0 && e.button === 0 && !e.shiftKey) {
+      // Grabbing a node beats orbiting: dragging one is an explicit statement
+      // about where it belongs, and the layout respects it from then on.
+      mode = 'drag'; dragIndex = hit; dragDepth = -viewZ[hit];
+    } else {
+      mode = (e.button === 2 || e.shiftKey) ? 'pan' : 'orbit';
+    }
+  });
+
+  window.addEventListener('pointermove', function (e) {
+    var p = localPoint(e);
+    if (!pointers[e.pointerId]) {
+      if (mode === 'none') updateHover(p.x, p.y, e.clientX, e.clientY);
+      return;
+    }
+    pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+    lastInteraction = performance.now();
+
+    if (pointerCount === 2) {
+      var d = currentPinch();
+      if (pinchDist > 0) camVel.radius += (pinchDist - d) * cam.radius * 0.004;
+      pinchDist = d;
+      return;
+    }
+
+    var dx = e.clientX - lastPointer.x, dy = e.clientY - lastPointer.y;
+    lastPointer = { x: e.clientX, y: e.clientY };
+
+    if (mode === 'orbit') {
+      camVel.theta -= (dx / width) * Math.PI * 2;
+      camVel.phi -= (dy / height) * Math.PI * 2;
+    } else if (mode === 'pan') {
+      panFromScreen(dx, dy);
+    } else if (mode === 'drag' && dragIndex >= 0) {
+      dragNode(p.x, p.y);
+    }
+  });
+
+  window.addEventListener('pointerup', function (e) {
+    if (pointers[e.pointerId]) { delete pointers[e.pointerId]; pointerCount = Math.max(0, pointerCount - 1); }
+    var p = localPoint(e);
+    var moved = Math.hypot(p.x - downAt.x, p.y - downAt.y);
+
+    if (mode === 'drag' && dragIndex >= 0) {
+      if (moved > 3) { pinned[dragIndex] = 1; alpha = Math.max(alpha, 0.32); layoutRunning = layoutName === 'force'; }
+      dragIndex = -1;
+    }
+    if (pointerCount === 0) mode = 'none';
+    if (moved > 4) return;
+
+    var hit = pick(p.x, p.y);
+    var now = performance.now();
+    var isDouble = now - lastClick < 330;
+    lastClick = now;
+
+    if (hit < 0) { if (!e.shiftKey) { select(-1); clearFocus(); } return; }
+    if (isDouble) focusNode(hit); else select(hit, e.shiftKey);
+  });
+
+  canvas.addEventListener('wheel', function (e) {
+    e.preventDefault();
+    lastInteraction = performance.now();
+    userTookCamera = true; cameraFollows = false;
+    flight = null;
+    dismissHint();
+    var unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 100 : 1;
+    camVel.radius += clamp((e.deltaY * unit) / 420, -0.5, 0.5) * cam.radius * 0.5;
+  }, { passive: false });
+
+  canvas.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+
+  function currentPinch() {
+    var keys = Object.keys(pointers);
+    if (keys.length < 2) return 0;
+    var a = pointers[keys[0]], b = pointers[keys[1]];
+    return Math.hypot(a.x - b.x, a.y - b.y);
+  }
+
+  function panFromScreen(dx, dy) {
+    var scale = (2 * Math.tan(FOV/2) * cam.radius) / height;
+    var right = [view[0], view[4], view[8]], up = [view[1], view[5], view[9]];
+    for (var i = 0; i < 3; i++) panVel[i] += (-dx * right[i] + dy * up[i]) * scale;
+  }
+
+  function dragNode(px, py) {
+    // Unproject the pointer onto the plane the node currently sits on.
+    var ndcX = (px / width) * 2 - 1, ndcY = 1 - (py / height) * 2;
+    var tanHalf = Math.tan(FOV / 2), aspect = width / height;
+    var vx = ndcX * tanHalf * aspect * dragDepth, vy = ndcY * tanHalf * dragDepth, vz = -dragDepth;
+    // view is column-major world→view; its rotation is orthonormal, so the
+    // transpose takes us back to world space.
+    var e0 = cameraPosition();
+    var wx = view[0]*vx + view[1]*vy + view[2]*vz + e0[0];
+    var wy = view[4]*vx + view[5]*vy + view[6]*vz + e0[1];
+    var wz = view[8]*vx + view[9]*vy + view[10]*vz + e0[2];
+    positions[dragIndex*3] = wx; positions[dragIndex*3+1] = wy; positions[dragIndex*3+2] = wz;
+    velocities[dragIndex*3] = velocities[dragIndex*3+1] = velocities[dragIndex*3+2] = 0;
+    dirty = true;
+  }
+
+  var hoverRaf = 0;
+  function updateHover(px, py, clientX, clientY) {
+    if (hoverRaf) return;
+    hoverRaf = requestAnimationFrame(function () {
+      hoverRaf = 0;
+      var hit = pick(px, py);
+      if (hit !== hovered) {
+        hovered = hit;
+        canvas.style.cursor = hit >= 0 ? 'pointer' : 'default';
+        refreshStates();
+      }
+      var tip = $('tooltip');
+      if (hit >= 0) {
+        var node = graph.nodes[hit];
+        tip.innerHTML = '<b>' + escapeHtml(node.label) + '</b><span>' +
+          escapeHtml(node.type) + ' · ' + escapeHtml(node.domain) + ' · ' +
+          degreeOf(hit) + ' link' + (degreeOf(hit) === 1 ? '' : 's') + '</span>';
+        var rect = stage.getBoundingClientRect();
+        var tx = clientX - rect.left + 16, ty = clientY - rect.top + 16;
+        tip.style.transform = 'translate(' + Math.min(tx, rect.width - 250) + 'px,' + Math.min(ty, rect.height - 60) + 'px)';
+        tip.style.opacity = '1';
+      } else {
+        tip.style.opacity = '0';
+      }
+    });
+  }
+
+  window.addEventListener('keydown', function (e) {
+    if (e.target && e.target.tagName === 'INPUT') return;
+    if (e.key === 'Escape') { clearFocus(); select(-1); }
+    if (e.key === 'f' && selection.length) focusNode(selection[0]);
+    if (e.key === 'r') { userTookCamera = false; frameAll(900); }
+  });
+
+  /* ═══════════════════════════════ HUD ═══════════════════════════════ */
+
+  function fmt(n, digits) {
+    return n.toLocaleString(undefined, { minimumFractionDigits: digits || 0, maximumFractionDigits: digits || 0 });
+  }
+
+  function colorOf(i) {
+    return 'rgb(' + Math.round(nodeColor[i*3]*255) + ',' + Math.round(nodeColor[i*3+1]*255) + ',' + Math.round(nodeColor[i*3+2]*255) + ')';
+  }
+
+  function renderStats() {
+    $('stats').innerHTML =
+      stat(fmt(N), 'nodes') + stat(fmt(E), 'edges') +
+      stat(String(metrics.communityCount), 'clusters') +
+      stat(insights.avgDegree.toFixed(1), 'avg deg');
+    $('footnote').textContent =
+      'modularity ' + metrics.modularity.toFixed(2) +
+      ' · density ' + insights.density.toFixed(4) +
+      ' · ' + insights.components + ' component' + (insights.components === 1 ? '' : 's') +
+      ' · diameter ≈ ' + insights.diameter;
+  }
+  function stat(value, label) {
+    return '<div class="stat"><b>' + value + '</b><span>' + label + '</span></div>';
+  }
+
+  function renderRanks(id, list, values, accentVar) {
+    var max = values[list[0]] || 1;
+    $(id).innerHTML = list.map(function (i) {
+      var pct = ((values[i] / max) * 100).toFixed(1);
+      return '<button class="rank" data-node="' + i + '" type="button">' +
+        '<span>' + escapeHtml(graph.nodes[i].label) + '</span>' +
+        '<span class="rank__bar"><i style="width:' + pct + '%;background:' + accentVar + '"></i></span>' +
+        '</button>';
+    }).join('');
+  }
+
+  function renderLegend() {
+    var el = $('legend');
+    if (colorMode === 'pagerank' || colorMode === 'betweenness') {
+      var stops = theme.ramp.join(',');
+      el.innerHTML = '<div class="ramp"><div class="ramp__bar" style="background:linear-gradient(90deg,' + stops + ')"></div>' +
+        '<div class="ramp__ends"><span>low</span><span>' +
+        (colorMode === 'pagerank' ? 'influence' : 'bridging') + '</span><span>high</span></div></div>';
+      return;
+    }
+    var counts = {}, keyOf, i;
+    if (colorMode === 'community') {
+      for (i = 0; i < N; i++) counts[metrics.community[i]] = (counts[metrics.community[i]] || 0) + 1;
+      keyOf = function (k) { return 'Cluster ' + (Number(k) + 1); };
+    } else {
+      for (i = 0; i < N; i++) counts[graph.nodes[i].type] = (counts[graph.nodes[i].type] || 0) + 1;
+      keyOf = function (k) { return k; };
+    }
+    var keys = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; }).slice(0, 10);
+    el.innerHTML = keys.map(function (k) {
+      var idx = colorMode === 'community' ? Number(k) : typeIndex(k);
+      var color = theme.palette[idx % theme.palette.length];
+      return '<button class="row' + (isolatedKey === k ? ' is-active' : '') + '" data-legend="' + escapeHtml(k) + '" type="button">' +
+        '<span class="swatch" style="background:' + color + '"></span>' +
+        '<span class="row__name">' + escapeHtml(keyOf(k)) + '</span>' +
+        '<span class="row__meta">' + counts[k] + '</span></button>';
+    }).join('');
+  }
+
+  function renderInspector() {
+    var body = $('inspector'), stripe = $('stripe');
+    if (selection.length === 0) {
+      body.innerHTML = '<div class="empty">Click any node. Double-click to focus it and dim everything outside its neighbourhood.</div>';
+      stripe.style.background = 'var(--hairline)';
+      return;
+    }
+    if (selection.length > 1) {
+      body.innerHTML = '<div class="empty">' + selection.length + ' nodes selected. Shift-click to adjust.</div>';
+      stripe.style.background = 'var(--hairline)';
+      return;
+    }
+    var i = selection[0], node = graph.nodes[i];
+    stripe.style.background = colorOf(i);
+
+    var nb = [];
+    for (var j = offsets[i]; j < offsets[i+1]; j++) nb.push(neighbors[j]);
+    nb.sort(function (a, b) { return metrics.pagerank[b] - metrics.pagerank[a]; });
+
+    body.innerHTML =
+      '<div class="ident"><span class="swatch" style="margin-top:5px;background:' + colorOf(i) + '"></span>' +
+      '<div><h2>' + escapeHtml(node.label) + '</h2>' +
+      '<p>' + escapeHtml(node.type) + ' · ' + escapeHtml(node.domain) + '</p></div></div>' +
+
+      '<dl class="kv">' +
+      row('Connections', String(degreeOf(i))) +
+      row('Influence', (metrics.pagerank[i] * 1000).toFixed(2)) +
+      row('Bridging', metrics.betweenness[i].toFixed(3)) +
+      row('Cluster', String(metrics.community[i] + 1)) +
+      row('Owner', node.owner) +
+      row('Criticality', node.criticality) +
+      '</dl>' +
+
+      '<div class="subhead">Connected to ' + nb.length + '</div>' +
+      '<div class="chips">' + nb.slice(0, 9).map(function (n) {
+        return '<button class="chip" data-node="' + n + '" type="button">' + escapeHtml(graph.nodes[n].label) + '</button>';
+      }).join('') + '</div>' +
+
+      '<div class="actions">' +
+      '<button class="btn btn--primary" data-action="focus" type="button">Focus</button>' +
+      '<button class="btn" data-action="origin" type="button">Set as origin</button>' +
+      '<button class="btn btn--ghost" data-action="pin" type="button">' +
+      (pinned[i] ? 'Unpin' : 'Pin here') + '</button>' +
+      '</div>';
+  }
+  function row(k, v) { return '<dt>' + k + '</dt><dd>' + escapeHtml(v) + '</dd>'; }
+
+  function renderTrace() {
+    var fromName = $('from-name'), toName = $('to-name');
+    fromName.textContent = traceFrom >= 0 ? graph.nodes[traceFrom].label : 'not set';
+    toName.textContent = traceTo >= 0 ? graph.nodes[traceTo].label : 'not set';
+    fromName.classList.toggle('is-empty', traceFrom < 0);
+    toName.classList.toggle('is-empty', traceTo < 0);
+    $('slot-from').classList.toggle('is-set', traceFrom >= 0);
+    $('slot-to').classList.toggle('is-set', traceTo >= 0);
+  }
+
+  function runTrace() {
+    var out = $('trace-out');
+    if (traceFrom < 0 || traceTo < 0) {
+      out.textContent = 'Set both an origin and a destination first.';
+      return;
+    }
+    var path = shortestPath(traceFrom, traceTo);
+    if (!path) {
+      out.textContent = 'No path exists between those two nodes.';
+      tracePath = []; traceEdges = {}; refreshStates();
+      return;
+    }
+    tracePath = path;
+    traceEdges = {};
+    var pairs = {};
+    for (var i = 0; i < path.length - 1; i++) {
+      pairs[Math.min(path[i], path[i+1]) + ':' + Math.max(path[i], path[i+1])] = 1;
+    }
+    for (var e = 0; e < E; e++) {
+      var ed = graph.edges[e];
+      if (pairs[Math.min(ed.s, ed.t) + ':' + Math.max(ed.s, ed.t)]) traceEdges[e] = 1;
+    }
+    dimSet = {};
+    path.forEach(function (i) { dimSet[i] = 1; });
+    refreshStates();
+
+    out.innerHTML = '<div>' + (path.length - 1) + ' hops · ' + path.length + ' nodes on the route</div>' +
+      '<div class="hops">' + path.map(function (i, k) {
+        return (k ? '<span class="hop-arrow">→</span>' : '') +
+          '<button class="hop" data-node="' + i + '" type="button">' + escapeHtml(graph.nodes[i].label) + '</button>';
+      }).join('') + '</div>';
+
+    var b = boundsOf(path);
+    cameraFollows = false;
+    flyTo(b.centre, clamp(b.radius * 1.6 / Math.tan(FOV/2), 60, WORLD * 7), 900);
+  }
+
+  /* ── search ────────────────────────────────────────────────────────────── */
+
+  var searchTimer = null;
+  $('search').addEventListener('input', function () {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(runSearch, 110);
+  });
+  $('search').addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { this.value = ''; runSearch(); }
+  });
+
+  function runSearch() {
+    var q = $('search').value.trim().toLowerCase(), box = $('results');
+    if (!q) { box.className = 'results'; box.innerHTML = ''; return; }
+    var hits = [];
+    for (var i = 0; i < N && hits.length < 7; i++) {
+      var n = graph.nodes[i];
+      if ((n.label + ' ' + n.type + ' ' + n.domain).toLowerCase().indexOf(q) !== -1) hits.push(i);
+    }
+    box.className = 'results is-open';
+    box.innerHTML = hits.length
+      ? hits.map(function (i) {
+          return '<button class="row" data-node="' + i + '" type="button">' +
+            '<span class="swatch" style="background:' + colorOf(i) + '"></span>' +
+            '<span class="row__name">' + escapeHtml(graph.nodes[i].label) + '</span>' +
+            '<span class="row__meta">' + graph.nodes[i].type + '</span></button>';
+        }).join('')
+      : '<div class="empty">No entity matches “' + escapeHtml(q) + '”.</div>';
+  }
+
+  /* ── delegated clicks ──────────────────────────────────────────────────── */
+
+  document.addEventListener('click', function (e) {
+    var nodeBtn = e.target.closest('[data-node]');
+    if (nodeBtn) {
+      var i = Number(nodeBtn.dataset.node);
+      dismissHint();
+      if (nodeBtn.classList.contains('rank') || nodeBtn.closest('#results')) focusNode(i);
+      else select(i, false);
+      return;
+    }
+    var legendBtn = e.target.closest('[data-legend]');
+    if (legendBtn) {
+      var key = legendBtn.dataset.legend;
+      dismissHint();
+      if (isolatedKey === key) { clearFocus(); }
+      else {
+        isolatedKey = key;
+        dimSet = {};
+        for (var k = 0; k < N; k++) {
+          var match = colorMode === 'community'
+            ? String(metrics.community[k]) === key
+            : graph.nodes[k].type === key;
+          if (match) dimSet[k] = 1;
+        }
+        tracePath = []; traceEdges = {};
+        refreshStates();
+        renderLegend();
+      }
+      return;
+    }
+    var action = e.target.closest('[data-action]');
+    if (action && selection.length === 1) {
+      var sel = selection[0];
+      if (action.dataset.action === 'focus') focusNode(sel);
+      if (action.dataset.action === 'origin') { traceFrom = sel; renderTrace(); }
+      if (action.dataset.action === 'pin') {
+        pinned[sel] = pinned[sel] ? 0 : 1;
+        if (!pinned[sel] && layoutName === 'force') { alpha = Math.max(alpha, 0.3); layoutRunning = true; }
+        renderInspector();
+      }
+    }
+  });
+
+  $('btn-from').addEventListener('click', function () {
+    if (selection.length === 1) { traceFrom = selection[0]; renderTrace(); }
+  });
+  $('btn-to').addEventListener('click', function () {
+    if (selection.length === 1) { traceTo = selection[0]; renderTrace(); }
+  });
+  $('btn-trace').addEventListener('click', runTrace);
+  $('btn-clear').addEventListener('click', function () {
+    traceFrom = traceTo = -1;
+    tracePath = []; traceEdges = {};
+    dimSet = null;
+    renderTrace();
+    refreshStates();
+    $('trace-out').textContent = 'Select a node, set it as origin, then pick a destination.';
+  });
+
+  $('btn-fit').addEventListener('click', function () { userTookCamera = false; frameAll(900); });
+  $('btn-reset').addEventListener('click', function () {
+    select(-1); clearFocus();
+    traceFrom = traceTo = -1; renderTrace();
+    $('trace-out').textContent = 'Select a node, set it as origin, then pick a destination.';
+    pinned.fill(0);
+    userTookCamera = false;
+    startLayout($('sel-layout').value);
+    if (layoutName !== 'force') frameAll(900);
+  });
+
+  $('sel-layout').addEventListener('change', function () { dismissHint(); startLayout(this.value); });
+  $('sel-color').addEventListener('change', function () {
+    colorMode = this.value; isolatedKey = null; refreshColors(); renderInspector();
+  });
+  $('sel-size').addEventListener('change', function () { sizeMode = this.value; refreshRadii(); dirty = true; });
+
+  $('btn-theme').addEventListener('click', function () {
+    var next = activeThemeName() === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    applyTheme();
+  });
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+    if (!document.documentElement.hasAttribute('data-theme')) applyTheme();
+  });
+
+  function applyTheme() {
+    var name = activeThemeName();
+    theme = THEMES[name];
+    $('btn-theme').textContent = name === 'dark' ? 'Light' : 'Dark';
+    refreshColors();
+    refreshEdgeColors();
+    dirty = true;
+  }
+
+  function dismissHint() {
+    var h = $('hint');
+    if (h && !h.classList.contains('is-gone')) h.classList.add('is-gone');
+  }
+
+  /* ═══════════════════════════════ boot ═══════════════════════════════ */
+
+  resize();
+  applyTheme();
+  refreshRadii();
+  startLayout('force');
+  renderStats();
+  renderRanks('hubs', insights.hubs, metrics.pagerank, 'var(--accent)');
+  renderRanks('bridges', insights.bridges, metrics.betweenness, '#4fbfe8');
+  renderTrace();
+  // Open on the graph's most influential node rather than an empty inspector:
+  // the first look should show what the tool does, not what it needs.
+  if (insights.hubs.length) selection = [insights.hubs[0]];
+  refreshStates();
+  renderInspector();
+  frameAll(0);
+
+  var readout = $('readout');
+
+  function loop(now) {
+    requestAnimationFrame(loop);
+    var dt = Math.min(0.05, (now - lastFrame) / 1000);
+    lastFrame = now;
+    var time = now / 1000;
+
+    if (layoutRunning) {
+      var energy = forceTick();
+      if (alpha < 0.0035 || iteration > 620) layoutRunning = false;
+      if (cameraFollows && iteration % 6 === 0) frameAll(360);
+      dirty = true;
+    }
+
+    // camera integration
+    if (flight) {
+      var t = clamp((now - flight.start) / flight.duration, 0, 1), k = easeInOut(t);
+      for (var i = 0; i < 3; i++) cam.target[i] = flight.from[i] + (flight.to[i] - flight.from[i]) * k;
+      cam.radius = flight.fromR + (flight.toR - flight.fromR) * k;
+      if (t >= 1) flight = null;
+      dirty = true;
+    } else {
+      cam.theta += camVel.theta;
+      cam.phi = clamp(cam.phi + camVel.phi, 0.12, Math.PI - 0.12);
+      cam.radius = clamp(cam.radius + camVel.radius, 30, WORLD * 12);
+      for (var a = 0; a < 3; a++) cam.target[a] += panVel[a];
+      var decay = 0.86;
+      camVel.theta *= decay; camVel.phi *= decay; camVel.radius *= decay;
+      panVel[0] *= decay; panVel[1] *= decay; panVel[2] *= decay;
+      if (Math.abs(camVel.theta) > 1e-5 || Math.abs(camVel.phi) > 1e-5 ||
+          Math.abs(camVel.radius) > 1e-3 || Math.abs(panVel[0]) > 1e-4) dirty = true;
+
+      // Idle drift: enough to keep the scene alive, slow enough not to fight
+      // a reader who is studying one region.
+      if (!reduceMotion && now - lastInteraction > 11000) { cam.theta += 0.02 * dt; dirty = true; }
+    }
+
+    if (dirty || tracePath.length) {
+      var eyePos = cameraPosition();
+      lookAt(view, eyePos, cam.target, [0, 1, 0]);
+      perspective(proj, FOV, width / height, Math.max(0.5, cam.radius * 0.006), cam.radius * 14);
+
+      if (layoutRunning || dragIndex >= 0) { uploadNodePositions(); updateEdgeGeometry(); }
+      draw(time);
+      projectAll();
+      drawLabels();
+      dirty = tracePath.length > 0 || layoutRunning;
+    }
+
+    fpsAcc += dt; fpsCount++;
+    if (fpsAcc >= 0.5) {
+      fps = fpsCount / fpsAcc; fpsAcc = 0; fpsCount = 0;
+      readout.innerHTML =
+        '<b>' + fmt(N) + '</b> nodes · <b>' + fmt(E) + '</b> edges · <b>' +
+        fps.toFixed(0) + '</b> fps · ' +
+        (layoutRunning ? 'settling ' + iteration : 'settled');
+    }
+  }
+
+  // First geometry upload, then run.
+  uploadNodePositions();
+  updateEdgeGeometry();
+  requestAnimationFrame(loop);
+})();
+</script>

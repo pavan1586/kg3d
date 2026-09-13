@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>kg3d — standalone example</title>
+    <style>
+      html, body { margin: 0; height: 100%; background: #070910; }
+      #graph { width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="graph"></div>
+
+    <!--
+      No build step. The import map lets the bare "three" specifier resolve,
+      which is what @kg3d/core imports internally. The second entry covers the
+      post-processing modules the bloom pass imports lazily.
+
+      If you would rather not think about import maps at all, use
+      script-tag.html instead: it loads the single-file browser bundle with
+      three.js already inside.
+
+      Run `npm install && npm run build` in the repository root first, then open
+      this file through a local server (module scripts do not load from file://).
+    -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+          "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module">
+      // Resolved from this clone, so the example works before anything is
+      // published. From a CDN instead:
+      //   import { KnowledgeGraph3D } from 'https://cdn.jsdelivr.net/npm/@kg3d/core/dist/index.js';
+      import { KnowledgeGraph3D } from '../packages/core/dist/index.js';
+
+      const nodes = [
+        { id: 'gateway',  label: 'API Gateway',    type: 'Service', weight: 9 },
+        { id: 'payments', label: 'Payments',       type: 'Service', weight: 7 },
+        { id: 'identity', label: 'Identity',       type: 'Service', weight: 6 },
+        { id: 'ledger',   label: 'Ledger DB',      type: 'Dataset', weight: 5 },
+        { id: 'events',   label: 'Event Stream',   type: 'Dataset', weight: 4 },
+        { id: 'pci',      label: 'PCI-DSS',        type: 'Policy',  weight: 3 },
+        { id: 'teamPay',  label: 'Payments Team',  type: 'Team',    weight: 3 },
+        { id: 'teamPlat', label: 'Platform Team',  type: 'Team',    weight: 4 },
+        { id: 'runbook',  label: 'Incident Runbook', type: 'Document', weight: 2 },
+      ];
+
+      const edges = [
+        { source: 'gateway',  target: 'payments', type: 'routes_to' },
+        { source: 'gateway',  target: 'identity', type: 'routes_to' },
+        { source: 'payments', target: 'ledger',   type: 'writes' },
+        { source: 'payments', target: 'events',   type: 'produces' },
+        { source: 'identity', target: 'events',   type: 'produces' },
+        { source: 'pci',      target: 'payments', type: 'governs' },
+        { source: 'pci',      target: 'ledger',   type: 'governs' },
+        { source: 'teamPay',  target: 'payments', type: 'owns' },
+        { source: 'teamPlat', target: 'gateway',  type: 'owns' },
+        { source: 'teamPlat', target: 'events',   type: 'owns' },
+        { source: 'runbook',  target: 'payments', type: 'references' },
+      ];
+
+      const graph = new KnowledgeGraph3D(document.getElementById('graph'), {
+        data: { nodes, edges },
+        colorBy: { by: 'type' },
+        sizeBy: { by: 'weight' },
+      });
+
+      graph.on('nodeClick', ({ node }) => {
+        console.log(node.label, graph.getNodeMetrics(node.id));
+      });
+
+      graph.on('ready', () => console.table(graph.getInsights()?.hubs));
+    </script>
+  </body>
+</html>
