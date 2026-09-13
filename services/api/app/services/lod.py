@@ -73,7 +73,9 @@ def backbone(data: GraphData, analytics: AnalyticsResult, keep_ratio: float = 0.
     for _, group in by_community.items():
         ranked = sorted(
             group,
-            key=lambda node_id: analytics.metrics[node_id].pagerank if node_id in analytics.metrics else 0,
+            key=lambda node_id: (
+                analytics.metrics[node_id].pagerank if node_id in analytics.metrics else 0
+            ),
             reverse=True,
         )
         take = max(1, int(len(ranked) * keep_ratio))

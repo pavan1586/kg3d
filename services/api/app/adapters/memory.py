@@ -16,7 +16,9 @@ from app.models.graph import Edge, GraphData, GraphPatch, Node
 class MemoryAdapter(GraphAdapter):
     kind = "memory"
 
-    def __init__(self, graph_id: str, options: dict[str, Any] | None = None, directed: bool = False):
+    def __init__(
+        self, graph_id: str, options: dict[str, Any] | None = None, directed: bool = False
+    ):
         super().__init__(graph_id, options, directed)
         payload = self.options.get("data") or {"nodes": [], "edges": []}
         if isinstance(payload, GraphData):
@@ -34,9 +36,7 @@ class MemoryAdapter(GraphAdapter):
     def apply_patch(self, patch: GraphPatch) -> GraphData:
         """Apply a mutation and return the new graph state."""
         nodes: dict[str, Node] = {n.id: n for n in self._data.nodes}
-        edges: dict[str, Edge] = {
-            (e.id or f"{e.source}->{e.target}"): e for e in self._data.edges
-        }
+        edges: dict[str, Edge] = {(e.id or f"{e.source}->{e.target}"): e for e in self._data.edges}
 
         for node in patch.addNodes or []:
             nodes[node.id] = node

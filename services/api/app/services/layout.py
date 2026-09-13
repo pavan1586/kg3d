@@ -169,7 +169,9 @@ def _repulsion(
     # Aim for ~8 occupants per cell: enough that real neighbours share a cell,
     # few enough that the padded gather stays small.
     cells_per_axis = int(np.clip(round((n / 8) ** (1 / 3)), 3, 32))
-    coords = np.clip((positions - lo) / (span / cells_per_axis), 0, cells_per_axis - 1).astype(np.int64)
+    coords = np.clip((positions - lo) / (span / cells_per_axis), 0, cells_per_axis - 1).astype(
+        np.int64
+    )
     flat = (coords[:, 0] * cells_per_axis + coords[:, 1]) * cells_per_axis + coords[:, 2]
 
     order = np.argsort(flat, kind="stable")
@@ -187,7 +189,7 @@ def _repulsion(
     table = np.full((unique_cells.size, max_cell_members), -1, dtype=np.int64)
     table[inverse[keep], rank[keep]] = order[keep]
 
-    members = table[inverse]                     # (n_sorted, max_cell_members)
+    members = table[inverse]  # (n_sorted, max_cell_members)
     valid = members >= 0
     neighbour_pos = positions[np.where(valid, members, 0)]
     delta = neighbour_pos - positions[order][:, None, :]

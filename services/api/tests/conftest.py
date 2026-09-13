@@ -21,7 +21,9 @@ def client(settings):
     app = create_app()
     with TestClient(app) as test_client:
         registry.register(
-            GraphSource(id="tiny", name="Tiny", kind="memory", options={"data": tiny_graph().model_dump()})
+            GraphSource(
+                id="tiny", name="Tiny", kind="memory", options={"data": tiny_graph().model_dump()}
+            )
         )
         reset_cache()
         yield test_client

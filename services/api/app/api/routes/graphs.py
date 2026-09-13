@@ -147,7 +147,9 @@ async def get_graph(
             ),
         )
 
-    analytics = await _analytics(adapter, cache, settings) if (metrics or level is not None) else None
+    analytics = (
+        await _analytics(adapter, cache, settings) if (metrics or level is not None) else None
+    )
 
     if level is not None and analytics is not None:
         data = lod.level(data, analytics, level)
@@ -165,9 +167,7 @@ async def get_graph(
         computed = (
             layered_layout(result, settings.layout_scale)
             if layout == "layered"
-            else force_layout_3d(
-                result, settings.layout_iterations, settings.layout_scale
-            )
+            else force_layout_3d(result, settings.layout_iterations, settings.layout_scale)
         )
         result = apply_positions(result, computed)
 
@@ -277,9 +277,7 @@ async def get_layout(
     def compute():
         if algorithm == "layered":
             return layered_layout(data, settings.layout_scale)
-        return force_layout_3d(
-            data, steps, settings.layout_scale, dimensions=dimensions
-        )
+        return force_layout_3d(data, steps, settings.layout_scale, dimensions=dimensions)
 
     result = cache.get_or_compute(key, compute)
     return LayoutResponse(

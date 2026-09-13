@@ -71,7 +71,9 @@ class Neo4jAdapter(GraphAdapter):
             props = dict(record.get("props") or {})
             # Neo4j temporal/spatial types don't serialise to JSON; stringify
             # anything that isn't a primitive rather than failing the request.
-            meta = {k: v if isinstance(v, (str, int, float, bool)) else str(v) for k, v in props.items()}
+            meta = {
+                k: v if isinstance(v, (str, int, float, bool)) else str(v) for k, v in props.items()
+            }
             nodes.append(
                 Node(
                     id=str(record["id"]),
