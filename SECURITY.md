@@ -3,7 +3,7 @@
 ## Reporting a vulnerability
 
 Please report security issues privately through
-[GitHub's private vulnerability reporting](https://github.com/kg3d/kg3d/security/advisories/new)
+[GitHub's private vulnerability reporting](https://github.com/pavan1586/kg3d/security/advisories/new)
 rather than opening a public issue. You should get an acknowledgement within a
 few days.
 

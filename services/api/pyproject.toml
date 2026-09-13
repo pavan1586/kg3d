@@ -16,10 +16,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/kg3d/kg3d"
-Repository = "https://github.com/kg3d/kg3d"
-Issues = "https://github.com/kg3d/kg3d/issues"
-Documentation = "https://github.com/kg3d/kg3d/blob/main/docs/api.md"
+Homepage = "https://github.com/pavan1586/kg3d"
+Repository = "https://github.com/pavan1586/kg3d"
+Issues = "https://github.com/pavan1586/kg3d/issues"
+Documentation = "https://github.com/pavan1586/kg3d/blob/main/docs/api.md"
 
 [project.optional-dependencies]
 sql = ["SQLAlchemy>=2.0"]

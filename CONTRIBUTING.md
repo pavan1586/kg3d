@@ -6,7 +6,7 @@ welcome.
 ## Getting set up
 
 ```bash
-git clone https://github.com/kg3d/kg3d.git
+git clone https://github.com/pavan1586/kg3d.git
 cd kg3d
 npm install
 npm run build        # the demo will not start until the packages are built
