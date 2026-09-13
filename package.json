@@ -1,0 +1,42 @@
+{
+  "name": "kg3d",
+  "private": true,
+  "version": "0.2.0",
+  "description": "kg3d \u2014 a 3D interactive knowledge graph library: WebGL engine, React bindings and a FastAPI graph service.",
+  "license": "MIT",
+  "author": "Pavan",
+  "homepage": "https://github.com/kg3d/kg3d#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kg3d/kg3d.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kg3d/kg3d/issues"
+  },
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @kg3d/core && npm run build -w @kg3d/react",
+    "build:demo": "npm run build -w @kg3d/demo",
+    "typecheck": "npm run typecheck -w @kg3d/core && npm run typecheck -w @kg3d/react",
+    "test": "npm run test -w @kg3d/core",
+    "format": "prettier --write \"**/*.{ts,tsx,js,mjs,json,css,md,yml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,mjs,json,css,md,yml}\"",
+    "verify": "npm run format:check && npm run typecheck && npm run build && npm run test",
+    "dev": "npm run dev -w @kg3d/demo",
+    "api": "uvicorn app.main:app --reload --app-dir services/api",
+    "clean": "rm -rf packages/*/dist apps/*/dist node_modules",
+    "test:render": "node scripts/smoke-render.mjs"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.0",
+    "typescript": "^5.6.0",
+    "playwright": "^1.48.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

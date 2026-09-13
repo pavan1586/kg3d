@@ -1,0 +1,5169 @@
+{
+ "nodes": [
+  {
+   "id": "n0",
+   "label": "Global Scheduler",
+   "type": "Concept",
+   "group": 1,
+   "weight": 4,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n1",
+   "label": "Core Sentinel Set",
+   "type": "Dataset",
+   "group": 3,
+   "weight": 5,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n2",
+   "label": "Batch Tidal",
+   "type": "Document",
+   "group": 0,
+   "weight": 10,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "medium",
+    "connections": 9
+   }
+  },
+  {
+   "id": "n3",
+   "label": "Internal Tidal",
+   "type": "Service",
+   "group": 1,
+   "weight": 16,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 15
+   }
+  },
+  {
+   "id": "n4",
+   "label": "Shared Tidal",
+   "type": "Service",
+   "group": 3,
+   "weight": 6,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 5
+   }
+  },
+  {
+   "id": "n5",
+   "label": "Partner Sentinel",
+   "type": "Concept",
+   "group": 0,
+   "weight": 13,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 12
+   }
+  },
+  {
+   "id": "n6",
+   "label": "Edge Router",
+   "type": "Service",
+   "group": 2,
+   "weight": 12,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 11
+   }
+  },
+  {
+   "id": "n7",
+   "label": "Global Forge",
+   "type": "Service",
+   "group": 2,
+   "weight": 12,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 11
+   }
+  },
+  {
+   "id": "n8",
+   "label": "Legacy Prism",
+   "type": "Policy",
+   "group": 2,
+   "weight": 11,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 10
+   }
+  },
+  {
+   "id": "n9",
+   "label": "Batch Warehouse",
+   "type": "Service",
+   "group": 2,
+   "weight": 8,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 7
+   }
+  },
+  {
+   "id": "n10",
+   "label": "Core Zenith Set",
+   "type": "Dataset",
+   "group": 2,
+   "weight": 4,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n11",
+   "label": "Partner Relay Set",
+   "type": "Dataset",
+   "group": 3,
+   "weight": 8,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 7
+   }
+  },
+  {
+   "id": "n12",
+   "label": "Global Index",
+   "type": "Service",
+   "group": 3,
+   "weight": 11,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 10
+   }
+  },
+  {
+   "id": "n13",
+   "label": "Partner Beacon",
+   "type": "Service",
+   "group": 1,
+   "weight": 4,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n14",
+   "label": "K. Harbor",
+   "type": "Person",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Guild",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n15",
+   "label": "R. Nexus",
+   "type": "Person",
+   "group": 0,
+   "weight": 18,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Guild",
+    "criticality": "low",
+    "connections": 17
+   }
+  },
+  {
+   "id": "n16",
+   "label": "Batch Index",
+   "type": "Team",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n17",
+   "label": "Legacy Lattice Set",
+   "type": "Dataset",
+   "group": 0,
+   "weight": 5,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "low",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n18",
+   "label": "Batch Relay",
+   "type": "Policy",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n19",
+   "label": "Realtime Willow",
+   "type": "Concept",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n20",
+   "label": "Unified Willow",
+   "type": "Document",
+   "group": 2,
+   "weight": 4,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n21",
+   "label": "Core Quarry Set",
+   "type": "Dataset",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n22",
+   "label": "Global Scheduler",
+   "type": "Service",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n23",
+   "label": "Realtime Prism",
+   "type": "Service",
+   "group": 3,
+   "weight": 8,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 7
+   }
+  },
+  {
+   "id": "n24",
+   "label": "Edge Zenith",
+   "type": "Service",
+   "group": 1,
+   "weight": 5,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "high",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n25",
+   "label": "Regional Pipeline Set",
+   "type": "Dataset",
+   "group": 1,
+   "weight": 5,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n26",
+   "label": "Realtime Sentinel",
+   "type": "Policy",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n27",
+   "label": "Batch Summit",
+   "type": "Concept",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n28",
+   "label": "Next Registry Set",
+   "type": "Dataset",
+   "group": 0,
+   "weight": 6,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "low",
+    "connections": 5
+   }
+  },
+  {
+   "id": "n29",
+   "label": "J. Orbit",
+   "type": "Person",
+   "group": 0,
+   "weight": 6,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Guild",
+    "criticality": "low",
+    "connections": 5
+   }
+  },
+  {
+   "id": "n30",
+   "label": "Edge Tidal Set",
+   "type": "Dataset",
+   "group": 2,
+   "weight": 2,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n31",
+   "label": "S. Relay",
+   "type": "Person",
+   "group": 0,
+   "weight": 12,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Guild",
+    "criticality": "low",
+    "connections": 11
+   }
+  },
+  {
+   "id": "n32",
+   "label": "Legacy Zenith",
+   "type": "Service",
+   "group": 2,
+   "weight": 8,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 7
+   }
+  },
+  {
+   "id": "n33",
+   "label": "Realtime Warehouse",
+   "type": "Service",
+   "group": 1,
+   "weight": 13,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "high",
+    "connections": 12
+   }
+  },
+  {
+   "id": "n34",
+   "label": "Regional Router",
+   "type": "Service",
+   "group": 0,
+   "weight": 5,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "low",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n35",
+   "label": "K. Harbor",
+   "type": "Person",
+   "group": 2,
+   "weight": 4,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Guild",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n36",
+   "label": "Edge Sentinel",
+   "type": "Team",
+   "group": 1,
+   "weight": 4,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n37",
+   "label": "Global Anchor",
+   "type": "Policy",
+   "group": 0,
+   "weight": 8,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "medium",
+    "connections": 7
+   }
+  },
+  {
+   "id": "n38",
+   "label": "Edge Orbit",
+   "type": "Policy",
+   "group": 1,
+   "weight": 5,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "high",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n39",
+   "label": "Next Zenith Set",
+   "type": "Dataset",
+   "group": 3,
+   "weight": 4,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n40",
+   "label": "Batch Compass",
+   "type": "Concept",
+   "group": 2,
+   "weight": 4,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n41",
+   "label": "M. Vault",
+   "type": "Person",
+   "group": 3,
+   "weight": 10,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Guild",
+    "criticality": "low",
+    "connections": 9
+   }
+  },
+  {
+   "id": "n42",
+   "label": "Batch Gateway",
+   "type": "Service",
+   "group": 2,
+   "weight": 6,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 5
+   }
+  },
+  {
+   "id": "n43",
+   "label": "Global Pipeline",
+   "type": "Service",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n44",
+   "label": "S. Forge",
+   "type": "Person",
+   "group": 1,
+   "weight": 4,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Guild",
+    "criticality": "low",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n45",
+   "label": "Legacy Registry",
+   "type": "Service",
+   "group": 1,
+   "weight": 4,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n46",
+   "label": "M. Catalog",
+   "type": "Person",
+   "group": 3,
+   "weight": 10,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Guild",
+    "criticality": "low",
+    "connections": 9
+   }
+  },
+  {
+   "id": "n47",
+   "label": "Edge Vector",
+   "type": "Document",
+   "group": 1,
+   "weight": 8,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 7
+   }
+  },
+  {
+   "id": "n48",
+   "label": "Shared Pipeline",
+   "type": "Document",
+   "group": 3,
+   "weight": 4,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n49",
+   "label": "Legacy Anchor",
+   "type": "Document",
+   "group": 2,
+   "weight": 4,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n50",
+   "label": "Edge Zenith",
+   "type": "Document",
+   "group": 0,
+   "weight": 4,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "medium",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n51",
+   "label": "Partner Gateway Set",
+   "type": "Dataset",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n52",
+   "label": "Regional Compass Set",
+   "type": "Dataset",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n53",
+   "label": "Global Pipeline",
+   "type": "Service",
+   "group": 1,
+   "weight": 5,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n54",
+   "label": "Legacy Zenith",
+   "type": "Service",
+   "group": 1,
+   "weight": 4,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n55",
+   "label": "Unified Ledger",
+   "type": "Team",
+   "group": 2,
+   "weight": 11,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 10
+   }
+  },
+  {
+   "id": "n56",
+   "label": "Global Catalog",
+   "type": "Document",
+   "group": 2,
+   "weight": 7,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 6
+   }
+  },
+  {
+   "id": "n57",
+   "label": "Unified Relay",
+   "type": "Service",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n58",
+   "label": "Next Prism",
+   "type": "Document",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n59",
+   "label": "Edge Willow",
+   "type": "Service",
+   "group": 3,
+   "weight": 4,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n60",
+   "label": "Regional Summit Set",
+   "type": "Dataset",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n61",
+   "label": "Edge Relay Set",
+   "type": "Dataset",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n62",
+   "label": "Edge Gateway",
+   "type": "Team",
+   "group": 3,
+   "weight": 2,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n63",
+   "label": "R. Catalog",
+   "type": "Person",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Guild",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n64",
+   "label": "Regional Prism",
+   "type": "Service",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n65",
+   "label": "Realtime Atlas",
+   "type": "Policy",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n66",
+   "label": "Regional Relay",
+   "type": "Document",
+   "group": 2,
+   "weight": 5,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n67",
+   "label": "Next Router",
+   "type": "Document",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n68",
+   "label": "Regional Scheduler",
+   "type": "Concept",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n69",
+   "label": "Global Warehouse",
+   "type": "Document",
+   "group": 1,
+   "weight": 5,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n70",
+   "label": "Next Sentinel",
+   "type": "Document",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n71",
+   "label": "Core Relay",
+   "type": "Service",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n72",
+   "label": "Global Tidal Set",
+   "type": "Dataset",
+   "group": 1,
+   "weight": 6,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 5
+   }
+  },
+  {
+   "id": "n73",
+   "label": "Next Atlas",
+   "type": "Document",
+   "group": 0,
+   "weight": 6,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 5
+   }
+  },
+  {
+   "id": "n74",
+   "label": "Core Quarry",
+   "type": "Team",
+   "group": 0,
+   "weight": 4,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n75",
+   "label": "S. Pipeline",
+   "type": "Person",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Guild",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n76",
+   "label": "Edge Broker",
+   "type": "Service",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n77",
+   "label": "Edge Zenith",
+   "type": "Policy",
+   "group": 1,
+   "weight": 5,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n78",
+   "label": "Partner Pipeline",
+   "type": "Team",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n79",
+   "label": "Unified Compass",
+   "type": "Service",
+   "group": 0,
+   "weight": 5,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "medium",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n80",
+   "label": "Global Catalog",
+   "type": "Policy",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n81",
+   "label": "Edge Lattice",
+   "type": "Service",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n82",
+   "label": "E. Relay",
+   "type": "Person",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Guild",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n83",
+   "label": "Edge Atlas",
+   "type": "Policy",
+   "group": 2,
+   "weight": 5,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n84",
+   "label": "Next Ledger Set",
+   "type": "Dataset",
+   "group": 1,
+   "weight": 4,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n85",
+   "label": "Legacy Summit",
+   "type": "Team",
+   "group": 0,
+   "weight": 4,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n86",
+   "label": "Batch Zenith",
+   "type": "Service",
+   "group": 0,
+   "weight": 6,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 5
+   }
+  },
+  {
+   "id": "n87",
+   "label": "Edge Tidal Set",
+   "type": "Dataset",
+   "group": 1,
+   "weight": 4,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n88",
+   "label": "E. Vector",
+   "type": "Person",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Guild",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n89",
+   "label": "Internal Forge",
+   "type": "Service",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n90",
+   "label": "Next Atlas",
+   "type": "Service",
+   "group": 2,
+   "weight": 2,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n91",
+   "label": "Edge Pipeline",
+   "type": "Service",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n92",
+   "label": "Batch Orbit Set",
+   "type": "Dataset",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n93",
+   "label": "Next Pipeline",
+   "type": "Team",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n94",
+   "label": "Unified Scheduler Set",
+   "type": "Dataset",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n95",
+   "label": "M. Nexus",
+   "type": "Person",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Guild",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n96",
+   "label": "Regional Vector Set",
+   "type": "Dataset",
+   "group": 3,
+   "weight": 4,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n97",
+   "label": "Batch Forge",
+   "type": "Team",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n98",
+   "label": "Shared Summit",
+   "type": "Policy",
+   "group": 3,
+   "weight": 4,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "low",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n99",
+   "label": "Next Relay",
+   "type": "Policy",
+   "group": 2,
+   "weight": 2,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n100",
+   "label": "Core Vector",
+   "type": "Service",
+   "group": 2,
+   "weight": 4,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n101",
+   "label": "Realtime Forge",
+   "type": "Team",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n102",
+   "label": "Realtime Router",
+   "type": "Service",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n103",
+   "label": "Unified Prism",
+   "type": "Service",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n104",
+   "label": "Realtime Compass Set",
+   "type": "Dataset",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n105",
+   "label": "Global Tidal",
+   "type": "Team",
+   "group": 1,
+   "weight": 4,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n106",
+   "label": "Edge Warehouse Set",
+   "type": "Dataset",
+   "group": 3,
+   "weight": 5,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n107",
+   "label": "Next Nexus",
+   "type": "Document",
+   "group": 2,
+   "weight": 2,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n108",
+   "label": "Core Anchor",
+   "type": "Team",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n109",
+   "label": "Realtime Sentinel",
+   "type": "Service",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n110",
+   "label": "K. Lattice",
+   "type": "Person",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Guild",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n111",
+   "label": "Global Sentinel",
+   "type": "Service",
+   "group": 0,
+   "weight": 4,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n112",
+   "label": "Regional Meridian",
+   "type": "Service",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n113",
+   "label": "S. Anchor",
+   "type": "Person",
+   "group": 1,
+   "weight": 5,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Guild",
+    "criticality": "medium",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n114",
+   "label": "B. Zenith",
+   "type": "Person",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Guild",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n115",
+   "label": "Global Gateway",
+   "type": "Service",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n116",
+   "label": "Core Pipeline",
+   "type": "Service",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n117",
+   "label": "S. Index",
+   "type": "Person",
+   "group": 3,
+   "weight": 4,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Guild",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n118",
+   "label": "Internal Harbor",
+   "type": "Team",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n119",
+   "label": "Regional Warehouse",
+   "type": "Service",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n120",
+   "label": "Legacy Zenith",
+   "type": "Team",
+   "group": 2,
+   "weight": 4,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n121",
+   "label": "Partner Harbor",
+   "type": "Document",
+   "group": 0,
+   "weight": 5,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 4
+   }
+  },
+  {
+   "id": "n122",
+   "label": "Shared Broker",
+   "type": "Service",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n123",
+   "label": "Realtime Catalog",
+   "type": "Policy",
+   "group": 3,
+   "weight": 2,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n124",
+   "label": "Partner Relay",
+   "type": "Team",
+   "group": 3,
+   "weight": 4,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n125",
+   "label": "Realtime Scheduler",
+   "type": "Concept",
+   "group": 3,
+   "weight": 6,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 5
+   }
+  },
+  {
+   "id": "n126",
+   "label": "Partner Lattice Set",
+   "type": "Dataset",
+   "group": 2,
+   "weight": 4,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n127",
+   "label": "Edge Router",
+   "type": "Document",
+   "group": 2,
+   "weight": 2,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n128",
+   "label": "K. Forge",
+   "type": "Person",
+   "group": 3,
+   "weight": 8,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Guild",
+    "criticality": "medium",
+    "connections": 7
+   }
+  },
+  {
+   "id": "n129",
+   "label": "Internal Vault Set",
+   "type": "Dataset",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n130",
+   "label": "Internal Compass",
+   "type": "Concept",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n131",
+   "label": "Internal Lattice",
+   "type": "Concept",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n132",
+   "label": "Unified Orbit",
+   "type": "Service",
+   "group": 3,
+   "weight": 4,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "low",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n133",
+   "label": "J. Forge",
+   "type": "Person",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Guild",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n134",
+   "label": "Shared Meridian Set",
+   "type": "Dataset",
+   "group": 3,
+   "weight": 2,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n135",
+   "label": "Unified Index",
+   "type": "Service",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n136",
+   "label": "Core Nexus",
+   "type": "Team",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n137",
+   "label": "Global Registry",
+   "type": "Policy",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n138",
+   "label": "Next Sentinel",
+   "type": "Concept",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n139",
+   "label": "J. Cascade",
+   "type": "Person",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Guild",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n140",
+   "label": "N. Registry",
+   "type": "Person",
+   "group": 1,
+   "weight": 9,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Guild",
+    "criticality": "medium",
+    "connections": 8
+   }
+  },
+  {
+   "id": "n141",
+   "label": "Core Atlas",
+   "type": "Service",
+   "group": 2,
+   "weight": 4,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n142",
+   "label": "Global Beacon",
+   "type": "Team",
+   "group": 3,
+   "weight": 2,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n143",
+   "label": "Shared Summit",
+   "type": "Policy",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n144",
+   "label": "Core Anchor",
+   "type": "Team",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n145",
+   "label": "Realtime Sentinel",
+   "type": "Document",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n146",
+   "label": "Partner Vault",
+   "type": "Team",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n147",
+   "label": "Partner Atlas Set",
+   "type": "Dataset",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n148",
+   "label": "Shared Relay Set",
+   "type": "Dataset",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n149",
+   "label": "Next Summit",
+   "type": "Service",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n150",
+   "label": "Realtime Nexus",
+   "type": "Policy",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n151",
+   "label": "Shared Prism",
+   "type": "Service",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n152",
+   "label": "Regional Vector",
+   "type": "Service",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n153",
+   "label": "T. Warehouse",
+   "type": "Person",
+   "group": 3,
+   "weight": 4,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Guild",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n154",
+   "label": "Edge Harbor",
+   "type": "Service",
+   "group": 3,
+   "weight": 2,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n155",
+   "label": "Global Lattice Set",
+   "type": "Dataset",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n156",
+   "label": "Internal Warehouse",
+   "type": "Team",
+   "group": 0,
+   "weight": 8,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "medium",
+    "connections": 7
+   }
+  },
+  {
+   "id": "n157",
+   "label": "Global Beacon",
+   "type": "Policy",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n158",
+   "label": "Batch Prism",
+   "type": "Document",
+   "group": 2,
+   "weight": 2,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n159",
+   "label": "Realtime Catalog",
+   "type": "Team",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n160",
+   "label": "Partner Ledger",
+   "type": "Concept",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n161",
+   "label": "Shared Anchor",
+   "type": "Team",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n162",
+   "label": "Internal Quarry",
+   "type": "Team",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n163",
+   "label": "Global Forge",
+   "type": "Team",
+   "group": 2,
+   "weight": 2,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n164",
+   "label": "Partner Orbit Set",
+   "type": "Dataset",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n165",
+   "label": "Edge Warehouse",
+   "type": "Document",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n166",
+   "label": "Global Forge",
+   "type": "Team",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n167",
+   "label": "Internal Zenith",
+   "type": "Team",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n168",
+   "label": "Internal Tidal",
+   "type": "Document",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n169",
+   "label": "N. Scheduler",
+   "type": "Person",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Guild",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n170",
+   "label": "Legacy Vector",
+   "type": "Concept",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n171",
+   "label": "Regional Router",
+   "type": "Concept",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n172",
+   "label": "Edge Nexus Set",
+   "type": "Dataset",
+   "group": 3,
+   "weight": 2,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n173",
+   "label": "Regional Compass",
+   "type": "Team",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n174",
+   "label": "Partner Willow Set",
+   "type": "Dataset",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n175",
+   "label": "Regional Lattice",
+   "type": "Service",
+   "group": 2,
+   "weight": 2,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n176",
+   "label": "Realtime Index",
+   "type": "Concept",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n177",
+   "label": "Batch Quarry",
+   "type": "Concept",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n178",
+   "label": "Legacy Willow Set",
+   "type": "Dataset",
+   "group": 2,
+   "weight": 2,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n179",
+   "label": "Regional Harbor",
+   "type": "Team",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n180",
+   "label": "Next Orbit Set",
+   "type": "Dataset",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n181",
+   "label": "E. Router",
+   "type": "Person",
+   "group": 3,
+   "weight": 2,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Guild",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n182",
+   "label": "Batch Zenith",
+   "type": "Team",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n183",
+   "label": "Core Broker",
+   "type": "Service",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n184",
+   "label": "Next Beacon",
+   "type": "Service",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n185",
+   "label": "Partner Orbit",
+   "type": "Policy",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n186",
+   "label": "Internal Ledger",
+   "type": "Policy",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n187",
+   "label": "Partner Nexus",
+   "type": "Policy",
+   "group": 0,
+   "weight": 4,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n188",
+   "label": "T. Catalog",
+   "type": "Person",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Guild",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n189",
+   "label": "Core Warehouse Set",
+   "type": "Dataset",
+   "group": 3,
+   "weight": 2,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n190",
+   "label": "Partner Summit Set",
+   "type": "Dataset",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n191",
+   "label": "Global Nexus",
+   "type": "Document",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n192",
+   "label": "Unified Signal",
+   "type": "Service",
+   "group": 2,
+   "weight": 4,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n193",
+   "label": "Core Prism Set",
+   "type": "Dataset",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n194",
+   "label": "Edge Scheduler",
+   "type": "Document",
+   "group": 1,
+   "weight": 4,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n195",
+   "label": "Batch Warehouse",
+   "type": "Team",
+   "group": 2,
+   "weight": 4,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n196",
+   "label": "Batch Warehouse",
+   "type": "Service",
+   "group": 3,
+   "weight": 3,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n197",
+   "label": "Next Summit",
+   "type": "Service",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n198",
+   "label": "Unified Beacon",
+   "type": "Team",
+   "group": 3,
+   "weight": 2,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n199",
+   "label": "Batch Willow Set",
+   "type": "Dataset",
+   "group": 3,
+   "weight": 2,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n200",
+   "label": "Shared Registry",
+   "type": "Document",
+   "group": 2,
+   "weight": 2,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n201",
+   "label": "Next Warehouse",
+   "type": "Document",
+   "group": 2,
+   "weight": 2,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n202",
+   "label": "Partner Pipeline Set",
+   "type": "Dataset",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n203",
+   "label": "Realtime Beacon Set",
+   "type": "Dataset",
+   "group": 1,
+   "weight": 8,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 7
+   }
+  },
+  {
+   "id": "n204",
+   "label": "Core Zenith",
+   "type": "Service",
+   "group": 0,
+   "weight": 2,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n205",
+   "label": "Internal Orbit",
+   "type": "Service",
+   "group": 3,
+   "weight": 2,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n206",
+   "label": "Regional Atlas",
+   "type": "Team",
+   "group": 2,
+   "weight": 2,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n207",
+   "label": "Realtime Index",
+   "type": "Service",
+   "group": 1,
+   "weight": 4,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n208",
+   "label": "Global Zenith",
+   "type": "Concept",
+   "group": 1,
+   "weight": 2,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "low",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n209",
+   "label": "Edge Sentinel",
+   "type": "Service",
+   "group": 0,
+   "weight": 4,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n210",
+   "label": "Regional Vault",
+   "type": "Service",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n211",
+   "label": "Core Registry",
+   "type": "Service",
+   "group": 3,
+   "weight": 4,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "medium",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n212",
+   "label": "Legacy Registry",
+   "type": "Service",
+   "group": 0,
+   "weight": 4,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n213",
+   "label": "Shared Zenith",
+   "type": "Service",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "low",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n214",
+   "label": "Edge Cascade",
+   "type": "Service",
+   "group": 0,
+   "weight": 3,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n215",
+   "label": "Batch Vector",
+   "type": "Team",
+   "group": 3,
+   "weight": 2,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 1
+   }
+  },
+  {
+   "id": "n216",
+   "label": "A. Orbit",
+   "type": "Person",
+   "group": 0,
+   "weight": 4,
+   "meta": {
+    "domain": "Platform",
+    "owner": "Platform Guild",
+    "criticality": "medium",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n217",
+   "label": "Global Willow",
+   "type": "Service",
+   "group": 2,
+   "weight": 3,
+   "meta": {
+    "domain": "Security",
+    "owner": "Security Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  },
+  {
+   "id": "n218",
+   "label": "Edge Broker",
+   "type": "Policy",
+   "group": 3,
+   "weight": 4,
+   "meta": {
+    "domain": "Product",
+    "owner": "Product Team",
+    "criticality": "high",
+    "connections": 3
+   }
+  },
+  {
+   "id": "n219",
+   "label": "Regional Ledger",
+   "type": "Service",
+   "group": 1,
+   "weight": 3,
+   "meta": {
+    "domain": "Data",
+    "owner": "Data Team",
+    "criticality": "medium",
+    "connections": 2
+   }
+  }
+ ],
+ "edges": [
+  {
+   "id": "e0",
+   "source": "n2",
+   "target": "n5",
+   "type": "depends_on",
+   "weight": 0.68
+  },
+  {
+   "id": "e1",
+   "source": "n15",
+   "target": "n2",
+   "type": "derived_from",
+   "weight": 0.991
+  },
+  {
+   "id": "e2",
+   "source": "n15",
+   "target": "n5",
+   "type": "owns",
+   "weight": 1.187
+  },
+  {
+   "id": "e3",
+   "source": "n17",
+   "target": "n5",
+   "type": "references",
+   "weight": 0.848
+  },
+  {
+   "id": "e4",
+   "source": "n18",
+   "target": "n15",
+   "type": "produces",
+   "weight": 0.879
+  },
+  {
+   "id": "e5",
+   "source": "n19",
+   "target": "n5",
+   "type": "produces",
+   "weight": 1.186
+  },
+  {
+   "id": "e6",
+   "source": "n22",
+   "target": "n15",
+   "type": "derived_from",
+   "weight": 0.976
+  },
+  {
+   "id": "e7",
+   "source": "n26",
+   "target": "n5",
+   "type": "governs",
+   "weight": 0.75
+  },
+  {
+   "id": "e8",
+   "source": "n28",
+   "target": "n15",
+   "type": "member_of",
+   "weight": 1.066
+  },
+  {
+   "id": "e9",
+   "source": "n29",
+   "target": "n17",
+   "type": "governs",
+   "weight": 1.232
+  },
+  {
+   "id": "e10",
+   "source": "n31",
+   "target": "n15",
+   "type": "member_of",
+   "weight": 1.108
+  },
+  {
+   "id": "e11",
+   "source": "n34",
+   "target": "n5",
+   "type": "references",
+   "weight": 0.728
+  },
+  {
+   "id": "e12",
+   "source": "n34",
+   "target": "n29",
+   "type": "derived_from",
+   "weight": 0.868
+  },
+  {
+   "id": "e13",
+   "source": "n34",
+   "target": "n31",
+   "type": "references",
+   "weight": 0.825
+  },
+  {
+   "id": "e14",
+   "source": "n37",
+   "target": "n2",
+   "type": "depends_on",
+   "weight": 0.616
+  },
+  {
+   "id": "e15",
+   "source": "n37",
+   "target": "n15",
+   "type": "member_of",
+   "weight": 1.132
+  },
+  {
+   "id": "e16",
+   "source": "n50",
+   "target": "n5",
+   "type": "member_of",
+   "weight": 1.174
+  },
+  {
+   "id": "e17",
+   "source": "n50",
+   "target": "n15",
+   "type": "depends_on",
+   "weight": 0.784
+  },
+  {
+   "id": "e18",
+   "source": "n58",
+   "target": "n50",
+   "type": "references",
+   "weight": 1.476
+  },
+  {
+   "id": "e19",
+   "source": "n60",
+   "target": "n31",
+   "type": "governs",
+   "weight": 0.998
+  },
+  {
+   "id": "e20",
+   "source": "n63",
+   "target": "n22",
+   "type": "owns",
+   "weight": 0.732
+  },
+  {
+   "id": "e21",
+   "source": "n70",
+   "target": "n15",
+   "type": "member_of",
+   "weight": 1.451
+  },
+  {
+   "id": "e22",
+   "source": "n73",
+   "target": "n37",
+   "type": "owns",
+   "weight": 0.631
+  },
+  {
+   "id": "e23",
+   "source": "n74",
+   "target": "n73",
+   "type": "owns",
+   "weight": 1.254
+  },
+  {
+   "id": "e24",
+   "source": "n75",
+   "target": "n73",
+   "type": "references",
+   "weight": 1.011
+  },
+  {
+   "id": "e25",
+   "source": "n76",
+   "target": "n31",
+   "type": "owns",
+   "weight": 0.91
+  },
+  {
+   "id": "e26",
+   "source": "n76",
+   "target": "n2",
+   "type": "member_of",
+   "weight": 1.268
+  },
+  {
+   "id": "e27",
+   "source": "n79",
+   "target": "n73",
+   "type": "derived_from",
+   "weight": 1.36
+  },
+  {
+   "id": "e28",
+   "source": "n79",
+   "target": "n34",
+   "type": "references",
+   "weight": 1.063
+  },
+  {
+   "id": "e29",
+   "source": "n85",
+   "target": "n74",
+   "type": "member_of",
+   "weight": 1.449
+  },
+  {
+   "id": "e30",
+   "source": "n86",
+   "target": "n2",
+   "type": "derived_from",
+   "weight": 1.485
+  },
+  {
+   "id": "e31",
+   "source": "n86",
+   "target": "n15",
+   "type": "produces",
+   "weight": 1.307
+  },
+  {
+   "id": "e32",
+   "source": "n88",
+   "target": "n31",
+   "type": "depends_on",
+   "weight": 1.113
+  },
+  {
+   "id": "e33",
+   "source": "n91",
+   "target": "n37",
+   "type": "governs",
+   "weight": 0.986
+  },
+  {
+   "id": "e34",
+   "source": "n102",
+   "target": "n17",
+   "type": "member_of",
+   "weight": 0.885
+  },
+  {
+   "id": "e35",
+   "source": "n103",
+   "target": "n2",
+   "type": "produces",
+   "weight": 0.843
+  },
+  {
+   "id": "e36",
+   "source": "n104",
+   "target": "n15",
+   "type": "member_of",
+   "weight": 1.022
+  },
+  {
+   "id": "e37",
+   "source": "n111",
+   "target": "n15",
+   "type": "governs",
+   "weight": 1.156
+  },
+  {
+   "id": "e38",
+   "source": "n111",
+   "target": "n86",
+   "type": "produces",
+   "weight": 1.244
+  },
+  {
+   "id": "e39",
+   "source": "n114",
+   "target": "n2",
+   "type": "derived_from",
+   "weight": 0.871
+  },
+  {
+   "id": "e40",
+   "source": "n114",
+   "target": "n37",
+   "type": "member_of",
+   "weight": 1.075
+  },
+  {
+   "id": "e41",
+   "source": "n116",
+   "target": "n31",
+   "type": "references",
+   "weight": 0.843
+  },
+  {
+   "id": "e42",
+   "source": "n121",
+   "target": "n31",
+   "type": "owns",
+   "weight": 1.469
+  },
+  {
+   "id": "e43",
+   "source": "n121",
+   "target": "n79",
+   "type": "depends_on",
+   "weight": 1.403
+  },
+  {
+   "id": "e44",
+   "source": "n137",
+   "target": "n5",
+   "type": "governs",
+   "weight": 0.672
+  },
+  {
+   "id": "e45",
+   "source": "n139",
+   "target": "n86",
+   "type": "member_of",
+   "weight": 0.636
+  },
+  {
+   "id": "e46",
+   "source": "n156",
+   "target": "n86",
+   "type": "owns",
+   "weight": 1.29
+  },
+  {
+   "id": "e47",
+   "source": "n157",
+   "target": "n31",
+   "type": "produces",
+   "weight": 1.001
+  },
+  {
+   "id": "e48",
+   "source": "n159",
+   "target": "n28",
+   "type": "governs",
+   "weight": 0.77
+  },
+  {
+   "id": "e49",
+   "source": "n159",
+   "target": "n37",
+   "type": "governs",
+   "weight": 1.081
+  },
+  {
+   "id": "e50",
+   "source": "n165",
+   "target": "n121",
+   "type": "depends_on",
+   "weight": 0.76
+  },
+  {
+   "id": "e51",
+   "source": "n165",
+   "target": "n18",
+   "type": "references",
+   "weight": 0.898
+  },
+  {
+   "id": "e52",
+   "source": "n169",
+   "target": "n156",
+   "type": "owns",
+   "weight": 0.799
+  },
+  {
+   "id": "e53",
+   "source": "n177",
+   "target": "n156",
+   "type": "references",
+   "weight": 1.357
+  },
+  {
+   "id": "e54",
+   "source": "n184",
+   "target": "n5",
+   "type": "member_of",
+   "weight": 1.416
+  },
+  {
+   "id": "e55",
+   "source": "n185",
+   "target": "n58",
+   "type": "derived_from",
+   "weight": 1.178
+  },
+  {
+   "id": "e56",
+   "source": "n185",
+   "target": "n5",
+   "type": "references",
+   "weight": 0.679
+  },
+  {
+   "id": "e57",
+   "source": "n187",
+   "target": "n156",
+   "type": "governs",
+   "weight": 1.396
+  },
+  {
+   "id": "e58",
+   "source": "n187",
+   "target": "n31",
+   "type": "governs",
+   "weight": 1.342
+  },
+  {
+   "id": "e59",
+   "source": "n204",
+   "target": "n85",
+   "type": "member_of",
+   "weight": 0.944
+  },
+  {
+   "id": "e60",
+   "source": "n209",
+   "target": "n31",
+   "type": "owns",
+   "weight": 0.677
+  },
+  {
+   "id": "e61",
+   "source": "n210",
+   "target": "n121",
+   "type": "produces",
+   "weight": 0.676
+  },
+  {
+   "id": "e62",
+   "source": "n210",
+   "target": "n209",
+   "type": "depends_on",
+   "weight": 0.767
+  },
+  {
+   "id": "e63",
+   "source": "n212",
+   "target": "n2",
+   "type": "references",
+   "weight": 0.635
+  },
+  {
+   "id": "e64",
+   "source": "n212",
+   "target": "n17",
+   "type": "derived_from",
+   "weight": 1.478
+  },
+  {
+   "id": "e65",
+   "source": "n213",
+   "target": "n5",
+   "type": "governs",
+   "weight": 1.195
+  },
+  {
+   "id": "e66",
+   "source": "n213",
+   "target": "n15",
+   "type": "derived_from",
+   "weight": 1.25
+  },
+  {
+   "id": "e67",
+   "source": "n214",
+   "target": "n15",
+   "type": "produces",
+   "weight": 1.275
+  },
+  {
+   "id": "e68",
+   "source": "n214",
+   "target": "n28",
+   "type": "depends_on",
+   "weight": 1.351
+  },
+  {
+   "id": "e69",
+   "source": "n216",
+   "target": "n111",
+   "type": "produces",
+   "weight": 1.471
+  },
+  {
+   "id": "e70",
+   "source": "n216",
+   "target": "n29",
+   "type": "derived_from",
+   "weight": 0.991
+  },
+  {
+   "id": "e71",
+   "source": "n216",
+   "target": "n88",
+   "type": "references",
+   "weight": 1.436
+  },
+  {
+   "id": "e72",
+   "source": "n156",
+   "target": "n73",
+   "type": "references",
+   "weight": 0.611
+  },
+  {
+   "id": "e73",
+   "source": "n74",
+   "target": "n116",
+   "type": "references",
+   "weight": 0.785
+  },
+  {
+   "id": "e74",
+   "source": "n209",
+   "target": "n91",
+   "type": "references",
+   "weight": 1.013
+  },
+  {
+   "id": "e75",
+   "source": "n29",
+   "target": "n157",
+   "type": "references",
+   "weight": 0.735
+  },
+  {
+   "id": "e76",
+   "source": "n29",
+   "target": "n85",
+   "type": "references",
+   "weight": 0.646
+  },
+  {
+   "id": "e77",
+   "source": "n187",
+   "target": "n28",
+   "type": "references",
+   "weight": 1.283
+  },
+  {
+   "id": "e78",
+   "source": "n28",
+   "target": "n79",
+   "type": "references",
+   "weight": 1.199
+  },
+  {
+   "id": "e79",
+   "source": "n156",
+   "target": "n102",
+   "type": "references",
+   "weight": 1.426
+  },
+  {
+   "id": "e80",
+   "source": "n0",
+   "target": "n3",
+   "type": "depends_on",
+   "weight": 1.109
+  },
+  {
+   "id": "e81",
+   "source": "n13",
+   "target": "n3",
+   "type": "derived_from",
+   "weight": 0.782
+  },
+  {
+   "id": "e82",
+   "source": "n24",
+   "target": "n3",
+   "type": "produces",
+   "weight": 0.886
+  },
+  {
+   "id": "e83",
+   "source": "n25",
+   "target": "n24",
+   "type": "derived_from",
+   "weight": 1.363
+  },
+  {
+   "id": "e84",
+   "source": "n27",
+   "target": "n3",
+   "type": "owns",
+   "weight": 1.105
+  },
+  {
+   "id": "e85",
+   "source": "n33",
+   "target": "n3",
+   "type": "references",
+   "weight": 0.962
+  },
+  {
+   "id": "e86",
+   "source": "n33",
+   "target": "n13",
+   "type": "member_of",
+   "weight": 1.391
+  },
+  {
+   "id": "e87",
+   "source": "n36",
+   "target": "n3",
+   "type": "member_of",
+   "weight": 0.729
+  },
+  {
+   "id": "e88",
+   "source": "n38",
+   "target": "n36",
+   "type": "produces",
+   "weight": 0.699
+  },
+  {
+   "id": "e89",
+   "source": "n44",
+   "target": "n38",
+   "type": "derived_from",
+   "weight": 0.757
+  },
+  {
+   "id": "e90",
+   "source": "n45",
+   "target": "n0",
+   "type": "member_of",
+   "weight": 1.163
+  },
+  {
+   "id": "e91",
+   "source": "n47",
+   "target": "n3",
+   "type": "derived_from",
+   "weight": 1.102
+  },
+  {
+   "id": "e92",
+   "source": "n47",
+   "target": "n33",
+   "type": "owns",
+   "weight": 0.764
+  },
+  {
+   "id": "e93",
+   "source": "n51",
+   "target": "n47",
+   "type": "depends_on",
+   "weight": 0.971
+  },
+  {
+   "id": "e94",
+   "source": "n52",
+   "target": "n33",
+   "type": "derived_from",
+   "weight": 1.266
+  },
+  {
+   "id": "e95",
+   "source": "n53",
+   "target": "n44",
+   "type": "references",
+   "weight": 0.963
+  },
+  {
+   "id": "e96",
+   "source": "n54",
+   "target": "n44",
+   "type": "depends_on",
+   "weight": 0.721
+  },
+  {
+   "id": "e97",
+   "source": "n57",
+   "target": "n33",
+   "type": "governs",
+   "weight": 0.928
+  },
+  {
+   "id": "e98",
+   "source": "n61",
+   "target": "n3",
+   "type": "derived_from",
+   "weight": 0.654
+  },
+  {
+   "id": "e99",
+   "source": "n69",
+   "target": "n54",
+   "type": "references",
+   "weight": 1.102
+  },
+  {
+   "id": "e100",
+   "source": "n69",
+   "target": "n47",
+   "type": "derived_from",
+   "weight": 1.073
+  },
+  {
+   "id": "e101",
+   "source": "n71",
+   "target": "n3",
+   "type": "references",
+   "weight": 1.291
+  },
+  {
+   "id": "e102",
+   "source": "n72",
+   "target": "n52",
+   "type": "owns",
+   "weight": 1.364
+  },
+  {
+   "id": "e103",
+   "source": "n72",
+   "target": "n3",
+   "type": "governs",
+   "weight": 1.356
+  },
+  {
+   "id": "e104",
+   "source": "n77",
+   "target": "n33",
+   "type": "depends_on",
+   "weight": 0.617
+  },
+  {
+   "id": "e105",
+   "source": "n80",
+   "target": "n25",
+   "type": "references",
+   "weight": 1.069
+  },
+  {
+   "id": "e106",
+   "source": "n81",
+   "target": "n57",
+   "type": "depends_on",
+   "weight": 1.492
+  },
+  {
+   "id": "e107",
+   "source": "n82",
+   "target": "n54",
+   "type": "owns",
+   "weight": 0.745
+  },
+  {
+   "id": "e108",
+   "source": "n84",
+   "target": "n77",
+   "type": "references",
+   "weight": 0.805
+  },
+  {
+   "id": "e109",
+   "source": "n87",
+   "target": "n36",
+   "type": "owns",
+   "weight": 0.791
+  },
+  {
+   "id": "e110",
+   "source": "n89",
+   "target": "n53",
+   "type": "derived_from",
+   "weight": 0.741
+  },
+  {
+   "id": "e111",
+   "source": "n95",
+   "target": "n24",
+   "type": "produces",
+   "weight": 1.196
+  },
+  {
+   "id": "e112",
+   "source": "n101",
+   "target": "n84",
+   "type": "references",
+   "weight": 0.846
+  },
+  {
+   "id": "e113",
+   "source": "n105",
+   "target": "n33",
+   "type": "member_of",
+   "weight": 1.347
+  },
+  {
+   "id": "e114",
+   "source": "n112",
+   "target": "n69",
+   "type": "derived_from",
+   "weight": 0.778
+  },
+  {
+   "id": "e115",
+   "source": "n113",
+   "target": "n82",
+   "type": "references",
+   "weight": 1.155
+  },
+  {
+   "id": "e116",
+   "source": "n115",
+   "target": "n27",
+   "type": "owns",
+   "weight": 1.127
+  },
+  {
+   "id": "e117",
+   "source": "n115",
+   "target": "n3",
+   "type": "owns",
+   "weight": 0.772
+  },
+  {
+   "id": "e118",
+   "source": "n119",
+   "target": "n3",
+   "type": "produces",
+   "weight": 1.318
+  },
+  {
+   "id": "e119",
+   "source": "n122",
+   "target": "n33",
+   "type": "derived_from",
+   "weight": 0.75
+  },
+  {
+   "id": "e120",
+   "source": "n129",
+   "target": "n72",
+   "type": "derived_from",
+   "weight": 1.085
+  },
+  {
+   "id": "e121",
+   "source": "n135",
+   "target": "n47",
+   "type": "owns",
+   "weight": 1.378
+  },
+  {
+   "id": "e122",
+   "source": "n138",
+   "target": "n77",
+   "type": "depends_on",
+   "weight": 0.802
+  },
+  {
+   "id": "e123",
+   "source": "n140",
+   "target": "n3",
+   "type": "derived_from",
+   "weight": 0.896
+  },
+  {
+   "id": "e124",
+   "source": "n140",
+   "target": "n13",
+   "type": "owns",
+   "weight": 0.698
+  },
+  {
+   "id": "e125",
+   "source": "n146",
+   "target": "n77",
+   "type": "owns",
+   "weight": 0.881
+  },
+  {
+   "id": "e126",
+   "source": "n149",
+   "target": "n45",
+   "type": "references",
+   "weight": 0.685
+  },
+  {
+   "id": "e127",
+   "source": "n149",
+   "target": "n89",
+   "type": "derived_from",
+   "weight": 1.255
+  },
+  {
+   "id": "e128",
+   "source": "n162",
+   "target": "n25",
+   "type": "references",
+   "weight": 1.271
+  },
+  {
+   "id": "e129",
+   "source": "n164",
+   "target": "n113",
+   "type": "member_of",
+   "weight": 0.65
+  },
+  {
+   "id": "e130",
+   "source": "n173",
+   "target": "n140",
+   "type": "member_of",
+   "weight": 0.921
+  },
+  {
+   "id": "e131",
+   "source": "n174",
+   "target": "n72",
+   "type": "derived_from",
+   "weight": 0.718
+  },
+  {
+   "id": "e132",
+   "source": "n182",
+   "target": "n25",
+   "type": "references",
+   "weight": 1.299
+  },
+  {
+   "id": "e133",
+   "source": "n182",
+   "target": "n38",
+   "type": "governs",
+   "weight": 0.75
+  },
+  {
+   "id": "e134",
+   "source": "n183",
+   "target": "n140",
+   "type": "references",
+   "weight": 1.13
+  },
+  {
+   "id": "e135",
+   "source": "n183",
+   "target": "n45",
+   "type": "produces",
+   "weight": 0.815
+  },
+  {
+   "id": "e136",
+   "source": "n188",
+   "target": "n87",
+   "type": "depends_on",
+   "weight": 0.635
+  },
+  {
+   "id": "e137",
+   "source": "n190",
+   "target": "n38",
+   "type": "references",
+   "weight": 0.982
+  },
+  {
+   "id": "e138",
+   "source": "n191",
+   "target": "n72",
+   "type": "member_of",
+   "weight": 0.907
+  },
+  {
+   "id": "e139",
+   "source": "n194",
+   "target": "n61",
+   "type": "member_of",
+   "weight": 0.774
+  },
+  {
+   "id": "e140",
+   "source": "n194",
+   "target": "n71",
+   "type": "produces",
+   "weight": 0.878
+  },
+  {
+   "id": "e141",
+   "source": "n197",
+   "target": "n3",
+   "type": "depends_on",
+   "weight": 1.341
+  },
+  {
+   "id": "e142",
+   "source": "n203",
+   "target": "n33",
+   "type": "governs",
+   "weight": 1.336
+  },
+  {
+   "id": "e143",
+   "source": "n203",
+   "target": "n105",
+   "type": "member_of",
+   "weight": 1.35
+  },
+  {
+   "id": "e144",
+   "source": "n207",
+   "target": "n197",
+   "type": "owns",
+   "weight": 1.193
+  },
+  {
+   "id": "e145",
+   "source": "n207",
+   "target": "n203",
+   "type": "member_of",
+   "weight": 1.481
+  },
+  {
+   "id": "e146",
+   "source": "n208",
+   "target": "n69",
+   "type": "governs",
+   "weight": 0.777
+  },
+  {
+   "id": "e147",
+   "source": "n219",
+   "target": "n33",
+   "type": "derived_from",
+   "weight": 1.48
+  },
+  {
+   "id": "e148",
+   "source": "n219",
+   "target": "n113",
+   "type": "references",
+   "weight": 1.24
+  },
+  {
+   "id": "e149",
+   "source": "n53",
+   "target": "n113",
+   "type": "references",
+   "weight": 1.358
+  },
+  {
+   "id": "e150",
+   "source": "n138",
+   "target": "n203",
+   "type": "references",
+   "weight": 0.992
+  },
+  {
+   "id": "e151",
+   "source": "n87",
+   "target": "n24",
+   "type": "references",
+   "weight": 1.363
+  },
+  {
+   "id": "e152",
+   "source": "n0",
+   "target": "n47",
+   "type": "references",
+   "weight": 1.262
+  },
+  {
+   "id": "e153",
+   "source": "n140",
+   "target": "n53",
+   "type": "references",
+   "weight": 0.782
+  },
+  {
+   "id": "e154",
+   "source": "n162",
+   "target": "n203",
+   "type": "references",
+   "weight": 0.875
+  },
+  {
+   "id": "e155",
+   "source": "n140",
+   "target": "n207",
+   "type": "references",
+   "weight": 1.148
+  },
+  {
+   "id": "e156",
+   "source": "n84",
+   "target": "n105",
+   "type": "references",
+   "weight": 1.319
+  },
+  {
+   "id": "e157",
+   "source": "n80",
+   "target": "n174",
+   "type": "references",
+   "weight": 1.207
+  },
+  {
+   "id": "e158",
+   "source": "n6",
+   "target": "n7",
+   "type": "depends_on",
+   "weight": 0.78
+  },
+  {
+   "id": "e159",
+   "source": "n8",
+   "target": "n6",
+   "type": "derived_from",
+   "weight": 1.24
+  },
+  {
+   "id": "e160",
+   "source": "n8",
+   "target": "n7",
+   "type": "owns",
+   "weight": 1.329
+  },
+  {
+   "id": "e161",
+   "source": "n9",
+   "target": "n6",
+   "type": "references",
+   "weight": 0.799
+  },
+  {
+   "id": "e162",
+   "source": "n10",
+   "target": "n6",
+   "type": "derived_from",
+   "weight": 0.615
+  },
+  {
+   "id": "e163",
+   "source": "n14",
+   "target": "n9",
+   "type": "derived_from",
+   "weight": 0.811
+  },
+  {
+   "id": "e164",
+   "source": "n20",
+   "target": "n7",
+   "type": "produces",
+   "weight": 1.027
+  },
+  {
+   "id": "e165",
+   "source": "n30",
+   "target": "n7",
+   "type": "member_of",
+   "weight": 0.84
+  },
+  {
+   "id": "e166",
+   "source": "n32",
+   "target": "n7",
+   "type": "derived_from",
+   "weight": 0.853
+  },
+  {
+   "id": "e167",
+   "source": "n35",
+   "target": "n8",
+   "type": "member_of",
+   "weight": 1.201
+  },
+  {
+   "id": "e168",
+   "source": "n40",
+   "target": "n8",
+   "type": "depends_on",
+   "weight": 1.162
+  },
+  {
+   "id": "e169",
+   "source": "n40",
+   "target": "n9",
+   "type": "governs",
+   "weight": 0.721
+  },
+  {
+   "id": "e170",
+   "source": "n42",
+   "target": "n8",
+   "type": "derived_from",
+   "weight": 1.338
+  },
+  {
+   "id": "e171",
+   "source": "n49",
+   "target": "n7",
+   "type": "derived_from",
+   "weight": 0.979
+  },
+  {
+   "id": "e172",
+   "source": "n55",
+   "target": "n32",
+   "type": "references",
+   "weight": 1.099
+  },
+  {
+   "id": "e173",
+   "source": "n56",
+   "target": "n49",
+   "type": "member_of",
+   "weight": 1.357
+  },
+  {
+   "id": "e174",
+   "source": "n56",
+   "target": "n20",
+   "type": "governs",
+   "weight": 0.82
+  },
+  {
+   "id": "e175",
+   "source": "n66",
+   "target": "n56",
+   "type": "member_of",
+   "weight": 0.972
+  },
+  {
+   "id": "e176",
+   "source": "n66",
+   "target": "n20",
+   "type": "owns",
+   "weight": 1.235
+  },
+  {
+   "id": "e177",
+   "source": "n67",
+   "target": "n8",
+   "type": "produces",
+   "weight": 1.134
+  },
+  {
+   "id": "e178",
+   "source": "n67",
+   "target": "n55",
+   "type": "derived_from",
+   "weight": 0.652
+  },
+  {
+   "id": "e179",
+   "source": "n68",
+   "target": "n32",
+   "type": "governs",
+   "weight": 0.647
+  },
+  {
+   "id": "e180",
+   "source": "n78",
+   "target": "n6",
+   "type": "references",
+   "weight": 1.174
+  },
+  {
+   "id": "e181",
+   "source": "n83",
+   "target": "n8",
+   "type": "produces",
+   "weight": 1.064
+  },
+  {
+   "id": "e182",
+   "source": "n90",
+   "target": "n56",
+   "type": "depends_on",
+   "weight": 1.032
+  },
+  {
+   "id": "e183",
+   "source": "n93",
+   "target": "n7",
+   "type": "governs",
+   "weight": 0.628
+  },
+  {
+   "id": "e184",
+   "source": "n94",
+   "target": "n10",
+   "type": "owns",
+   "weight": 0.914
+  },
+  {
+   "id": "e185",
+   "source": "n99",
+   "target": "n6",
+   "type": "derived_from",
+   "weight": 0.643
+  },
+  {
+   "id": "e186",
+   "source": "n100",
+   "target": "n32",
+   "type": "derived_from",
+   "weight": 0.874
+  },
+  {
+   "id": "e187",
+   "source": "n100",
+   "target": "n7",
+   "type": "owns",
+   "weight": 0.752
+  },
+  {
+   "id": "e188",
+   "source": "n107",
+   "target": "n93",
+   "type": "owns",
+   "weight": 0.67
+  },
+  {
+   "id": "e189",
+   "source": "n120",
+   "target": "n9",
+   "type": "depends_on",
+   "weight": 1.32
+  },
+  {
+   "id": "e190",
+   "source": "n120",
+   "target": "n8",
+   "type": "depends_on",
+   "weight": 0.739
+  },
+  {
+   "id": "e191",
+   "source": "n126",
+   "target": "n32",
+   "type": "owns",
+   "weight": 1.05
+  },
+  {
+   "id": "e192",
+   "source": "n127",
+   "target": "n6",
+   "type": "owns",
+   "weight": 0.686
+  },
+  {
+   "id": "e193",
+   "source": "n130",
+   "target": "n55",
+   "type": "derived_from",
+   "weight": 1.319
+  },
+  {
+   "id": "e194",
+   "source": "n131",
+   "target": "n35",
+   "type": "governs",
+   "weight": 1.345
+  },
+  {
+   "id": "e195",
+   "source": "n131",
+   "target": "n14",
+   "type": "produces",
+   "weight": 1.213
+  },
+  {
+   "id": "e196",
+   "source": "n136",
+   "target": "n42",
+   "type": "derived_from",
+   "weight": 1.471
+  },
+  {
+   "id": "e197",
+   "source": "n141",
+   "target": "n35",
+   "type": "governs",
+   "weight": 0.703
+  },
+  {
+   "id": "e198",
+   "source": "n143",
+   "target": "n9",
+   "type": "references",
+   "weight": 0.736
+  },
+  {
+   "id": "e199",
+   "source": "n143",
+   "target": "n55",
+   "type": "references",
+   "weight": 0.678
+  },
+  {
+   "id": "e200",
+   "source": "n145",
+   "target": "n83",
+   "type": "depends_on",
+   "weight": 1.126
+  },
+  {
+   "id": "e201",
+   "source": "n148",
+   "target": "n6",
+   "type": "member_of",
+   "weight": 1.299
+  },
+  {
+   "id": "e202",
+   "source": "n150",
+   "target": "n66",
+   "type": "owns",
+   "weight": 0.905
+  },
+  {
+   "id": "e203",
+   "source": "n150",
+   "target": "n148",
+   "type": "depends_on",
+   "weight": 1.457
+  },
+  {
+   "id": "e204",
+   "source": "n158",
+   "target": "n83",
+   "type": "governs",
+   "weight": 0.648
+  },
+  {
+   "id": "e205",
+   "source": "n160",
+   "target": "n40",
+   "type": "owns",
+   "weight": 0.79
+  },
+  {
+   "id": "e206",
+   "source": "n161",
+   "target": "n32",
+   "type": "member_of",
+   "weight": 1.195
+  },
+  {
+   "id": "e207",
+   "source": "n163",
+   "target": "n160",
+   "type": "member_of",
+   "weight": 1.251
+  },
+  {
+   "id": "e208",
+   "source": "n168",
+   "target": "n55",
+   "type": "depends_on",
+   "weight": 0.602
+  },
+  {
+   "id": "e209",
+   "source": "n170",
+   "target": "n8",
+   "type": "member_of",
+   "weight": 1.016
+  },
+  {
+   "id": "e210",
+   "source": "n170",
+   "target": "n141",
+   "type": "derived_from",
+   "weight": 0.826
+  },
+  {
+   "id": "e211",
+   "source": "n171",
+   "target": "n136",
+   "type": "depends_on",
+   "weight": 1.292
+  },
+  {
+   "id": "e212",
+   "source": "n175",
+   "target": "n78",
+   "type": "derived_from",
+   "weight": 1.351
+  },
+  {
+   "id": "e213",
+   "source": "n176",
+   "target": "n6",
+   "type": "governs",
+   "weight": 1.396
+  },
+  {
+   "id": "e214",
+   "source": "n176",
+   "target": "n161",
+   "type": "owns",
+   "weight": 1.421
+  },
+  {
+   "id": "e215",
+   "source": "n178",
+   "target": "n49",
+   "type": "owns",
+   "weight": 0.991
+  },
+  {
+   "id": "e216",
+   "source": "n180",
+   "target": "n6",
+   "type": "owns",
+   "weight": 1.229
+  },
+  {
+   "id": "e217",
+   "source": "n186",
+   "target": "n66",
+   "type": "produces",
+   "weight": 1.066
+  },
+  {
+   "id": "e218",
+   "source": "n186",
+   "target": "n130",
+   "type": "produces",
+   "weight": 0.99
+  },
+  {
+   "id": "e219",
+   "source": "n192",
+   "target": "n120",
+   "type": "references",
+   "weight": 0.639
+  },
+  {
+   "id": "e220",
+   "source": "n193",
+   "target": "n10",
+   "type": "derived_from",
+   "weight": 1.171
+  },
+  {
+   "id": "e221",
+   "source": "n195",
+   "target": "n145",
+   "type": "derived_from",
+   "weight": 1.001
+  },
+  {
+   "id": "e222",
+   "source": "n195",
+   "target": "n9",
+   "type": "member_of",
+   "weight": 1.163
+  },
+  {
+   "id": "e223",
+   "source": "n200",
+   "target": "n126",
+   "type": "owns",
+   "weight": 1.19
+  },
+  {
+   "id": "e224",
+   "source": "n201",
+   "target": "n56",
+   "type": "produces",
+   "weight": 0.94
+  },
+  {
+   "id": "e225",
+   "source": "n202",
+   "target": "n180",
+   "type": "depends_on",
+   "weight": 0.852
+  },
+  {
+   "id": "e226",
+   "source": "n206",
+   "target": "n42",
+   "type": "produces",
+   "weight": 0.615
+  },
+  {
+   "id": "e227",
+   "source": "n217",
+   "target": "n7",
+   "type": "owns",
+   "weight": 1.063
+  },
+  {
+   "id": "e228",
+   "source": "n217",
+   "target": "n202",
+   "type": "governs",
+   "weight": 0.848
+  },
+  {
+   "id": "e229",
+   "source": "n171",
+   "target": "n141",
+   "type": "references",
+   "weight": 0.626
+  },
+  {
+   "id": "e230",
+   "source": "n193",
+   "target": "n100",
+   "type": "references",
+   "weight": 0.897
+  },
+  {
+   "id": "e231",
+   "source": "n126",
+   "target": "n195",
+   "type": "references",
+   "weight": 0.845
+  },
+  {
+   "id": "e232",
+   "source": "n7",
+   "target": "n192",
+   "type": "references",
+   "weight": 1.354
+  },
+  {
+   "id": "e233",
+   "source": "n55",
+   "target": "n68",
+   "type": "references",
+   "weight": 1.142
+  },
+  {
+   "id": "e234",
+   "source": "n94",
+   "target": "n56",
+   "type": "references",
+   "weight": 1.02
+  },
+  {
+   "id": "e235",
+   "source": "n168",
+   "target": "n42",
+   "type": "references",
+   "weight": 0.762
+  },
+  {
+   "id": "e236",
+   "source": "n192",
+   "target": "n55",
+   "type": "references",
+   "weight": 0.73
+  },
+  {
+   "id": "e237",
+   "source": "n1",
+   "target": "n4",
+   "type": "depends_on",
+   "weight": 1.012
+  },
+  {
+   "id": "e238",
+   "source": "n11",
+   "target": "n4",
+   "type": "references",
+   "weight": 0.798
+  },
+  {
+   "id": "e239",
+   "source": "n11",
+   "target": "n1",
+   "type": "member_of",
+   "weight": 1.457
+  },
+  {
+   "id": "e240",
+   "source": "n12",
+   "target": "n11",
+   "type": "references",
+   "weight": 1.453
+  },
+  {
+   "id": "e241",
+   "source": "n16",
+   "target": "n12",
+   "type": "references",
+   "weight": 0.845
+  },
+  {
+   "id": "e242",
+   "source": "n21",
+   "target": "n4",
+   "type": "owns",
+   "weight": 0.914
+  },
+  {
+   "id": "e243",
+   "source": "n23",
+   "target": "n12",
+   "type": "member_of",
+   "weight": 0.636
+  },
+  {
+   "id": "e244",
+   "source": "n39",
+   "target": "n11",
+   "type": "references",
+   "weight": 1.347
+  },
+  {
+   "id": "e245",
+   "source": "n41",
+   "target": "n12",
+   "type": "derived_from",
+   "weight": 0.95
+  },
+  {
+   "id": "e246",
+   "source": "n41",
+   "target": "n1",
+   "type": "member_of",
+   "weight": 0.686
+  },
+  {
+   "id": "e247",
+   "source": "n43",
+   "target": "n11",
+   "type": "owns",
+   "weight": 0.706
+  },
+  {
+   "id": "e248",
+   "source": "n46",
+   "target": "n12",
+   "type": "references",
+   "weight": 1.263
+  },
+  {
+   "id": "e249",
+   "source": "n46",
+   "target": "n41",
+   "type": "derived_from",
+   "weight": 1.38
+  },
+  {
+   "id": "e250",
+   "source": "n48",
+   "target": "n11",
+   "type": "produces",
+   "weight": 1.32
+  },
+  {
+   "id": "e251",
+   "source": "n59",
+   "target": "n12",
+   "type": "owns",
+   "weight": 0.889
+  },
+  {
+   "id": "e252",
+   "source": "n62",
+   "target": "n48",
+   "type": "owns",
+   "weight": 1.401
+  },
+  {
+   "id": "e253",
+   "source": "n64",
+   "target": "n11",
+   "type": "member_of",
+   "weight": 0.624
+  },
+  {
+   "id": "e254",
+   "source": "n65",
+   "target": "n16",
+   "type": "produces",
+   "weight": 1.275
+  },
+  {
+   "id": "e255",
+   "source": "n92",
+   "target": "n59",
+   "type": "produces",
+   "weight": 1.005
+  },
+  {
+   "id": "e256",
+   "source": "n92",
+   "target": "n23",
+   "type": "member_of",
+   "weight": 1.131
+  },
+  {
+   "id": "e257",
+   "source": "n96",
+   "target": "n41",
+   "type": "owns",
+   "weight": 1.161
+  },
+  {
+   "id": "e258",
+   "source": "n97",
+   "target": "n65",
+   "type": "governs",
+   "weight": 1.2
+  },
+  {
+   "id": "e259",
+   "source": "n98",
+   "target": "n4",
+   "type": "produces",
+   "weight": 0.958
+  },
+  {
+   "id": "e260",
+   "source": "n106",
+   "target": "n64",
+   "type": "owns",
+   "weight": 1.032
+  },
+  {
+   "id": "e261",
+   "source": "n106",
+   "target": "n46",
+   "type": "owns",
+   "weight": 1.022
+  },
+  {
+   "id": "e262",
+   "source": "n108",
+   "target": "n23",
+   "type": "depends_on",
+   "weight": 1.154
+  },
+  {
+   "id": "e263",
+   "source": "n109",
+   "target": "n106",
+   "type": "depends_on",
+   "weight": 0.606
+  },
+  {
+   "id": "e264",
+   "source": "n110",
+   "target": "n98",
+   "type": "references",
+   "weight": 0.809
+  },
+  {
+   "id": "e265",
+   "source": "n117",
+   "target": "n46",
+   "type": "produces",
+   "weight": 0.744
+  },
+  {
+   "id": "e266",
+   "source": "n118",
+   "target": "n117",
+   "type": "owns",
+   "weight": 1.32
+  },
+  {
+   "id": "e267",
+   "source": "n123",
+   "target": "n23",
+   "type": "references",
+   "weight": 0.649
+  },
+  {
+   "id": "e268",
+   "source": "n124",
+   "target": "n23",
+   "type": "produces",
+   "weight": 1.212
+  },
+  {
+   "id": "e269",
+   "source": "n125",
+   "target": "n4",
+   "type": "references",
+   "weight": 1.369
+  },
+  {
+   "id": "e270",
+   "source": "n128",
+   "target": "n98",
+   "type": "depends_on",
+   "weight": 1.244
+  },
+  {
+   "id": "e271",
+   "source": "n128",
+   "target": "n41",
+   "type": "references",
+   "weight": 0.881
+  },
+  {
+   "id": "e272",
+   "source": "n132",
+   "target": "n125",
+   "type": "governs",
+   "weight": 0.927
+  },
+  {
+   "id": "e273",
+   "source": "n132",
+   "target": "n41",
+   "type": "governs",
+   "weight": 1.354
+  },
+  {
+   "id": "e274",
+   "source": "n133",
+   "target": "n48",
+   "type": "governs",
+   "weight": 1.368
+  },
+  {
+   "id": "e275",
+   "source": "n134",
+   "target": "n46",
+   "type": "derived_from",
+   "weight": 1.206
+  },
+  {
+   "id": "e276",
+   "source": "n142",
+   "target": "n110",
+   "type": "references",
+   "weight": 1.34
+  },
+  {
+   "id": "e277",
+   "source": "n144",
+   "target": "n41",
+   "type": "governs",
+   "weight": 1.451
+  },
+  {
+   "id": "e278",
+   "source": "n147",
+   "target": "n124",
+   "type": "references",
+   "weight": 1.272
+  },
+  {
+   "id": "e279",
+   "source": "n151",
+   "target": "n132",
+   "type": "depends_on",
+   "weight": 0.642
+  },
+  {
+   "id": "e280",
+   "source": "n151",
+   "target": "n133",
+   "type": "member_of",
+   "weight": 0.729
+  },
+  {
+   "id": "e281",
+   "source": "n152",
+   "target": "n12",
+   "type": "member_of",
+   "weight": 1.051
+  },
+  {
+   "id": "e282",
+   "source": "n152",
+   "target": "n125",
+   "type": "references",
+   "weight": 0.731
+  },
+  {
+   "id": "e283",
+   "source": "n153",
+   "target": "n147",
+   "type": "member_of",
+   "weight": 0.625
+  },
+  {
+   "id": "e284",
+   "source": "n153",
+   "target": "n46",
+   "type": "governs",
+   "weight": 1.067
+  },
+  {
+   "id": "e285",
+   "source": "n154",
+   "target": "n12",
+   "type": "derived_from",
+   "weight": 0.631
+  },
+  {
+   "id": "e286",
+   "source": "n155",
+   "target": "n128",
+   "type": "governs",
+   "weight": 1.475
+  },
+  {
+   "id": "e287",
+   "source": "n166",
+   "target": "n124",
+   "type": "member_of",
+   "weight": 1.296
+  },
+  {
+   "id": "e288",
+   "source": "n167",
+   "target": "n12",
+   "type": "produces",
+   "weight": 1.227
+  },
+  {
+   "id": "e289",
+   "source": "n167",
+   "target": "n41",
+   "type": "produces",
+   "weight": 0.711
+  },
+  {
+   "id": "e290",
+   "source": "n172",
+   "target": "n97",
+   "type": "owns",
+   "weight": 0.827
+  },
+  {
+   "id": "e291",
+   "source": "n179",
+   "target": "n128",
+   "type": "derived_from",
+   "weight": 0.798
+  },
+  {
+   "id": "e292",
+   "source": "n181",
+   "target": "n118",
+   "type": "governs",
+   "weight": 0.728
+  },
+  {
+   "id": "e293",
+   "source": "n189",
+   "target": "n23",
+   "type": "references",
+   "weight": 1.06
+  },
+  {
+   "id": "e294",
+   "source": "n196",
+   "target": "n46",
+   "type": "depends_on",
+   "weight": 0.78
+  },
+  {
+   "id": "e295",
+   "source": "n198",
+   "target": "n1",
+   "type": "owns",
+   "weight": 1.156
+  },
+  {
+   "id": "e296",
+   "source": "n199",
+   "target": "n39",
+   "type": "governs",
+   "weight": 1.096
+  },
+  {
+   "id": "e297",
+   "source": "n205",
+   "target": "n106",
+   "type": "depends_on",
+   "weight": 1.083
+  },
+  {
+   "id": "e298",
+   "source": "n211",
+   "target": "n128",
+   "type": "derived_from",
+   "weight": 0.731
+  },
+  {
+   "id": "e299",
+   "source": "n215",
+   "target": "n41",
+   "type": "derived_from",
+   "weight": 1.412
+  },
+  {
+   "id": "e300",
+   "source": "n218",
+   "target": "n179",
+   "type": "owns",
+   "weight": 1.146
+  },
+  {
+   "id": "e301",
+   "source": "n218",
+   "target": "n46",
+   "type": "governs",
+   "weight": 1.409
+  },
+  {
+   "id": "e302",
+   "source": "n39",
+   "target": "n166",
+   "type": "references",
+   "weight": 0.64
+  },
+  {
+   "id": "e303",
+   "source": "n96",
+   "target": "n211",
+   "type": "references",
+   "weight": 0.697
+  },
+  {
+   "id": "e304",
+   "source": "n43",
+   "target": "n21",
+   "type": "references",
+   "weight": 1.413
+  },
+  {
+   "id": "e305",
+   "source": "n128",
+   "target": "n109",
+   "type": "references",
+   "weight": 1.295
+  },
+  {
+   "id": "e306",
+   "source": "n211",
+   "target": "n218",
+   "type": "references",
+   "weight": 0.953
+  },
+  {
+   "id": "e307",
+   "source": "n125",
+   "target": "n59",
+   "type": "references",
+   "weight": 1.069
+  },
+  {
+   "id": "e308",
+   "source": "n117",
+   "target": "n96",
+   "type": "references",
+   "weight": 0.822
+  },
+  {
+   "id": "e309",
+   "source": "n125",
+   "target": "n153",
+   "type": "references",
+   "weight": 1.039
+  },
+  {
+   "id": "e310",
+   "source": "n144",
+   "target": "n196",
+   "type": "references",
+   "weight": 0.842
+  },
+  {
+   "id": "e311",
+   "source": "n9",
+   "target": "n2",
+   "type": "references",
+   "weight": 1.103
+  },
+  {
+   "id": "e312",
+   "source": "n12",
+   "target": "n31",
+   "type": "references",
+   "weight": 0.732
+  },
+  {
+   "id": "e313",
+   "source": "n190",
+   "target": "n37",
+   "type": "references",
+   "weight": 0.611
+  },
+  {
+   "id": "e314",
+   "source": "n33",
+   "target": "n212",
+   "type": "references",
+   "weight": 1.029
+  },
+  {
+   "id": "e315",
+   "source": "n15",
+   "target": "n8",
+   "type": "references",
+   "weight": 1.325
+  },
+  {
+   "id": "e316",
+   "source": "n15",
+   "target": "n3",
+   "type": "references",
+   "weight": 1.455
+  },
+  {
+   "id": "e317",
+   "source": "n46",
+   "target": "n156",
+   "type": "references",
+   "weight": 0.918
+  },
+  {
+   "id": "e318",
+   "source": "n23",
+   "target": "n55",
+   "type": "references",
+   "weight": 0.795
+  },
+  {
+   "id": "e319",
+   "source": "n55",
+   "target": "n164",
+   "type": "references",
+   "weight": 0.713
+  },
+  {
+   "id": "e320",
+   "source": "n140",
+   "target": "n7",
+   "type": "references",
+   "weight": 0.86
+  },
+  {
+   "id": "e321",
+   "source": "n128",
+   "target": "n47",
+   "type": "references",
+   "weight": 1.078
+  },
+  {
+   "id": "e322",
+   "source": "n33",
+   "target": "n32",
+   "type": "references",
+   "weight": 1.113
+  },
+  {
+   "id": "e323",
+   "source": "n194",
+   "target": "n6",
+   "type": "references",
+   "weight": 0.951
+  },
+  {
+   "id": "e324",
+   "source": "n55",
+   "target": "n203",
+   "type": "references",
+   "weight": 1.41
+  },
+  {
+   "id": "e325",
+   "source": "n203",
+   "target": "n42",
+   "type": "references",
+   "weight": 1.006
+  },
+  {
+   "id": "e326",
+   "source": "n5",
+   "target": "n155",
+   "type": "references",
+   "weight": 0.998
+  },
+  {
+   "id": "e327",
+   "source": "n108",
+   "target": "n83",
+   "type": "references",
+   "weight": 0.853
+  },
+  {
+   "id": "e328",
+   "source": "n15",
+   "target": "n140",
+   "type": "references",
+   "weight": 1.063
+  }
+ ]
+}

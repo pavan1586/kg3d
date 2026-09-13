@@ -1,0 +1,61 @@
+name: Deploy demo to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# A live demo is the single most useful thing a visualisation library can put
+# in front of someone, so it redeploys on every push to main.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      # Pages serves from a subpath (/kg3d/), so the demo has to be built with
+      # a matching base or every asset URL 404s.
+      - name: Build the demo for the Pages subpath
+        run: npm run build -w @kg3d/demo -- --base=/${{ github.event.repository.name }}/
+
+      - name: Add the dependency-free examples alongside it
+        run: |
+          mkdir -p apps/demo/dist/examples
+          cp examples/kg3d-atlas.html apps/demo/dist/examples/atlas.html
+          cp packages/core/dist/kg3d.global.js apps/demo/dist/examples/
+          cp packages/core/dist/kg3d.global.js.LICENSE.txt apps/demo/dist/examples/
+          sed 's#../packages/core/dist/kg3d.global.js#./kg3d.global.js#' \
+            examples/script-tag.html > apps/demo/dist/examples/script-tag.html
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/demo/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,18 @@
+# Keep the build context small: without this, `docker build` with the repo root
+# as context uploads node_modules and every dist/ to the daemon.
+node_modules
+**/node_modules
+dist
+**/dist
+.git
+.github
+.venv
+**/__pycache__
+**/*.pyc
+.pytest_cache
+**/.pytest_cache
+*.log
+.env
+smoke-render.png
+docs
+examples

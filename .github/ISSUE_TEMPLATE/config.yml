@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/kg3d/kg3d/security/advisories/new
+    about: Please report vulnerabilities privately, not as a public issue.
+  - name: Questions and ideas
+    url: https://github.com/kg3d/kg3d/discussions
+    about: For usage questions and open-ended discussion.

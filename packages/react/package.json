@@ -1,0 +1,72 @@
+{
+  "name": "@kg3d/react",
+  "version": "0.2.0",
+  "description": "React bindings for @kg3d/core — a declarative 3D knowledge graph component with hooks for selection, insights and live data.",
+  "license": "MIT",
+  "author": "Pavan",
+  "homepage": "https://github.com/kg3d/kg3d/tree/main/packages/react#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kg3d/kg3d.git",
+    "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/kg3d/kg3d/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "dependencies": {
+    "@kg3d/core": "^0.2.0"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "three": ">=0.160.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.169.0",
+    "typescript": "^5.6.0"
+  },
+  "keywords": [
+    "knowledge-graph",
+    "react",
+    "3d",
+    "webgl",
+    "threejs",
+    "graph-visualization",
+    "data-visualization",
+    "force-directed"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

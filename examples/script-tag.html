@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>kg3d — one script tag</title>
+    <style>
+      html, body { margin: 0; height: 100%; background: #070910; }
+      #graph { width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="graph"></div>
+
+    <!--
+      The browser bundle: three.js is bundled in, so there is no import map,
+      no module plumbing and no second script. Everything is attached to the
+      `kg3d` global.
+
+      From a CDN once published:
+        <script src="https://cdn.jsdelivr.net/npm/@kg3d/core/dist/kg3d.global.js"></script>
+
+      Note: a script-tag page has no module context, so the layout worker can't
+      be located and the force simulation runs on the main thread instead. It is
+      time-boxed to 8 ms per frame, so the page stays responsive; for graphs
+      past ~10k nodes, use the ESM build so the worker is available.
+    -->
+    <script src="../packages/core/dist/kg3d.global.js"></script>
+
+    <script>
+      const nodes = [
+        { id: 'gateway',  label: 'API Gateway',       type: 'Service',  weight: 9 },
+        { id: 'payments', label: 'Payments',          type: 'Service',  weight: 7 },
+        { id: 'identity', label: 'Identity',          type: 'Service',  weight: 6 },
+        { id: 'search',   label: 'Search',            type: 'Service',  weight: 5 },
+        { id: 'ledger',   label: 'Ledger DB',         type: 'Dataset',  weight: 5 },
+        { id: 'events',   label: 'Event Stream',      type: 'Dataset',  weight: 4 },
+        { id: 'profiles', label: 'Profile Store',     type: 'Dataset',  weight: 4 },
+        { id: 'pci',      label: 'PCI-DSS',           type: 'Policy',   weight: 3 },
+        { id: 'gdpr',     label: 'GDPR Retention',    type: 'Policy',   weight: 3 },
+        { id: 'teamPay',  label: 'Payments Team',     type: 'Team',     weight: 3 },
+        { id: 'teamPlat', label: 'Platform Team',     type: 'Team',     weight: 4 },
+        { id: 'runbook',  label: 'Incident Runbook',  type: 'Document', weight: 2 },
+      ];
+
+      const edges = [
+        { source: 'gateway',  target: 'payments', type: 'routes_to' },
+        { source: 'gateway',  target: 'identity', type: 'routes_to' },
+        { source: 'gateway',  target: 'search',   type: 'routes_to' },
+        { source: 'payments', target: 'ledger',   type: 'writes' },
+        { source: 'payments', target: 'events',   type: 'produces' },
+        { source: 'identity', target: 'profiles', type: 'writes' },
+        { source: 'identity', target: 'events',   type: 'produces' },
+        { source: 'search',   target: 'profiles', type: 'reads' },
+        { source: 'search',   target: 'events',   type: 'consumes' },
+        { source: 'pci',      target: 'payments', type: 'governs' },
+        { source: 'pci',      target: 'ledger',   type: 'governs' },
+        { source: 'gdpr',     target: 'profiles', type: 'governs' },
+        { source: 'teamPay',  target: 'payments', type: 'owns' },
+        { source: 'teamPlat', target: 'gateway',  type: 'owns' },
+        { source: 'teamPlat', target: 'events',   type: 'owns' },
+        { source: 'runbook',  target: 'payments', type: 'references' },
+      ];
+
+      const graph = new kg3d.KnowledgeGraph3D(document.getElementById('graph'), {
+        data: { nodes, edges },
+        colorBy: { by: 'type' },
+        sizeBy: { by: 'weight' },
+      });
+
+      graph.on('nodeClick', ({ node }) => {
+        console.log(node.label, graph.getNodeMetrics(node.id));
+      });
+    </script>
+  </body>
+</html>

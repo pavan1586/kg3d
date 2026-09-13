@@ -1,0 +1,106 @@
+name: Release
+
+# Tag-driven: `git tag v0.2.0 && git push --tags` publishes both packages and
+# the service image. Nothing publishes on a normal push, so main is always safe
+# to merge into.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Build and pack without publishing'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  npm:
+    name: Publish packages to npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Required for npm provenance: the published package is signed with a
+      # verifiable link back to this workflow run and commit.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+      - name: Check the tag matches the package version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG=$(node -p "require('./packages/core/package.json').version")
+          REACT=$(node -p "require('./packages/react/package.json').version")
+          echo "tag=$TAG core=$PKG react=$REACT"
+          if [ "$TAG" != "$PKG" ] || [ "$TAG" != "$REACT" ]; then
+            echo "::error::Tag $TAG does not match package versions ($PKG / $REACT)"
+            exit 1
+          fi
+
+      - name: Publish @kg3d/core
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: npm publish -w @kg3d/core --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @kg3d/react
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: npm publish -w @kg3d/react --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Dry run
+        if: ${{ github.event.inputs.dry_run == 'true' }}
+        run: |
+          npm pack --dry-run -w @kg3d/core
+          npm pack --dry-run -w @kg3d/react
+
+  image:
+    name: Publish the service image to GHCR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}-api
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=raw,value=latest,enable=${{ startsWith(github.ref, 'refs/tags/') }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: services/api
+          push: ${{ github.event.inputs.dry_run != 'true' && startsWith(github.ref, 'refs/tags/') }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

@@ -1,0 +1,7 @@
+dist
+node_modules
+package-lock.json
+examples/sample-graph.json
+examples/kg3d-atlas.html
+services/api
+CHANGELOG.md

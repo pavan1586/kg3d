@@ -1,0 +1,79 @@
+{
+  "name": "@kg3d/core",
+  "version": "0.2.0",
+  "description": "Framework-agnostic 3D interactive knowledge graph engine. GPU-instanced rendering, Barnes-Hut force layout, insight analytics and cinematic camera work for graphs up to ~50k nodes.",
+  "license": "MIT",
+  "author": "Pavan",
+  "homepage": "https://github.com/kg3d/kg3d#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kg3d/kg3d.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/kg3d/kg3d/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/kg3d.global.js",
+  "jsdelivr": "./dist/kg3d.global.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "npm run build:esm && npm run build:global && node scripts/copy-assets.mjs",
+    "build:esm": "tsc -p tsconfig.build.json",
+    "build:global": "node scripts/build-global.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build && npm run test"
+  },
+  "peerDependencies": {
+    "three": ">=0.160.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.169.0",
+    "esbuild": "^0.24.0",
+    "three": "^0.169.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "keywords": [
+    "knowledge-graph",
+    "3d",
+    "webgl",
+    "three",
+    "threejs",
+    "graph-visualization",
+    "data-visualization",
+    "network",
+    "force-directed",
+    "graph",
+    "louvain",
+    "pagerank"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

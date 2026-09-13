@@ -1,0 +1,23 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      # three.js moves fast and its releases are the ones worth reading; group
+      # everything else so the noise arrives as one PR a week.
+      dev-tooling:
+        patterns: ['typescript', 'vitest', 'prettier', 'esbuild', '@types/*', 'vite', '@vitejs/*']
+
+  - package-ecosystem: pip
+    directory: /services/api
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
