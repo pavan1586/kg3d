@@ -65,9 +65,18 @@ def analyze(
 
     if n == 0:
         empty = GraphInsights(
-            node_count=0, edge_count=0, density=0, average_degree=0, components=0,
-            communities=0, modularity=0, diameter_estimate=0, hubs=[], bridges=[],
-            isolated=[], clusters=[],
+            node_count=0,
+            edge_count=0,
+            density=0,
+            average_degree=0,
+            components=0,
+            communities=0,
+            modularity=0,
+            diameter_estimate=0,
+            hubs=[],
+            bridges=[],
+            isolated=[],
+            clusters=[],
         )
         return AnalyticsResult(metrics={}, insights=empty, communities={})
 
@@ -146,7 +155,6 @@ def analyze(
     return AnalyticsResult(metrics=metrics, insights=insights, communities=communities)
 
 
-
 def _source_budget(n: int, m: int, requested: int) -> int:
     """How many BFS sources we can afford.
 
@@ -187,10 +195,7 @@ def _sampled_closeness(graph: nx.Graph, sources: list[str]) -> dict[str, float]:
                 continue
             totals[node] += distance
             counts[node] += 1
-    return {
-        node: (counts[node] / totals[node]) if totals[node] > 0 else 0.0
-        for node in graph
-    }
+    return {node: (counts[node] / totals[node]) if totals[node] > 0 else 0.0 for node in graph}
 
 
 def _detect_communities(graph: nx.Graph) -> tuple[dict[str, int], float]:
@@ -230,7 +235,9 @@ def _summarize_clusters(
             internal[community] = internal.get(community, 0) + 1
 
     summaries: list[ClusterSummary] = []
-    for community, group in sorted(members.items(), key=lambda kv: len(kv[1]), reverse=True)[:limit]:
+    for community, group in sorted(members.items(), key=lambda kv: len(kv[1]), reverse=True)[
+        :limit
+    ]:
         size = len(group)
         possible = size * (size - 1) / 2
         # The cluster's name is its most influential member — far more useful
@@ -278,7 +285,9 @@ def shortest_path(data: GraphData, source: str, target: str, directed: bool = Fa
         return []
 
 
-def rank_nodes(data: GraphData, metric: str, limit: int, directed: bool = False) -> list[RankedNode]:
+def rank_nodes(
+    data: GraphData, metric: str, limit: int, directed: bool = False
+) -> list[RankedNode]:
     """Top-N by a named metric — the 'show me what matters' query."""
     result = analyze(data, directed)
     getter = {

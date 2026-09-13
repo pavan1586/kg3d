@@ -25,9 +25,7 @@ def keyed_client(monkeypatch):
     get_settings.cache_clear()
     app = create_app()
     with TestClient(app) as client:
-        registry.register(
-            GraphSource(id="guarded", kind="memory", options={"data": SMALL_GRAPH})
-        )
+        registry.register(GraphSource(id="guarded", kind="memory", options={"data": SMALL_GRAPH}))
         reset_cache()
         yield client
     get_settings.cache_clear()
@@ -90,9 +88,7 @@ class TestWriteAuthentication:
         assert keyed_client.get("/api/v1/health").status_code == 200
 
     def test_writes_are_open_when_no_key_configured(self, wildcard_client):
-        response = wildcard_client.post(
-            "/api/v1/graphs", params={"id": "open"}, json=SMALL_GRAPH
-        )
+        response = wildcard_client.post("/api/v1/graphs", params={"id": "open"}, json=SMALL_GRAPH)
         assert response.status_code == 201
 
 

@@ -18,7 +18,9 @@ from app.models.graph import Edge, GraphData, Node
 class JsonFileAdapter(GraphAdapter):
     kind = "json"
 
-    def __init__(self, graph_id: str, options: dict[str, Any] | None = None, directed: bool = False):
+    def __init__(
+        self, graph_id: str, options: dict[str, Any] | None = None, directed: bool = False
+    ):
         super().__init__(graph_id, options, directed)
         path = self.options.get("path")
         if not path:
@@ -72,7 +74,20 @@ def _normalize_node(record: dict[str, Any]) -> dict[str, Any]:
         out["label"] = out["name"]
     # Anything the model doesn't know about is preserved under meta rather than
     # thrown away — the inspector panel shows it.
-    known = {"id", "label", "type", "group", "weight", "size", "color", "level", "x", "y", "z", "meta"}
+    known = {
+        "id",
+        "label",
+        "type",
+        "group",
+        "weight",
+        "size",
+        "color",
+        "level",
+        "x",
+        "y",
+        "z",
+        "meta",
+    }
     extra = {k: v for k, v in out.items() if k not in known}
     if extra:
         meta = dict(out.get("meta") or {})

@@ -16,27 +16,73 @@ from app.adapters.base import GraphAdapter
 from app.models.graph import Edge, GraphData, Node
 
 DOMAINS = [
-    "Platform", "Data", "Security", "Product",
-    "Research", "Operations", "Finance", "Customer",
+    "Platform",
+    "Data",
+    "Security",
+    "Product",
+    "Research",
+    "Operations",
+    "Finance",
+    "Customer",
 ]
 TYPES = ["Service", "Dataset", "Team", "Person", "Policy", "Concept", "Document"]
 RELATIONS = ["depends_on", "owns", "produces", "governs", "references", "member_of", "derived_from"]
 NOUNS = [
-    "Ledger", "Gateway", "Index", "Registry", "Pipeline", "Vault", "Catalog", "Router",
-    "Scheduler", "Broker", "Warehouse", "Sentinel", "Atlas", "Beacon", "Compass", "Forge",
-    "Harbor", "Lattice", "Meridian", "Nexus", "Orbit", "Prism", "Quarry", "Relay",
-    "Signal", "Summit", "Tidal", "Vector", "Willow", "Zenith", "Anchor", "Cascade",
+    "Ledger",
+    "Gateway",
+    "Index",
+    "Registry",
+    "Pipeline",
+    "Vault",
+    "Catalog",
+    "Router",
+    "Scheduler",
+    "Broker",
+    "Warehouse",
+    "Sentinel",
+    "Atlas",
+    "Beacon",
+    "Compass",
+    "Forge",
+    "Harbor",
+    "Lattice",
+    "Meridian",
+    "Nexus",
+    "Orbit",
+    "Prism",
+    "Quarry",
+    "Relay",
+    "Signal",
+    "Summit",
+    "Tidal",
+    "Vector",
+    "Willow",
+    "Zenith",
+    "Anchor",
+    "Cascade",
 ]
 QUALIFIERS = [
-    "Core", "Edge", "Realtime", "Batch", "Regional",
-    "Global", "Internal", "Partner", "Legacy", "Next", "Unified", "Shared",
+    "Core",
+    "Edge",
+    "Realtime",
+    "Batch",
+    "Regional",
+    "Global",
+    "Internal",
+    "Partner",
+    "Legacy",
+    "Next",
+    "Unified",
+    "Shared",
 ]
 
 
 class SampleAdapter(GraphAdapter):
     kind = "sample"
 
-    def __init__(self, graph_id: str, options: dict[str, Any] | None = None, directed: bool = False):
+    def __init__(
+        self, graph_id: str, options: dict[str, Any] | None = None, directed: bool = False
+    ):
         super().__init__(graph_id, options, directed)
         self.size = int(self.options.get("size", 1200))
         self.domain_count = min(int(self.options.get("domains", 6)), len(DOMAINS))
@@ -59,6 +105,7 @@ class SampleAdapter(GraphAdapter):
                 suffix = " Set" if node_type == "Dataset" else ""
                 label = f"{rng.choice(QUALIFIERS)} {rng.choice(NOUNS)}{suffix}"
 
+            group_noun = "Guild" if node_type == "Person" else "Team"
             nodes.append(
                 Node(
                     id=f"n{i}",
@@ -68,7 +115,7 @@ class SampleAdapter(GraphAdapter):
                     weight=1,
                     meta={
                         "domain": DOMAINS[domain],
-                        "owner": f"{DOMAINS[domain]} {'Guild' if node_type == 'Person' else 'Team'}",
+                        "owner": f"{DOMAINS[domain]} {group_noun}",
                         "criticality": rng.choice(["low", "medium", "high"]),
                     },
                 )
@@ -103,7 +150,9 @@ class SampleAdapter(GraphAdapter):
                 continue
             add_edge(members[0], members[1], "depends_on")
             for i in range(2, len(members)):
-                attachments = 1 + (1 if rng.random() < 0.28 else 0) + (1 if rng.random() < 0.08 else 0)
+                attachments = (
+                    1 + (1 if rng.random() < 0.28 else 0) + (1 if rng.random() < 0.08 else 0)
+                )
                 for _ in range(attachments):
                     total = sum(degree[members[k]] + 1 for k in range(i))
                     pick = rng.random() * total
@@ -123,8 +172,16 @@ class SampleAdapter(GraphAdapter):
             d2 = (d1 + 1 + rng.randrange(max(1, self.domain_count - 1))) % self.domain_count
             if not domain_members[d1] or not domain_members[d2]:
                 continue
-            a = rng.choice(hubs[d1] or domain_members[d1]) if rng.random() < 0.75 else rng.choice(domain_members[d1])
-            b = rng.choice(hubs[d2] or domain_members[d2]) if rng.random() < 0.75 else rng.choice(domain_members[d2])
+            a = (
+                rng.choice(hubs[d1] or domain_members[d1])
+                if rng.random() < 0.75
+                else rng.choice(domain_members[d1])
+            )
+            b = (
+                rng.choice(hubs[d2] or domain_members[d2])
+                if rng.random() < 0.75
+                else rng.choice(domain_members[d2])
+            )
             add_edge(a, b, "references")
 
         for i, node in enumerate(nodes):

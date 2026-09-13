@@ -45,9 +45,7 @@ def test_unknown_graph_is_404(client):
 
 
 def test_neighborhood_expansion(client):
-    response = client.get(
-        "/api/v1/graphs/tiny/neighborhood", params={"node_id": "d", "depth": 1}
-    )
+    response = client.get("/api/v1/graphs/tiny/neighborhood", params={"node_id": "d", "depth": 1})
     assert response.status_code == 200
     ids = {n["id"] for n in response.json()["nodes"]}
     assert ids == {"c", "d", "e"}
@@ -98,7 +96,9 @@ def test_node_metrics_404(client):
 
 
 def test_ranking(client):
-    body = client.get("/api/v1/graphs/tiny/rank", params={"metric": "betweenness", "limit": 3}).json()
+    body = client.get(
+        "/api/v1/graphs/tiny/rank", params={"metric": "betweenness", "limit": 3}
+    ).json()
     assert body[0]["id"] == "d"
     assert len(body) == 3
 
@@ -142,7 +142,10 @@ def test_create_and_patch_a_memory_graph(client):
 
     patched = client.patch(
         "/api/v1/graphs/scratch",
-        json={"addNodes": [{"id": "z", "label": "Z"}], "addEdges": [{"source": "y", "target": "z"}]},
+        json={
+            "addNodes": [{"id": "z", "label": "Z"}],
+            "addEdges": [{"source": "y", "target": "z"}],
+        },
     )
     assert patched.status_code == 200
     assert patched.json()["node_count"] == 3

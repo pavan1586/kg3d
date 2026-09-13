@@ -25,7 +25,9 @@ EDGE_FIELDS = {"id", "source", "target", "label", "type", "weight", "directed", 
 class SqlAdapter(GraphAdapter):
     kind = "sql"
 
-    def __init__(self, graph_id: str, options: dict[str, Any] | None = None, directed: bool = False):
+    def __init__(
+        self, graph_id: str, options: dict[str, Any] | None = None, directed: bool = False
+    ):
         super().__init__(graph_id, options, directed)
         self.dsn = self.options.get("dsn")
         self.node_query = self.options.get("node_query")

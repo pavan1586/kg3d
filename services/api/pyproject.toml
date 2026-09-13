@@ -48,3 +48,11 @@ target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = [
+    # B008 flags a function call in a default argument, which is FastAPI's
+    # entire dependency-injection idiom: `adapter: GraphAdapter =
+    # Depends(get_adapter)`. The call is evaluated once at import to build the
+    # dependency graph, not per request, so the bug B008 exists to catch cannot
+    # happen here.
+    "B008",
+]

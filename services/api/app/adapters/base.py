@@ -21,7 +21,9 @@ class GraphAdapter(abc.ABC):
 
     kind: str = "base"
 
-    def __init__(self, graph_id: str, options: dict[str, Any] | None = None, directed: bool = False):
+    def __init__(
+        self, graph_id: str, options: dict[str, Any] | None = None, directed: bool = False
+    ):
         self.graph_id = graph_id
         self.options = options or {}
         self.directed = directed
