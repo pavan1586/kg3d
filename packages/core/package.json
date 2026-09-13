@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "Framework-agnostic 3D interactive knowledge graph engine. GPU-instanced rendering, Barnes-Hut force layout, insight analytics and cinematic camera work for graphs up to ~50k nodes.",
   "license": "MIT",
-  "author": "Pavan",
+  "author": "Pavan Kumar Medheramitla",
   "homepage": "https://github.com/kg3d/kg3d#readme",
   "repository": {
     "type": "git",

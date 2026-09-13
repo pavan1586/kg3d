@@ -5,7 +5,7 @@ description = "kg3d graph service — pluggable graph adapters, exact analytics,
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "Pavan" }]
+authors = [{ name = "Pavan Kumar Medheramitla" }]
 dependencies = [
     "fastapi>=0.115",
     "uvicorn[standard]>=0.30",

@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "description": "kg3d \u2014 a 3D interactive knowledge graph library: WebGL engine, React bindings and a FastAPI graph service.",
   "license": "MIT",
-  "author": "Pavan",
+  "author": "Pavan Kumar Medheramitla",
   "homepage": "https://github.com/kg3d/kg3d#readme",
   "repository": {
     "type": "git",
