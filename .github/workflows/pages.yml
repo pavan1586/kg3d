@@ -44,7 +44,7 @@ jobs:
           sed 's#../packages/core/dist/kg3d.global.js#./kg3d.global.js#' \
             examples/script-tag.html > apps/demo/dist/examples/script-tag.html
 
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
 
       - uses: actions/upload-pages-artifact@v3
         with:
